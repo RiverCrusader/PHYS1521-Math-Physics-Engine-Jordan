@@ -19,31 +19,45 @@ namespace Engine.Mathematics
         #region General Math
         //1.a - A method to convert degrees to radians
        
+        public double DegreestoRadians(double inputDegree)
+        {
+            double outputRadian;
+            outputRadian = inputDegree * pi;
+            outputRadian = outputRadian / 180;
+            return outputRadian;
+        }
 
+		//1.b - A method to convert radians to degrees
 
-        //1.b - A method to convert radians to degrees
-        
-        #endregion
+		public double RadianstoDegrees(double inputRadian)
+		{
+			double outputDegree;
+			outputDegree = inputRadian / pi;
+			outputDegree = outputDegree * 180;
+			return outputDegree;
+		}
 
-        #region Solve Right Triangles
-        //1.c - A method to solve a right triangle given an angle in degrees and the hypotenuse;
+		#endregion
+
+		#region Solve Right Triangles
+		//1.c - A method to solve a right triangle given an angle in degrees and the hypotenuse;
 		//      returns a Tuple<double, double> for the missing sides (adjacent, opposite).
-        
-        //1.d – A method to solve a right triangle given an angle in degrees and the side opposite;
+
+		//1.d – A method to solve a right triangle given an angle in degrees and the side opposite;
 		//      returns a Tuple<double, double> for the missing sides (adjacent, hypotenuse).
-        
-        //1.e – A method to solve a right triangle given an angle in degrees and the side adjacent;
+
+		//1.e – A method to solve a right triangle given an angle in degrees and the side adjacent;
 		//      returns a Tuple<double, double> for the missing sides (opposite, hypotenuse).
-        
-        //1.f – A method to solve a right triangle given side opposite and side adjacent;
+
+		//1.f – A method to solve a right triangle given side opposite and side adjacent;
 		//      returns a Tuple<double, double> for the missing side and the angle in degrees.
-        
-        //1.g – A method to solve a right triangle given side opposite and hypotenuse;
+
+		//1.g – A method to solve a right triangle given side opposite and hypotenuse;
 		//      returns a Tuple<double, double> for the missing side and the angle in degrees.
-        
-        //1.h – A method to solve a right triangle given side adjacent and hypotenuse;
+
+		//1.h – A method to solve a right triangle given side adjacent and hypotenuse;
 		//      returns a Tuple<double, double> for the missing side and the angle in degrees.
-        
-        #endregion
-    }//eoc
+
+		#endregion
+	}//eoc
 }//eon
