@@ -6,14 +6,14 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "Engine/1.0.0": {
+      "EngineTest/1.0.0": {
         "dependencies": {
-          "Microsoft.CodeCoverage": "17.8.0",
+          "Engine": "1.0.0",
           "NUnit": "3.10.1",
           "NUnit3TestAdapter": "3.10.0"
         },
         "runtime": {
-          "Engine.dll": {}
+          "EngineTest.dll": {}
         }
       },
       "Microsoft.CodeCoverage/17.8.0": {
@@ -450,11 +450,21 @@
             "fileVersion": "4.6.24705.1"
           }
         }
+      },
+      "Engine/1.0.0": {
+        "dependencies": {
+          "Microsoft.CodeCoverage": "17.8.0",
+          "NUnit": "3.10.1",
+          "NUnit3TestAdapter": "3.10.0"
+        },
+        "runtime": {
+          "Engine.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "Engine/1.0.0": {
+    "EngineTest/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -794,6 +804,11 @@
       "sha512": "sha512-A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
+    },
+    "Engine/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
