@@ -1,0 +1,2 @@
+C:\Users\jorda\OneDrive\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine.Test\obj\Debug\Engine.Test.csproj.AssemblyReference.cache
+C:\Users\jorda\OneDrive\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine.Test\obj\Debug\Engine.Test.csproj.CoreCompileInputs.cache
