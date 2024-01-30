@@ -48,28 +48,108 @@ namespace Engine.Mathematics
 
 			//sine()opp/hyp
 
+			opposite = Math.Sin(degrees) * hypotenuse;
 
+            //cosine()adj/hyp
 
-			//cosine()adj/hyp
+            adjacent = Math.Cos(degrees) * hypotenuse;
 
-			return Tuple.Create(adjacent, opposite);
+            return Tuple.Create(adjacent, opposite);
         }
 
-		//1.d – A method to solve a right triangle given an angle in degrees and the side opposite;
-		//      returns a Tuple<double, double> for the missing sides (adjacent, hypotenuse).
+        //1.d – A method to solve a right triangle given an angle in degrees and the side opposite;
+        //      returns a Tuple<double, double> for the missing sides (adjacent, hypotenuse).
 
-		//1.e – A method to solve a right triangle given an angle in degrees and the side adjacent;
-		//      returns a Tuple<double, double> for the missing sides (opposite, hypotenuse).
+        public static Tuple<double, double> FindAdjacentAndHypotenuse(double degrees, double opposite)
+        {
+            double adjacent, hypotenuse;
 
-		//1.f – A method to solve a right triangle given side opposite and side adjacent;
-		//      returns a Tuple<double, double> for the missing side and the angle in degrees.
+            //sine()opp/hyp
 
-		//1.g – A method to solve a right triangle given side opposite and hypotenuse;
-		//      returns a Tuple<double, double> for the missing side and the angle in degrees.
+            hypotenuse = opposite / Math.Sin(degrees);
 
-		//1.h – A method to solve a right triangle given side adjacent and hypotenuse;
-		//      returns a Tuple<double, double> for the missing side and the angle in degrees.
+            //tangent()opp/adj
 
-		#endregion
-	}//eoc
+            adjacent = opposite / Math.Tan(degrees) ;
+
+            return Tuple.Create(adjacent, hypotenuse);
+        }
+
+        //1.e – A method to solve a right triangle given an angle in degrees and the side adjacent;
+        //      returns a Tuple<double, double> for the missing sides (opposite, hypotenuse).
+
+        public static Tuple<double, double> FindOppositeAndHypotenuse(double degrees, double adjacent)
+        {
+            double opposite, hypotenuse;
+
+            //tangent()opp/adj
+
+            opposite = Math.Tan(degrees) * adjacent;
+
+            //cosine()adj/hyp
+
+            hypotenuse = adjacent / Math.Cos(degrees);
+
+            return Tuple.Create(opposite, hypotenuse);
+        }
+
+        //1.f – A method to solve a right triangle given side opposite and side adjacent;
+        //      returns a Tuple<double, double> for the missing side and the angle in degrees.
+
+        public static Tuple<double, double> FindHypotenuseAndDegree(double opposite, double adjacent)
+        {
+            double degrees, hypotenuse;
+
+            //A2 + B2 = C2
+
+            hypotenuse = Math.Pow(opposite, 2) + Math.Pow(adjacent, 2);
+            hypotenuse = Math.Sqrt(hypotenuse);
+
+            //tangent()opp/adj
+
+            degrees = Math.Tan(opposite/adjacent);
+
+            return Tuple.Create(hypotenuse,degrees) ;
+        }
+
+        //1.g – A method to solve a right triangle given side opposite and hypotenuse;
+        //      returns a Tuple<double, double> for the missing side and the angle in degrees.
+
+        public static Tuple<double, double> FindAdjacentAndDegree(double opposite, double hypotenuse)
+        {
+            double degrees, adjacent;
+
+            //C2 - B2 = A2
+
+            adjacent = Math.Pow(hypotenuse, 2) - Math.Pow(opposite, 2);
+            adjacent = Math.Sqrt(adjacent);
+
+            //sine()opp/hyp
+
+            degrees = Math.Sin(opposite / hypotenuse);
+
+            return Tuple.Create(hypotenuse, degrees);
+        }
+
+        //1.h – A method to solve a right triangle given side adjacent and hypotenuse;
+        //      returns a Tuple<double, double> for the missing side and the angle in degrees.
+
+        public static Tuple<double, double> FindOppositeAndDegree(double adjacent, double hypotenuse)
+        {
+            double degrees, opposite;
+
+            //C2 - A2 = B2
+
+            opposite = Math.Pow(hypotenuse, 2) - Math.Pow(adjacent, 2);
+            opposite = Math.Sqrt(opposite);
+
+            //Cosine()adj/hyp
+
+            degrees = Math.Cos(adjacent / hypotenuse);
+
+            return Tuple.Create(hypotenuse, degrees);
+        }
+
+        #endregion
+    }//eoc
 }//eon
