@@ -9,11 +9,15 @@ namespace Engine.Mathematics
     public class Eng_Vector3D
     {
         //1.a - Properties.
-       
+
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
+
         //1.b - Empty Constructor.
-		
-		//1.c - Non-empty Constructor.
-        
+
+        //1.c - Non-empty Constructor.
+
         #region Class Methods
         //2.a - Magnitude of a 3D vector
         public double Magnitude()

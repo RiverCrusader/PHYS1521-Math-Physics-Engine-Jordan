@@ -9,11 +9,14 @@ namespace Engine.Mathematics
     public class Eng_Vector2D
     {
         //1.a - Properties (component form of a vector).
-        
+
+        public double X { get; set; }
+        public double Y { get; set; }
+
         //1.b - Empty Constructor.
-		
-		//1.c - Non-empty constructor.
-        
+
+        //1.c - Non-empty constructor.
+
         #region Class Methods
         // 2.a - Magnitude of a 2D vector.
         public double Magnitude()
