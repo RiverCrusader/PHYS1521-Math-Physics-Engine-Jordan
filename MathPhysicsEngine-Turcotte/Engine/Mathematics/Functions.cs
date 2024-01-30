@@ -19,7 +19,7 @@ namespace Engine.Mathematics
 		#region General Math
 		//1.a - A method to convert degrees to radians
 
-		public double DegreestoRadians(double inputDegree)
+		public double DegreesToRadians(double inputDegree)
 		{
 			double outputRadian;
 			outputRadian = inputDegree * pi;
@@ -29,7 +29,7 @@ namespace Engine.Mathematics
 
 		//1.b - A method to convert radians to degrees
 
-		public double RadianstoDegrees(double inputRadian)
+		public double RadiansToDegrees(double inputRadian)
 		{
 			double outputDegree;
 			outputDegree = inputRadian / pi;
@@ -46,7 +46,11 @@ namespace Engine.Mathematics
 		{
 			double adjacent, opposite;
 
+			//sine()opp/hyp
 
+
+
+			//cosine()adj/hyp
 
 			return Tuple.Create(adjacent, opposite);
         }
