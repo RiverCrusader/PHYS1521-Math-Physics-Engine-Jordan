@@ -16,7 +16,21 @@ namespace Engine.Mathematics
 
         //1.b - Empty Constructor.
 
+        public Eng_Vector3D()
+        {
+            X = 0;
+            Y = 0;
+            Z = 0;
+        }
+
         //1.c - Non-empty Constructor.
+
+        public Eng_Vector3D(double x, double y, double z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+        }
 
         #region Class Methods
         //2.a - Magnitude of a 3D vector

@@ -15,7 +15,19 @@ namespace Engine.Mathematics
 
         //1.b - Empty Constructor.
 
+        public Eng_Vector2D()
+        {
+            X = 0;
+            Y = 0;
+        }
+
         //1.c - Non-empty constructor.
+
+        public Eng_Vector2D(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
 
         #region Class Methods
         // 2.a - Magnitude of a 2D vector.
