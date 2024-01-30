@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,7 +34,12 @@ namespace Engine.Mathematics
         // 2.a - Magnitude of a 2D vector.
         public double Magnitude()
         {
-			
+            double magnitude;
+
+            magnitude = Math.Pow(X, 2) + Math.Pow(Y, 2);
+            magnitude = Math.Sqrt(magnitude);
+
+            return magnitude;   
 		}//end of Magnitude
 
         //2.b - The Dot Product of two 2D vectors.
