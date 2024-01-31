@@ -38,7 +38,6 @@ namespace Engine.Mathematics
 
             magnitude = Math.Pow(X, 2) + Math.Pow(Y, 2);
             magnitude = Math.Sqrt(magnitude);
-            magnitude = Math.Round(magnitude,4);
 
             return magnitude;   
 		}//end of Magnitude
@@ -49,7 +48,6 @@ namespace Engine.Mathematics
             double dotProduct;
 
             dotProduct= X * b.X + Y * b.Y;
-            Math.Round(dotProduct, 4);
 
             return dotProduct;
 		}//end of DotProduct
@@ -65,7 +63,7 @@ namespace Engine.Mathematics
             dotProduct = DotProduct(b);
 
             degrees = Math.Acos(dotProduct / (magnitudeA * magnitudeB));
-            degrees = Math.Round(degrees, 4);
+            
 
             return degrees;
         }//end of AngleBetweenVectors
@@ -98,14 +96,44 @@ namespace Engine.Mathematics
 
         //3.a - Adding two 2D vectors.
 		
+        public Eng_Vector2D AddingTwo2DVectors(Eng_Vector2D a, Eng_Vector2D b)
+        {
+            double sumX, sumY;
+
+            sumX = a.X + b.X;
+            sumY = a.Y + b.Y;
+
+            return new Eng_Vector2D(sumX, sumY);
+        }
+
 		//3.b - Subtracting two 2D vectors.
-       
-        //3.c - Multiplying a 2D vector by a scalar.
-       
+
+		public Eng_Vector2D SubtractingTwo2DVectors(Eng_Vector2D a, Eng_Vector2D b)
+		{
+			double sumX, sumY;
+
+			sumX = a.X - b.X;
+			sumY = a.Y - b.Y;
+
+			return new Eng_Vector2D(sumX, sumY);
+		}
+
+		//3.c - Multiplying a 2D vector by a scalar.
+
+        public Eng_Vector2D Multiplying2DVectorByScalar(Eng_Vector2D Vector, double scalar)
+        {
+            double scalarMultiX, scalarMultiY;
+
+            scalarMultiX = Vector.X * scalar;
+            scalarMultiY = Vector.Y * scalar;
+
+            return new Eng_Vector2D(scalarMultiX, scalarMultiY);
+        }
+
 		//3.d - Equality of two 2D vectors.
-		 
+
 		//3.e - Inequality of two 2D vectors
-       
-        #endregion
-    }//eoc
+
+		#endregion
+	}//eoc
 }//eom

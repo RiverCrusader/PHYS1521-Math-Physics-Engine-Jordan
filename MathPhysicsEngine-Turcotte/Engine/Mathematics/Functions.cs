@@ -24,6 +24,7 @@ namespace Engine.Mathematics
 			double outputRadian;
 			outputRadian = inputDegree * pi;
 			outputRadian = outputRadian / 180;
+
 			return outputRadian;
 		}
 
@@ -34,6 +35,7 @@ namespace Engine.Mathematics
 			double outputDegree;
 			outputDegree = inputRadian / pi;
 			outputDegree = outputDegree * 180;
+
 			return outputDegree;
 		}
 		#endregion
@@ -54,7 +56,7 @@ namespace Engine.Mathematics
 
             adjacent = Math.Cos(degrees) * hypotenuse;
 
-            return Tuple.Create(adjacent, opposite);
+			return Tuple.Create(adjacent, opposite);
         }
 
         //1.d – A method to solve a right triangle given an angle in degrees and the side opposite;
@@ -72,7 +74,7 @@ namespace Engine.Mathematics
 
             adjacent = opposite / Math.Tan(degrees) ;
 
-            return Tuple.Create(adjacent, hypotenuse);
+			return Tuple.Create(adjacent, hypotenuse);
         }
 
         //1.e – A method to solve a right triangle given an angle in degrees and the side adjacent;
@@ -86,11 +88,11 @@ namespace Engine.Mathematics
 
             opposite = Math.Tan(degrees) * adjacent;
 
-            //cosine()adj/hyp
+			//cosine()adj/hyp
 
-            hypotenuse = adjacent / Math.Cos(degrees);
+			hypotenuse = adjacent / Math.Cos(degrees);
 
-            return Tuple.Create(opposite, hypotenuse);
+			return Tuple.Create(opposite, hypotenuse);
         }
 
         //1.f – A method to solve a right triangle given side opposite and side adjacent;
@@ -105,9 +107,9 @@ namespace Engine.Mathematics
             hypotenuse = Math.Pow(opposite, 2) + Math.Pow(adjacent, 2);
             hypotenuse = Math.Sqrt(hypotenuse);
 
-            //tangent()opp/adj
+			//tangent()opp/adj
 
-            degrees = Math.Tan(opposite/adjacent);
+			degrees = Math.Tan(opposite/adjacent);
 
             return Tuple.Create(hypotenuse,degrees) ;
         }
@@ -124,11 +126,11 @@ namespace Engine.Mathematics
             adjacent = Math.Pow(hypotenuse, 2) - Math.Pow(opposite, 2);
             adjacent = Math.Sqrt(adjacent);
 
-            //sine()opp/hyp
+			//sine()opp/hyp
 
-            degrees = Math.Sin(opposite / hypotenuse);
+			degrees = Math.Sin(opposite / hypotenuse);
 
-            return Tuple.Create(hypotenuse, degrees);
+			return Tuple.Create(hypotenuse, degrees);
         }
 
         //1.h – A method to solve a right triangle given side adjacent and hypotenuse;
@@ -143,11 +145,11 @@ namespace Engine.Mathematics
             opposite = Math.Pow(hypotenuse, 2) - Math.Pow(adjacent, 2);
             opposite = Math.Sqrt(opposite);
 
-            //Cosine()adj/hyp
+			//Cosine()adj/hyp
 
-            degrees = Math.Cos(adjacent / hypotenuse);
+			degrees = Math.Cos(adjacent / hypotenuse);
 
-            return Tuple.Create(hypotenuse, degrees);
+			return Tuple.Create(hypotenuse, degrees);
         }
 
         #endregion

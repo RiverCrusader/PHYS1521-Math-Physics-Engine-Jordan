@@ -40,7 +40,6 @@ namespace Engine.Mathematics
 
             magnitude = Math.Pow(X, 2) + Math.Pow(Y, 2) + Math.Pow(Z,2);
             magnitude = Math.Sqrt(magnitude);
-            magnitude = Math.Round(magnitude, 4);
 
             return magnitude;
         }//end of Magnitude
@@ -51,7 +50,6 @@ namespace Engine.Mathematics
             double dotProduct;
 
             dotProduct = X * b.X + Y * b.Y + Z * b.Z;
-            Math.Round(dotProduct, 4);
 
             return dotProduct;
         }//end of DotProduct
@@ -67,7 +65,6 @@ namespace Engine.Mathematics
             dotProduct = DotProduct(b);
 
             degrees = Math.Acos(dotProduct / (magnitudeA * magnitudeB));
-            degrees = Math.Round(degrees, 4);
 
             return degrees;
         }//end of AngleBetweenVectors
