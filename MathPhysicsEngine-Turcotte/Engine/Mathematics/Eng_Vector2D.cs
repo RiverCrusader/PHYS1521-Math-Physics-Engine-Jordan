@@ -38,6 +38,7 @@ namespace Engine.Mathematics
 
             magnitude = Math.Pow(X, 2) + Math.Pow(Y, 2);
             magnitude = Math.Sqrt(magnitude);
+            magnitude = Math.Round(magnitude,4);
 
             return magnitude;   
 		}//end of Magnitude
@@ -45,19 +46,39 @@ namespace Engine.Mathematics
         //2.b - The Dot Product of two 2D vectors.
         public double DotProduct(Eng_Vector2D b)
         {
-			
+            double dotProduct;
+
+            dotProduct= X * b.X + Y * b.Y;
+            Math.Round(dotProduct, 4);
+
+            return dotProduct;
 		}//end of DotProduct
 
         //2.c – The angle between two 2D vectors.
         public double AngleBetweenVectors(Eng_Vector2D b)
         {
-			
-		}//end of AngleBetweenVectors
+            double magnitudeA, magnitudeB, dotProduct, degrees;
+
+            magnitudeA = Magnitude();
+            magnitudeB = Magnitude();
+
+            dotProduct = DotProduct(b);
+
+            degrees = Math.Acos(dotProduct / (magnitudeA * magnitudeB));
+            degrees = Math.Round(degrees, 4);
+
+            return degrees;
+        }//end of AngleBetweenVectors
 
         //2.d – To Normalize a 2D vector.
         public void Normalize()
         {
-			
+            double magnitude, normalX, normalY;
+
+            magnitude = Magnitude();
+
+            normalX = X / magnitude;
+            normalY = Y / magnitude;    
 		}//end of Normalize
         #endregion
 
