@@ -95,21 +95,20 @@ namespace Engine.Mathematics
         #endregion
 
         //3.a - Adding two 2D vectors.
-		
-        public Eng_Vector2D AddingTwo2DVectors(Eng_Vector2D a, Eng_Vector2D b)
+
+        public static Eng_Vector2D operator + (Eng_Vector2D a, Eng_Vector2D b)
         {
-            double sumX, sumY;
+			double sumX, sumY;
 
-            sumX = a.X + b.X;
-            sumY = a.Y + b.Y;
+			sumX = a.X + b.X;
+			sumY = a.Y + b.Y;
 
-            return new Eng_Vector2D(sumX, sumY);
-        }
-
+			return new Eng_Vector2D(sumX, sumY);
+		}
 		//3.b - Subtracting two 2D vectors.
 
-		public Eng_Vector2D SubtractingTwo2DVectors(Eng_Vector2D a, Eng_Vector2D b)
-		{
+		public static Eng_Vector2D operator -(Eng_Vector2D a, Eng_Vector2D b)
+        {
 			double sumX, sumY;
 
 			sumX = a.X - b.X;
@@ -120,7 +119,7 @@ namespace Engine.Mathematics
 
 		//3.c - Multiplying a 2D vector by a scalar.
 
-        public Eng_Vector2D Multiplying2DVectorByScalar(Eng_Vector2D Vector, double scalar)
+		public Eng_Vector2D Multiplying2DVectorByScalar(Eng_Vector2D Vector, double scalar)
         {
             double scalarMultiX, scalarMultiY;
 
@@ -130,9 +129,29 @@ namespace Engine.Mathematics
             return new Eng_Vector2D(scalarMultiX, scalarMultiY);
         }
 
+		public static Eng_Vector2D operator *(Eng_Vector2D Vector, double scalar)
+        {
+			double scalarMultiX, scalarMultiY;
+
+			scalarMultiX = Vector.X * scalar;
+			scalarMultiY = Vector.Y * scalar;
+
+			return new Eng_Vector2D(scalarMultiX, scalarMultiY);
+		}
+
 		//3.d - Equality of two 2D vectors.
 
+        public static bool operator ==(Eng_Vector2D a,Eng_Vector2D b)
+        {
+			return a.X == b.X && a.Y == b.Y;
+		}
+
 		//3.e - Inequality of two 2D vectors
+
+		public static bool operator !=(Eng_Vector2D a, Eng_Vector2D b)
+        {
+			return a.X != b.X || a.Y != b.Y;
+		}
 
 		#endregion
 	}//eoc

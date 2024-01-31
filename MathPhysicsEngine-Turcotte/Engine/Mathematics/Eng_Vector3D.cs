@@ -94,20 +94,62 @@ namespace Engine.Mathematics
         {
             return 0;
         }//eom
-        #endregion
+		#endregion
 
-        //3.a - Adding two 3D Vectors.
-		
+		//3.a - Adding two 3D Vectors.
+
+		public static Eng_Vector3D operator +(Eng_Vector3D a, Eng_Vector3D b)
+		{
+			double sumX, sumY, sumZ;
+
+			sumX = a.X + b.X;
+			sumY = a.Y + b.Y;
+			sumZ = a.Z + b.Z;
+
+			return new Eng_Vector3D(sumX, sumY,sumZ);
+		}
+
 		//3.b - Subtracting two 3D Vectors.
-        
+
+		public static Eng_Vector3D operator -(Eng_Vector3D a, Eng_Vector3D b)
+        {
+			double sumX, sumY, sumZ;
+
+			sumX = a.X - b.X;
+			sumY = a.Y - b.Y;
+			sumZ = a.Z - b.Z;
+
+			return new Eng_Vector3D(sumX, sumY, sumZ);
+		}
+
 		//3.c - Multiplying a 3D vector by a scalar.
-		
+
+		public static Eng_Vector3D operator *(Eng_Vector3D Vector, double scalar)
+        {
+			double scalarMultiX, scalarMultiY, scalarMultiZ;
+
+			scalarMultiX = Vector.X * scalar;
+			scalarMultiY = Vector.Y * scalar;
+			scalarMultiZ = Vector.Z * scalar;
+
+			return new Eng_Vector3D(scalarMultiX, scalarMultiY, scalarMultiZ);
+		}
 		//3.d - Equality of two 3D vectors
-		
+
+		public static bool operator ==(Eng_Vector3D a, Eng_Vector3D b)
+		{
+			return a.X == b.X && a.Y == b.Y && a.Z == b.Z;
+		}
+
 		//3.e - Inequality of two 3D vectors
-        
+
+		public static bool operator !=(Eng_Vector3D a, Eng_Vector3D b)
+		{
+			return a.X != b.X || a.Y != b.Y || a.Z != b.Z;
+		}
+
 		//3.f - Calculate the Cross Product of two 3D vectors.
-        
-        #endregion
-    }//eoc
+
+		#endregion
+	}//eoc
 }//eon
