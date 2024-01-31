@@ -36,26 +36,53 @@ namespace Engine.Mathematics
         //2.a - Magnitude of a 3D vector
         public double Magnitude()
         {
-			
-		}//end of Magnitude
+            double magnitude;
+
+            magnitude = Math.Pow(X, 2) + Math.Pow(Y, 2) + Math.Pow(Z,2);
+            magnitude = Math.Sqrt(magnitude);
+            magnitude = Math.Round(magnitude, 4);
+
+            return magnitude;
+        }//end of Magnitude
 		
         //2.b - Calculate the Dot Product of two 3D vectors.
         public double DotProduct(Eng_Vector3D b)
         {
-			
-		}//end of DotProduct
+            double dotProduct;
+
+            dotProduct = X * b.X + Y * b.Y + Z * b.Z;
+            Math.Round(dotProduct, 4);
+
+            return dotProduct;
+        }//end of DotProduct
 		
         //2.c – Calculate the angle between two 3D vectors.
         public double AngleBetweenVectors(Eng_Vector3D b)
         {
-			
-		}//end of AngleBetweenVectors
+            double magnitudeA, magnitudeB, dotProduct, degrees;
+
+            magnitudeA = Magnitude();
+            magnitudeB = Magnitude();
+
+            dotProduct = DotProduct(b);
+
+            degrees = Math.Acos(dotProduct / (magnitudeA * magnitudeB));
+            degrees = Math.Round(degrees, 4);
+
+            return degrees;
+        }//end of AngleBetweenVectors
 		
         //2.d – Normalize a 3D vector.
         public void Normalize()
         {
-			
-		}//end of Normalize
+            double magnitude, normalX, normalY, normalZ;
+
+            magnitude = Magnitude();
+
+            normalX = X / magnitude;
+            normalY = Y / magnitude;
+            normalZ = Z / magnitude;
+        }//end of Normalize
         #endregion
 
         #region Overload Operators
