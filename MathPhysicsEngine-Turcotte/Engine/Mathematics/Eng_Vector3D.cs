@@ -150,6 +150,8 @@ namespace Engine.Mathematics
 
 		//3.f - Calculate the Cross Product of two 3D vectors.
 
+
+
 		#endregion
 	}//eoc
 }//eon
