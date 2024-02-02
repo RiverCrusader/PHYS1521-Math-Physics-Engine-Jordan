@@ -14,7 +14,7 @@ namespace Engine.Tests.Lab1
     [TestFixture]
     public class Lab1Tester
     {
-        #region Part 1 - Trigonometry
+        #region Part 1 - Trigonometry - Complete
         //2.a - Test 1.a - A method to convert degrees to radians.
         [Test,
             // 1st = degrees
@@ -22,14 +22,17 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(30, 0.5236),
             // Student Data - MUST Change
-            TestCase(30, 0.5236)
+            TestCase(45, 0.7854)
         ]
 
         public void TestToRadians(double degrees, double expected)
         {
             // Perform test
-            
+            double returnedValue;
+
+            returnedValue = Functions.DegreesToRadians(degrees);
             // Assert
+            Assert.AreEqual(expected, Math.Round(returnedValue,4));
             
         }//end of TestToRadians
 
@@ -40,15 +43,18 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.6283, 35.9989),
             // Student Data - MUST CHANGE
-            TestCase(0.6283,35.9989)
+            TestCase(0.3257,18.6612)
         ]
 
         public void TestToDegrees(double radians, double expected)
         {
             // Perform test
-            
+            double returnedValue;
+
+            returnedValue = Functions.RadiansToDegrees(radians);
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(returnedValue, 4));
+
         }//end of TestToDegrees
 
         //2.c - Test 1.c - A method to solve a right triangle given an angle in degrees and the hypotenuse;
@@ -61,15 +67,17 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(25, 6, 5.4378, 2.5357),
             // Student Data - MUST CHANGE
-            TestCase(25, 6, 5.4378, 2.5357)
+            TestCase(45, 3, 2.1213, 2.1213)
         ]
 
         public void TestCalculateAdjacentOpposite(double degrees, double hypotenuse, double adjacent, double opposite)
         {
             // Perform test
-            
+            Tuple<double, double> actual = Functions.FindAdjacentAndOpposite(degrees, hypotenuse);
             // Assert
-            
+            Assert.AreEqual(adjacent, Math.Round(actual.Item1, 4));
+            Assert.AreEqual(opposite, Math.Round(actual.Item2, 4));
+
         }//end of TestCalculateAdjacentOpposite
 
         //2.d - Test 1.d - A method to solve a right triangle given an angle in degrees and the side opposite;
@@ -82,15 +90,16 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(25, 6, 12.867, 14.1972),
             // Student Data - MUST CHANGE
-            TestCase(25, 6, 12.867, 14.1972)
+            TestCase(35, 3, 4.2844, 5.2303)
         ]
 
         public void TestCalculateAdjacentHypotenuse(double degrees, double opposite, double adjacent, double hypotenuse)
         {
             // Perform test
-            
+            Tuple<double, double> actual = Functions.FindAdjacentAndHypotenuse(degrees, opposite);
             // Assert
-            
+            Assert.AreEqual(adjacent, Math.Round(actual.Item1, 4));
+            Assert.AreEqual(hypotenuse, Math.Round(actual.Item2, 4));
         }//end of TestCalculateAdjacentHypotenuse
 
         //2.e - Test 1.e - A method to solve a right triangle given an angle in degrees and the side adjacent;
@@ -103,15 +112,16 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(25, 6, 2.7978, 6.6203),
             // Student Data - MUST CHANGE
-            TestCase(25, 6, 2.7978, 6.6203)
+            TestCase(75, 4, 14.9282, 15.4548)
         ]
 
         public void TestCalculateOppositeHypotenuse(double degrees, double adjacent, double opposite, double hypotenuse)
         {
             // Perform test
-            
+            Tuple<double, double> actual = Functions.FindOppositeAndHypotenuse(degrees, adjacent);
             // Assert
-            
+            Assert.AreEqual(opposite, Math.Round(actual.Item1, 4));
+            Assert.AreEqual(hypotenuse, Math.Round(actual.Item2, 4));
         }//end of TestCalculateOppositeHypotenuse
 
         //2.f - Test 1.f - A method to solve a right triangle given side opposite and side adjacent;
@@ -124,15 +134,17 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 5, 53.1301),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 5, 53.1301)
+            TestCase(8, 2, 8.2462, 14.0362)
         ]
 
         public void TestCalculateHypotenuseTheta(double adjacent, double opposite, double hypotenuse, double degrees)
         {
             // Perform test
-            
+            Tuple<double, double> actual = Functions.FindHypotenuseAndDegree(opposite,adjacent);
             // Assert
-            
+            Assert.AreEqual(hypotenuse, Math.Round(actual.Item1, 4));
+            double actualDegrees = Functions.RadiansToDegrees(actual.Item2);
+            Assert.AreEqual(degrees, Math.Round(actualDegrees, 4));
         }//end of TestCalculateHypotenuseTheta
 
         //2.g - Test 1.g - A method to solve a right triangle given side opposite and hypotenuse;
@@ -145,15 +157,17 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 2.6458, 48.5904),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 2.6458, 48.5904)
+            TestCase(5, 6, 3.3166, 56.4427)
         ]
 
         public void TestCalculateAdjacentTheta(double opposite, double hypotenuse, double adjacent, double degrees)
         {
             // Perform test
-            
+            Tuple<double, double> actual = Functions.FindAdjacentAndDegree(opposite, hypotenuse);
             // Assert
-            
+            Assert.AreEqual(adjacent, Math.Round(actual.Item1, 4));
+            double actualDegrees = Functions.RadiansToDegrees(actual.Item2);
+            Assert.AreEqual(degrees, Math.Round(actualDegrees, 4));
         }//end of TestCalculateAdjacentTheta
 
         //2.h - Test 1.h - A method to solve a right triangle given side adjacent and hypotenuse;
@@ -166,15 +180,17 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 2.6458, 41.4096),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 2.6458, 41.4096)
+            TestCase(3, 9, 8.4853, 70.5288)
         ]
 
         public void TestCalculateOppositeTheta(double adjacent, double hypotenuse, double opposite, double degrees)
         {
             // Perform test
-            
+            Tuple<double, double> actual = Functions.FindOppositeAndDegree(adjacent, hypotenuse);
             // Assert
-            
+            Assert.AreEqual(opposite, Math.Round(actual.Item1, 4));
+            double actualDegrees = Functions.RadiansToDegrees(actual.Item2);
+            Assert.AreEqual(degrees, Math.Round(actualDegrees, 4));
         }//end of TestCalculateOppositeTheta
         #endregion
 
@@ -187,17 +203,18 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 5),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 5)
+            TestCase(10, 5, 11.1803)
         ]
 
         public void TestMagnitudeVector2(double x, double y, double expected)
         {
             // Create Objects for the test
-           
+            Eng_Vector2D testEngine = new Eng_Vector2D(x, y);
             // Perform the test
-            
+            double actual = testEngine.Magnitude();
             // Assert
-           
+            Assert.AreEqual(expected, Math.Round(actual, 4));           
+
         }//end of TestMagnitudeVector2
 
         //4.b - Test 2.b - The Dot Product of two 2D vectors.
@@ -208,17 +225,19 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 6, 9, 54),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 6, 9, 54)
+            TestCase(5, 2, 4, 3, 26)
         ]
 
         public void TestDotProductVector2(double ax, double ay, double bx, double by, double expected)
         {
             // Create Objects for the test
-           
+            Eng_Vector2D testEngineA = new Eng_Vector2D(ax, ay);
+            Eng_Vector2D testEngineB = new Eng_Vector2D(bx, by);
             // Perform the test
-            
+            double actual = testEngineA.DotProduct(testEngineB);
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(actual, 4));
+
         }//end of TestDotProductVector2
 
         //4.c - Test 2.c - The angle between two 2D vectors.
@@ -229,17 +248,18 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 6, 9, 3.1798),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 6, 9, 3.1798)
+            TestCase(6, 3, 4, 5, 24.7751)
         ]
 
         public void TestAngleBetweenVector2s(double ax, double ay, double bx, double by, double expected)
         {
             // Create Objects for the test
-            
+            Eng_Vector2D testEngineA = new Eng_Vector2D(ax, ay);
+            Eng_Vector2D testEngineB = new Eng_Vector2D(bx, by);
             // Act - performing the action
-            
+            double actual = testEngineA.AngleBetweenVectors(testEngineB);
             // Assert - did we get back the correct answer
-            
+            Assert.AreEqual(expected, Math.Round(actual, 4));
         }//end of TestAngleBetweenVector2s
 
         //4.d - Test 2.d - To Normalize a 2D vector.

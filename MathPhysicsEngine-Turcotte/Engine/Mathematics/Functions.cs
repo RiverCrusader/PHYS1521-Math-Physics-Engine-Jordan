@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Mathematics
 {
-    public class Functions
+    public static class Functions
     {
         #region Class Variabbles
         private static double pi = Math.PI;
@@ -19,7 +19,7 @@ namespace Engine.Mathematics
 		#region General Math
 		//1.a - A method to convert degrees to radians
 
-		public double DegreesToRadians(double inputDegree)
+		public static double DegreesToRadians(double inputDegree)
 		{
 			double outputRadian;
 			outputRadian = inputDegree * pi;
@@ -30,7 +30,7 @@ namespace Engine.Mathematics
 
 		//1.b - A method to convert radians to degrees
 
-		public double RadiansToDegrees(double inputRadian)
+		public static double RadiansToDegrees(double inputRadian)
 		{
 			double outputDegree;
 			outputDegree = inputRadian / pi;
@@ -47,10 +47,10 @@ namespace Engine.Mathematics
 		public static Tuple<double, double> FindAdjacentAndOpposite(double degrees, double hypotenuse)
 		{
 			double adjacent, opposite;
+            degrees = DegreesToRadians(degrees);
+            //sine()opp/hyp
 
-			//sine()opp/hyp
-
-			opposite = Math.Sin(degrees) * hypotenuse;
+            opposite = Math.Sin(degrees) * hypotenuse;
 
             //cosine()adj/hyp
 
@@ -65,7 +65,7 @@ namespace Engine.Mathematics
         public static Tuple<double, double> FindAdjacentAndHypotenuse(double degrees, double opposite)
         {
             double adjacent, hypotenuse;
-
+            degrees = DegreesToRadians(degrees);
             //sine()opp/hyp
 
             hypotenuse = opposite / Math.Sin(degrees);
@@ -83,7 +83,7 @@ namespace Engine.Mathematics
         public static Tuple<double, double> FindOppositeAndHypotenuse(double degrees, double adjacent)
         {
             double opposite, hypotenuse;
-
+            degrees = DegreesToRadians(degrees);
             //tangent()opp/adj
 
             opposite = Math.Tan(degrees) * adjacent;
@@ -109,7 +109,7 @@ namespace Engine.Mathematics
 
 			//tangent()opp/adj
 
-			degrees = Math.Tan(opposite/adjacent);
+			degrees = Math.Atan(opposite/adjacent);
 
             return Tuple.Create(hypotenuse,degrees) ;
         }
@@ -128,9 +128,9 @@ namespace Engine.Mathematics
 
 			//sine()opp/hyp
 
-			degrees = Math.Sin(opposite / hypotenuse);
+			degrees = Math.Asin(opposite / hypotenuse);
 
-			return Tuple.Create(hypotenuse, degrees);
+			return Tuple.Create(adjacent, degrees);
         }
 
         //1.h – A method to solve a right triangle given side adjacent and hypotenuse;
@@ -147,9 +147,9 @@ namespace Engine.Mathematics
 
 			//Cosine()adj/hyp
 
-			degrees = Math.Cos(adjacent / hypotenuse);
+			degrees = Math.Acos(adjacent / hypotenuse);
 
-			return Tuple.Create(hypotenuse, degrees);
+			return Tuple.Create(opposite, degrees);
         }
 
         #endregion

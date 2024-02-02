@@ -1,2 +1,8 @@
 C:\Users\jorda\OneDrive\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine\obj\Debug\Engine.csproj.AssemblyReference.cache
 C:\Users\jorda\OneDrive\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine\obj\Debug\Engine.csproj.CoreCompileInputs.cache
+C:\Users\jorda\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine\bin\Debug\Engine.dll
+C:\Users\jorda\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine\bin\Debug\Engine.pdb
+C:\Users\jorda\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine\obj\Debug\Engine.csproj.AssemblyReference.cache
+C:\Users\jorda\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine\obj\Debug\Engine.csproj.CoreCompileInputs.cache
+C:\Users\jorda\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine\obj\Debug\Engine.dll
+C:\Users\jorda\Documents\GitHub\PHYS1521-Math-Physics-Engine-Jordan\MathPhysicsEngine-Turcotte\Engine\obj\Debug\Engine.pdb

@@ -58,12 +58,12 @@ namespace Engine.Mathematics
             double magnitudeA, magnitudeB, dotProduct, degrees;
 
             magnitudeA = Magnitude();
-            magnitudeB = Magnitude();
+            magnitudeB = b.Magnitude();
 
             dotProduct = DotProduct(b);
 
             degrees = Math.Acos(dotProduct / (magnitudeA * magnitudeB));
-            
+            degrees = Functions.RadiansToDegrees(degrees);
 
             return degrees;
         }//end of AngleBetweenVectors
