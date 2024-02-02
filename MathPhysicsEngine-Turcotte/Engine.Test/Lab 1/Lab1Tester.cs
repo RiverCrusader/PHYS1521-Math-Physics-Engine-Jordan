@@ -195,7 +195,7 @@ namespace Engine.Tests.Lab1
         }//end of TestCalculateOppositeTheta
         #endregion
 
-        #region Part 2 - 2D Vectors
+        #region Part 2 - 2D Vectors - Complete
         //4.a - Test 2.a - Magnitude of a 2D vector.
         [Test,
             // 1st = vector x component
@@ -382,17 +382,17 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 5, 7.0711),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 5, 7.0711)
+            TestCase(5, 7, 2, 8.8318)
         ]
 
         public void TestMagnitudeVector3(double x, double y, double z, double expected)
         {
             // Create Objects for the test
-            
+            Eng_Vector3D testEngine = new Eng_Vector3D(x, y, z);
             // Perform the test
-            
+            double actual = testEngine.Magnitude();
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(actual, 4));
         }//end of TestMagnitudeVector3
 
         //4.b - Test 2.b - Calculate the Dot Product of two 3D vectors.
@@ -403,17 +403,18 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 5, -2, -3, 4, 2),
              // Student Data - MUST CHANGE
-             TestCase(3, 4, 5, -2, -3, 4, 2)
+             TestCase(4, 6, -4, 5, -6, 2, -24)
         ]
 
         public void TestDotProductVector3(double ax, double ay, double az, double bx, double by, double bz, double expected)
         {
             // Create Objects for the test
-            
+            Eng_Vector3D testEngineA = new Eng_Vector3D(ax, ay, az);
+            Eng_Vector3D testEngineB = new Eng_Vector3D(bx, by, bz);
             // Perform the test
-            
+            double actual = testEngineA.DotProduct(testEngineB);
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(actual, 4));
         }//end of TestDotProductVector3
 
         //4.c - Test 2.c - Calculate the angle between two 3D vectors.
@@ -424,17 +425,18 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 5, -2, -3, 4, 86.9893),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 5, -2, -3, 4, 86.9893)
+            TestCase(2, -5, 3, -6, -8, 4, 52.9526)
         ]
 
         public void TestAngleBetweenVector3s(double ax, double ay, double az, double bx, double by, double bz, double expected)
         {
             // Create Objects for the test
-            
-            // Perform the test
-            
-            // Assert
-            
+            Eng_Vector3D testEngineA = new Eng_Vector3D(ax, ay, az);
+            Eng_Vector3D testEngineB = new Eng_Vector3D(bx, by, bz);
+            // Act - performing the action
+            double actual = testEngineA.AngleBetweenVectors(testEngineB);
+            // Assert - did we get back the correct answer
+            Assert.AreEqual(expected, Math.Round(actual, 4));
         }//end of TestAngleBetweenVector3s
 
         //4.d - Test 2.d - Normalize a 3D vector.
@@ -447,16 +449,22 @@ namespace Engine.Tests.Lab1
                 new Eng_Vector3D(0.4243, 0.5657, 0.7071)	// normalized
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+            {
+                new Eng_Vector3D(8, 2, 6),					// vector
+                new Eng_Vector3D(0.7845, 0.1961, 0.5883)	// normalized
+            };
         }//end of NormalizeVector3DData
 		
         [Test, TestCaseSource(nameof(NormalizeVector3DData))]
         public void TestNormalizeVector3(Eng_Vector3D v, Eng_Vector3D expected)
         {
             // Perform the test
-            
+            v.Normalize();
             // Assert
-            
+            Assert.AreEqual(expected.X, Math.Round(v.X, 4));
+            Assert.AreEqual(expected.Y, Math.Round(v.Y, 4));
+            Assert.AreEqual(expected.Z, Math.Round(v.Z, 4));
         }//end of TestNormalizeVector3
 
         //4.e - Test 3.a - Adding two 3D vectors.
@@ -472,16 +480,24 @@ namespace Engine.Tests.Lab1
                 new Eng_Vector3D(-3, -5, 2)		// expected a - b
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+            {
+                new Eng_Vector3D(5, 4, 9),		// vector a
+                new Eng_Vector3D(2, 8, 6),		// vector b
+                new Eng_Vector3D(7, 12, 15),	// expected a + b
+                new Eng_Vector3D(3, -4, 3)		// expected a - b
+            };
         }//end of AddSubtractVector3DData
 
         [Test, TestCaseSource(nameof(AddSubtractVector3DData))]
         public void TestAddsubtractVector3(Eng_Vector3D a, Eng_Vector3D b, Eng_Vector3D expectedAdd, Eng_Vector3D expectedSub)
         {
             // Perform the test
-           
+            Eng_Vector3D actualAdd = a + b;
+            Eng_Vector3D actualsubtract = a - b;
             // Assert
-            
+            Assert.AreEqual(expectedAdd, actualAdd);
+            Assert.AreEqual(expectedSub, actualsubtract);
         }//end of TestAddsubtractVector3
 
         //4.f - Test 3.c - Multiplying a 3D vector by a scalar.
@@ -492,17 +508,19 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 5, 2, 6, 8, 10),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 5, 2, 6, 8, 10)
+            TestCase(7, 4, 3, 4, 28, 16, 12)
         ]
 
         public void TestScaleVector3(double x, double y, double z, double s, double expectedX, double expectedY, double expectedZ)
         {
             // Create Objects for the test
-            
+            Eng_Vector3D testVector = new Eng_Vector3D(x, y, z);
             // Perform the test
-            
+            Eng_Vector3D actual = testVector * s;
             // Assert
-            
+            Assert.AreEqual(expectedX, Math.Round(actual.X, 4));
+            Assert.AreEqual(expectedY, Math.Round(actual.Y, 4));
+            Assert.AreEqual(expectedZ, Math.Round(actual.Z, 4));
         }//end of TestScaleVector3
 
         //4.g - Test 3.d - Equality of two 3D vectors.
@@ -515,17 +533,22 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, -4, 5, 3, -4, 5, 3, 4, 5, true),
              // Student Data - MUST CHANGE
-             TestCase(3, -4, 5, 3, -4, 5, 3, 4, 5, true)
+             TestCase(7, -6, 2, 7, -6, 2, -7, -6, 2, true),
+            TestCase(7, -6, 2, -7, -6, 2, 7, -6, 2, false)
         ]
 
         public void TestEqualityVector3(double ax, double ay, double az, double bx, double by, double bz, double cx, double cy, double cz, bool expected)
         {
             // Create Objects for the test
-            
+            Eng_Vector3D testEngineA = new Eng_Vector3D(ax, ay, az);
+            Eng_Vector3D testEngineB = new Eng_Vector3D(bx, by, bz);
+            Eng_Vector3D testEngineC = new Eng_Vector3D(cx, cy, cz);
             // Perform test
-            
+            bool testEngineAB = testEngineA == testEngineB;
+            bool testEngineAC = testEngineA != testEngineC;
             // Assert
-            
+            Assert.AreEqual(expected, testEngineAB);
+            Assert.AreEqual(expected, testEngineAC);
         }//end of TestEqualityVector3
 
         //4.h - Test 3.f - Calculate the Cross Product of two 3D vectors.
