@@ -71,12 +71,12 @@ namespace Engine.Mathematics
         //2.d – To Normalize a 2D vector.
         public void Normalize()
         {
-            double magnitude, normalX, normalY;
+            double magnitude;
 
             magnitude = Magnitude();
 
-            normalX = X / magnitude;
-            normalY = Y / magnitude;    
+            X = X / magnitude;
+            Y = Y / magnitude;    
 		}//end of Normalize
         #endregion
 

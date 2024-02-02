@@ -60,11 +60,12 @@ namespace Engine.Mathematics
             double magnitudeA, magnitudeB, dotProduct, degrees;
 
             magnitudeA = Magnitude();
-            magnitudeB = Magnitude();
+            magnitudeB = b.Magnitude();
 
             dotProduct = DotProduct(b);
 
             degrees = Math.Acos(dotProduct / (magnitudeA * magnitudeB));
+            degrees = Functions.RadiansToDegrees(degrees);
 
             return degrees;
         }//end of AngleBetweenVectors
@@ -76,9 +77,9 @@ namespace Engine.Mathematics
 
             magnitude = Magnitude();
 
-            normalX = X / magnitude;
-            normalY = Y / magnitude;
-            normalZ = Z / magnitude;
+            X = X / magnitude;
+            Y = Y / magnitude;
+            Z = Z / magnitude;
         }//end of Normalize
         #endregion
 

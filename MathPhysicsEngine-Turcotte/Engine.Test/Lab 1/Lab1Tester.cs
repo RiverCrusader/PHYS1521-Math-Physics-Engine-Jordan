@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 #region Additional Namespaces
 using NUnit.Framework;
 using Engine.Mathematics;
+using NUnit.Framework.Constraints;
 #endregion
 
 namespace Engine.Tests.Lab1
@@ -272,16 +273,21 @@ namespace Engine.Tests.Lab1
                 new Eng_Vector2D(0.6, 0.8)		// expected normalized a
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+            {
+                new Eng_Vector2D(5, 2),			 // vector a
+                new Eng_Vector2D(0.9285, 0.3714) // expected normalized a
+            };
         }//end of NormalizeVector2DData
 
         [Test, TestCaseSource(nameof(NormalizeVector2DData))]
         public void TestNormalizeVector2(Eng_Vector2D v, Eng_Vector2D expected)
         {
             // Perform the test
-            
+            v.Normalize();
             // Assert
-           
+            Assert.AreEqual(expected.X, Math.Round(v.X,4));
+            Assert.AreEqual(expected.Y, Math.Round(v.Y, 4));
         }//end of TestNormalizeVector2
 
         //4.e - Test 3.a - Adding two 2D vectors.
@@ -297,16 +303,24 @@ namespace Engine.Tests.Lab1
                new Eng_Vector2D(-3, -5)	    // expected a - b
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+            {
+               new Eng_Vector2D(5, 8),		// vector a
+               new Eng_Vector2D(6, 2),		// vector b
+               new Eng_Vector2D(11, 10),	// expected a + b	
+               new Eng_Vector2D(-1, 6)	    // expected a - b
+            };
         }//end of AddSubtractVector2DData
 
         [Test, TestCaseSource(nameof(AddSubtractVector2DData))]
         public void TestAddSubtractVector2D(Eng_Vector2D a, Eng_Vector2D b, Eng_Vector2D expectedAdd, Eng_Vector2D expectedSub)
         {
             // Perform the test
-            
+            Eng_Vector2D actualAdd = a + b;
+            Eng_Vector2D actualsubtract = a - b;
             // Assert
-            
+            Assert.AreEqual(expectedAdd, actualAdd);
+            Assert.AreEqual(expectedSub, actualsubtract);
         }//end of TestAddSubtractVector2D
 
         //4.f - Test 3.c - Multiplying a 2D vector by a scalar.
@@ -317,17 +331,18 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 4, 2, 6, 8),
             // Student Data - MUST CHANGE
-            TestCase(3, 4, 2, 6, 8)
+            TestCase(4, 7, 3, 12, 21)
         ]
 
         public void TestScaleVector2(double x, double y, double s, double expectedX, double expectedY)
         {
             // Create Objects for the test
-            
+            Eng_Vector2D testVector = new Eng_Vector2D(x,y);
             // Perform the test
-            
+            Eng_Vector2D actual = testVector * s;
             // Assert
-           
+            Assert.AreEqual(expectedX, Math.Round(actual.X,4));
+            Assert.AreEqual(expectedY, Math.Round(actual.Y, 4));
         }//end of TestScaleVector2
 
         //4.g - Test 3.d - Equality of two 2D vectors.
@@ -340,17 +355,22 @@ namespace Engine.Tests.Lab1
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(3, 7, 3, 7, -3, 7, true),
             // Student Data - MUST CHANGE
-            TestCase(3, 7, 3, 7, -3, 7, true)
+            TestCase(6, 5, 6, 5, -6, 5, true),
+            TestCase(8, 2, -8, 2, 8, 2, false)
         ]
 
         public void TestEqualityVector2D(double ax, double ay, double bx, double by, double cx, double cy, bool expected)
         {
             // Create Objects for the test
-            
+            Eng_Vector2D testEngineA = new Eng_Vector2D(ax, ay);
+            Eng_Vector2D testEngineB = new Eng_Vector2D(bx, by);
+            Eng_Vector2D testEngineC = new Eng_Vector2D(cx, cy);
             // Perform test
-            
+            bool testEngineAB = testEngineA == testEngineB;
+            bool testEngineAC = testEngineA != testEngineC;
             // Assert
-            
+            Assert.AreEqual(expected, testEngineAB);
+            Assert.AreEqual(expected, testEngineAC);
         }//end of TestEqualityVector2D
         #endregion
 
