@@ -149,19 +149,19 @@ namespace Engine.Mathematics
 			return a.X != b.X || a.Y != b.Y || a.Z != b.Z;
 		}
 
-		//3.f - Calculate the Cross Product of two 3D vectors.
+        //3.f - Calculate the Cross Product of two 3D vectors.
 
-        //public static Eng_Vector3D operator x(Eng_Vector3D a,Eng_Vector3D b)
-        //{
-        //    double crossX, crossY, crossZ;
+        public static Eng_Vector3D operator *(Eng_Vector3D a, Eng_Vector3D b)
+        {
+            double crossX, crossY, crossZ;
 
-        //    crossX = a.Y * b.Z - a.Z * b.Y;
-        //    crossY = a.Z * b.X - a.X * b.Z;
-        //    crossZ = a.X * b.Y - a.Y * b.X;
+            crossX = a.Y * b.Z - a.Z * b.Y;
+            crossY = a.Z * b.X - a.X * b.Z;
+            crossZ = a.X * b.Y - a.Y * b.X;
 
-        //    return new Eng_Vector3D(crossX, crossY, crossZ);
-        //}
+            return new Eng_Vector3D(crossX, crossY, crossZ);
+        }
 
-		#endregion
-	}//eoc
+        #endregion
+    }//eoc
 }//eon

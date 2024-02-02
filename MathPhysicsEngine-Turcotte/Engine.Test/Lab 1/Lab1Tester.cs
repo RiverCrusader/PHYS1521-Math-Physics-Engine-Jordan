@@ -562,16 +562,23 @@ namespace Engine.Tests.Lab1
                 new Eng_Vector3D(31, -22, -1)	// expected a x b
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+            {
+                new Eng_Vector3D(5, -3, 4),		// vector a
+                new Eng_Vector3D(-6, -2, 2),	// vector b
+                new Eng_Vector3D(2, -34, -28)	// expected a x b
+            };
         }//end of CrossProductData
 
         [Test, TestCaseSource(nameof(CrossProductData))]
         public void TestCrossProduct(Eng_Vector3D a, Eng_Vector3D b, Eng_Vector3D expected)
         {
             // Perform the test
-            
+            Eng_Vector3D actual = a * b;
             // Assert
-            
+            Assert.AreEqual(expected.X, Math.Round(actual.X,4));
+            Assert.AreEqual(expected.Y, Math.Round(actual.Y, 4));
+            Assert.AreEqual(expected.Z, Math.Round(actual.Z, 4));
         }//end of TestCrossProduct
         #endregion
     }//eoc
