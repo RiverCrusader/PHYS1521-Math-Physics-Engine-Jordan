@@ -73,7 +73,7 @@ namespace Engine.Mathematics
         //2.d – Normalize a 3D vector.
         public void Normalize()
         {
-            double magnitude, normalX, normalY, normalZ;
+            double magnitude;
 
             magnitude = Magnitude();
 
