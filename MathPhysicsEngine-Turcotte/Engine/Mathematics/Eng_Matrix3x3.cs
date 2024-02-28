@@ -85,20 +85,50 @@ namespace Engine.Mathematics
         //3.a - Transpose a matrix.
         public Eng_Matrix3x3 Transpose()
         {
-			
+            Eng_Matrix3x3 t = new Eng_Matrix3x3();
+
+            t.M11 = M11;
+            t.M12 = M21;
+            t.M13 = M31;
+                
+            t.M21 = M12;
+            t.M22 = M22;
+            t.M23 = M32;
+
+            t.M31 = M13;
+            t.M32 = M23;
+            t.M33 = M33;
+
+            return t;
 		}//end of Transpose
 		
         //3.b - Calculate the determinant of a matrix.
         public double Determinant()
         {
-			
+            return (M11 * M22 * M33) + (M12 * M23 * M31) + (M13 * M21 * M31) - (M13 * M22 * M31) - (M12 * M21 * M33) - (M11 * M23 * M32);
 		}//end of Determinant
 		
         //3.c - Calculate the inverse of a matrix.
         public Eng_Matrix3x3 Inverse()
         {
-			
-		}//end of Inverse
+            //aw man this is gonna take a hot momment actually didnt take that long
+
+            Eng_Matrix3x3 c = new Eng_Matrix3x3();
+
+            c.M11 = (M22 * M33) - (M23 * M32);
+            c.M12 = -((M21 * M33) - (M23 * M31));
+            c.M13 = (M21 * M32) - (M22 * M21);
+
+            c.M21 = -((M12 * M33) - (M13 * M32));
+            c.M22 = (M11 * M33) - (M13 * M31);
+            c.M23 = -((M11 * M32) - (M12 * M31));
+
+            c.M31 = (M12 * M23) - (M13 * M22);
+            c.M32 = -((M11 * M23) - (M13 * M21));
+            c.M33 = (M11 * M22) - (M12 * M21);
+
+            return c;
+        }//end of Inverse
         #endregion
 
         #region Overload Operators
@@ -116,13 +146,64 @@ namespace Engine.Mathematics
         #endregion
 
         //4.a - Equality of two 3x3 matrices.
-       
+        public static bool operator ==(Eng_Matrix3x3 a, Eng_Matrix3x3 b)
+        {
+            return 
+            a.M11 == b.M11 &&
+            a.M12 == b.M12 &&
+            a.M13 == b.M13 &&
+
+            a.M21 == b.M21 &&
+            a.M22 == b.M22 &&
+            a.M23 == b.M23 &&
+
+            a.M31 == b.M31 &&
+            a.M32 == b.M32 &&
+            a.M33 == b.M33;
+        }
         //4.b - Inequality of two 3x3 matrices.
-        
+        public static bool operator !=(Eng_Matrix3x3 a, Eng_Matrix3x3 b)
+        {
+            return
+            a.M11 != b.M11 ||
+            a.M12 != b.M12 ||
+            a.M13 != b.M13 ||
+
+            a.M21 != b.M21 ||
+            a.M22 != b.M22 ||
+            a.M23 != b.M23 ||
+
+            a.M31 != b.M31 ||
+            a.M32 != b.M32 ||
+            a.M33 != b.M33;
+        }
         //4.c - Scale a matrix.
-        
+        public static Eng_Matrix3x3 operator *(Eng_Matrix3x3 a, double scalar)
+        {
+            //multiply each number by scalar
+            return new Eng_Matrix3x3(a.M11 * scalar, a.M12 * scalar, a.M13 * scalar, a.M21 * scalar, a.M22 * scalar, a.M23 * scalar, a.M31 * scalar, a.M32 * scalar, a.M33 * scalar);
+        }
         //4.d - Multiply two 3x3 matrices.
-        
+        public static Eng_Matrix3x3 operator *(Eng_Matrix3x3 a, Eng_Matrix3x3 b)
+        {
+            //way more readable
+
+            Eng_Matrix3x3 ab = new Eng_Matrix3x3();
+
+            ab.M11 = (a.M11 * b.M11) + (a.M12 * b.M21) + (a.M13 * b.M31);
+            ab.M12 = (a.M11 * b.M12) + (a.M12 * b.M22) + (a.M13 * b.M32);
+            ab.M13 = (a.M11 * b.M13) + (a.M12 * b.M23) + (a.M13 * b.M33);
+
+            ab.M21 = (a.M21 * b.M11) + (a.M22 * b.M21) + (a.M23 * b.M31);
+            ab.M22 = (a.M21 * b.M12) + (a.M22 * b.M22) + (a.M23 * b.M32);
+            ab.M23 = (a.M21 * b.M13) + (a.M22 * b.M23) + (a.M23 * b.M33);
+
+            ab.M31 = (a.M31 * b.M11) + (a.M32 * b.M21) + (a.M33 * b.M31);
+            ab.M32 = (a.M31 * b.M12) + (a.M32 * b.M22) + (a.M33 * b.M32);
+            ab.M33 = (a.M31 * b.M13) + (a.M32 * b.M23) + (a.M33 * b.M33);
+
+            return ab;
+        }
         #endregion
     }//eoc
 }//eon
