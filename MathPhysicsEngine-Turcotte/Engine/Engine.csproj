@@ -41,9 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mathematics\Eng_Matrix2x2.cs" />
+    <Compile Include="Mathematics\Eng_Matrix3x3.cs" />
+    <Compile Include="Mathematics\Eng_Matrix4x4.cs" />
     <Compile Include="Mathematics\Eng_Point2D.cs" />
+    <Compile Include="Mathematics\Eng_Quaternion.cs" />
     <Compile Include="Mathematics\Eng_Vector2D.cs" />
     <Compile Include="Mathematics\Eng_Vector3D.cs" />
+    <Compile Include="Mathematics\Eng_Vector4D.cs" />
     <Compile Include="Mathematics\Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
