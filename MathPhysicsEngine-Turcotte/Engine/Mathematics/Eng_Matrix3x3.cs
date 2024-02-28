@@ -61,19 +61,24 @@ namespace Engine.Mathematics
             //m21=0; m22=1; m23=0;
             //m31=0; m32=0; m33=1;
 
+            //i think
+
 		}//end of Identity
 		
         //2.b - Create a 2D rotation matrix from a given angle in degrees.
         public Eng_Matrix3x3 Create2DRotationMatrix(double angle)
         {
-			
-		}//end of Create2DRotationMatrix
+            angle = Functions.DegreesToRadians(angle);
+
+            return new Eng_Matrix3x3(Math.Cos(angle),-Math.Sin(angle),0,Math.Sin(angle),Math.Cos(angle),0,0,0,1);
+        }//end of Create2DRotationMatrix
 		
         //2.c - Create from Transformation (Scale and Shift).
         public Eng_Matrix3x3 Create2DTransformationMatrix (double shiftX, double shiftY, double scaleX, double scaleY)
         {
-			
-		}//end of Cre.
+            return new Eng_Matrix3x3(scaleX, 0, shiftX, 0, scaleY, shiftY, 0, 0, 1);
+            
+        }//end of Cre.
         #endregion
 
         #region Class Methods
