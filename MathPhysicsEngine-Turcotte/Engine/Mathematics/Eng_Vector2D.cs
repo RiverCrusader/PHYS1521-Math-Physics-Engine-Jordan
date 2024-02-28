@@ -47,7 +47,7 @@ namespace Engine.Mathematics
         {
             double dotProduct;
 
-            dotProduct= X * b.X + Y * b.Y;
+            dotProduct = X * b.X + Y * b.Y;
 
             return dotProduct;
 		}//end of DotProduct
