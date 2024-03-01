@@ -102,7 +102,7 @@ namespace Engine.Mathematics
         //3.b - Calculate the determinant of a matrix.
         public double Determinant()
         {
-            return (M11 * M22 * M33) + (M12 * M23 * M31) + (M13 * M21 * M31) - (M13 * M22 * M31) - (M12 * M21 * M33) - (M11 * M23 * M32);
+            return (M11 * M22 * M33) + (M12 * M23 * M31) + (M13 * M21 * M32) - (M13 * M22 * M31) - (M12 * M21 * M33) - (M11 * M23 * M32);
 		}//end of Determinant
 		
         //3.c - Calculate the inverse of a matrix.

@@ -126,15 +126,44 @@ namespace Engine.Mathematics
         //3.a - Transpose a matrix.
         public Eng_Matrix4x4 Transpose()
         {
-			
-		}//end of Transpose
+            Eng_Matrix4x4 t = new Eng_Matrix4x4();
+
+            t.M11 = M11;
+            t.M12 = M21;
+            t.M13 = M31;
+            t.M14 = M41;
+
+            t.M21 = M12;
+            t.M22 = M22;
+            t.M23 = M32;
+            t.M24 = M42;
+
+            t.M31 = M13;
+            t.M32 = M23;
+            t.M33 = M33;
+            t.M34 = M43;
+
+            t.M41 = M14;
+            t.M42 = M24;
+            t.M43 = M34;
+            t.M44 = M44;
+
+            return t;
+        }//end of Transpose
 		
         //3.b - Calculate the determinant of a matrix.
         //      HINT: Call the determinant of the Eng_Matrix3x3 class as required.
         public double Determinant()
         {
-			
-		}//end of Determinant
+            //man this sucks ...
+            //hope this works so i dont have to look at it again
+
+            return M11 * ((M22 * M33 * M44) - (M22 * M34 * M43) - (M23 * M32 * M44) + (M23 * M34 * M42) + (M24 * M32 * M43) - (M24 * M33 * M42))
+                 - M12 * ((M21 * M33 * M44) - (M21 * M34 * M43) - (M23 * M31 * M44) + (M23 * M34 * M41) + (M24 * M31 * M43) - (M24 * M33 * M41))
+                 + M13 * ((M21 * M32 * M44) - (M21 * M34 * M42) - (M22 * M31 * M44) + (M22 * M34 * M41) + (M24 * M31 * M42) - (M24 * M32 * M41))
+                 - M14 * ((M21 * M32 * M43) - (M21 * M33 * M42) - (M22 * M31 * M43) + (M22 * M33 * M41) + (M23 * M31 * M42) - (M23 * M32 * M41));
+
+        }//end of Determinant
 		
         //3.c - Calculate the inverse of a matrix.
         public Eng_Matrix4x4 Inverse()
