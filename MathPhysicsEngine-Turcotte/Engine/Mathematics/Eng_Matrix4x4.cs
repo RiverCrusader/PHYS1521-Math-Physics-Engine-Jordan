@@ -155,21 +155,68 @@ namespace Engine.Mathematics
         //      HINT: Call the determinant of the Eng_Matrix3x3 class as required.
         public double Determinant()
         {
-            //man this sucks ...
-            //hope this works so i dont have to look at it again
+            Eng_Matrix3x3 v11 = new Eng_Matrix3x3(M22, M23, M24, M32, M33, M34, M42, M43, M44);
+            Eng_Matrix3x3 v12 = new Eng_Matrix3x3(M21, M23, M24, M31, M33, M34, M41, M43, M44);
+            Eng_Matrix3x3 v13 = new Eng_Matrix3x3(M21, M22, M24, M31, M32, M34, M41, M42, M44);
+            Eng_Matrix3x3 v14 = new Eng_Matrix3x3(M21, M22, M23, M31, M32, M33, M41, M42, M43);
 
-            return M11 * ((M22 * M33 * M44) - (M22 * M34 * M43) - (M23 * M32 * M44) + (M23 * M34 * M42) + (M24 * M32 * M43) - (M24 * M33 * M42))
-                 - M12 * ((M21 * M33 * M44) - (M21 * M34 * M43) - (M23 * M31 * M44) + (M23 * M34 * M41) + (M24 * M31 * M43) - (M24 * M33 * M41))
-                 + M13 * ((M21 * M32 * M44) - (M21 * M34 * M42) - (M22 * M31 * M44) + (M22 * M34 * M41) + (M24 * M31 * M42) - (M24 * M32 * M41))
-                 - M14 * ((M21 * M32 * M43) - (M21 * M33 * M42) - (M22 * M31 * M43) + (M22 * M33 * M41) + (M23 * M31 * M42) - (M23 * M32 * M41));
+            return (M11 * v11.Determinant())
+                 - (M12 * v12.Determinant())
+                 + (M13 * v13.Determinant())
+                 - (M14 * v14.Determinant());
 
         }//end of Determinant
 		
         //3.c - Calculate the inverse of a matrix.
         public Eng_Matrix4x4 Inverse()
         {
-			
-		}//end of Inverse
+            //almost certainly an easier way but alas this should work
+
+            Eng_Matrix4x4 c = new Eng_Matrix4x4();
+            double det = c.Determinant();
+
+            Eng_Matrix3x3 v11 = new Eng_Matrix3x3(M22, M23, M24, M32, M33, M34, M42, M43, M44);
+            Eng_Matrix3x3 v12 = new Eng_Matrix3x3(M21, M23, M24, M31, M33, M34, M41, M43, M44);
+            Eng_Matrix3x3 v13 = new Eng_Matrix3x3(M21, M22, M24, M31, M32, M34, M41, M42, M44);
+            Eng_Matrix3x3 v14 = new Eng_Matrix3x3(M21, M22, M23, M31, M32, M33, M41, M42, M43);
+
+            c.M11 = (v11.Determinant() / det);
+            c.M12 = (-v12.Determinant() / det);
+            c.M13 = (v13.Determinant() / det);
+            c.M14 = (-v14.Determinant() / det);
+
+            Eng_Matrix3x3 v21 = new Eng_Matrix3x3(M12, M13, M14, M32, M33, M34, M42, M43, M44);
+            Eng_Matrix3x3 v22 = new Eng_Matrix3x3(M11, M13, M14, M31, M33, M34, M41, M43, M44);
+            Eng_Matrix3x3 v23 = new Eng_Matrix3x3(M11, M12, M14, M31, M32, M34, M41, M42, M44);
+            Eng_Matrix3x3 v24 = new Eng_Matrix3x3(M11, M12, M13, M31, M32, M33, M41, M42, M43);
+
+            c.M21 = (-v21.Determinant() / det);
+            c.M22 = (v22.Determinant() / det);
+            c.M23 = (-v23.Determinant() / det);
+            c.M24 = (v24.Determinant() / det);
+
+            Eng_Matrix3x3 v31 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M42, M43, M44);
+            Eng_Matrix3x3 v32 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M41, M43, M44);
+            Eng_Matrix3x3 v33 = new Eng_Matrix3x3(M11, M12, M14, M21, M22, M24, M41, M42, M44);
+            Eng_Matrix3x3 v34 = new Eng_Matrix3x3(M11, M12, M13, M21, M22, M23, M41, M42, M43);
+
+            c.M31 = (v31.Determinant() / det);
+            c.M32 = (-v32.Determinant() / det);
+            c.M33 = (v33.Determinant() / det);
+            c.M34 = (-v34.Determinant() / det);
+
+            Eng_Matrix3x3 v41 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M32, M33, M34);
+            Eng_Matrix3x3 v42 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M31, M33, M34);
+            Eng_Matrix3x3 v43 = new Eng_Matrix3x3(M11, M12, M14, M21, M22, M24, M31, M32, M34);
+            Eng_Matrix3x3 v44 = new Eng_Matrix3x3(M11, M12, M13, M21, M22, M23, M31, M32, M33);
+
+            c.M41 = (-v41.Determinant() / det);
+            c.M42 = (v42.Determinant() / det);
+            c.M43 = (-v43.Determinant() / det);
+            c.M44 = (v44.Determinant() / det);
+
+            return c;
+        }//end of Inverse
         #endregion
  
         #region Overload Operators

@@ -102,8 +102,8 @@ namespace Engine.Mathematics
         //3.b - Calculate the determinant of a matrix.
         public double Determinant()
         {
-            return (M11 * M22 * M33) + (M12 * M23 * M31) + (M13 * M21 * M32) - (M13 * M22 * M31) - (M12 * M21 * M33) - (M11 * M23 * M32);
-		}//end of Determinant
+            return (M11 * M22 * M33) - (M11 * M23 * M32) - (M12 * M21 * M33) + (M12 * M23 * M31) + (M13 * M21 * M32) - (M13 * M22 * M31);
+        }//end of Determinant
 		
         //3.c - Calculate the inverse of a matrix.
         public Eng_Matrix3x3 Inverse()
@@ -111,18 +111,19 @@ namespace Engine.Mathematics
             //aw man this is gonna take a hot momment actually didnt take that long
 
             Eng_Matrix3x3 c = new Eng_Matrix3x3();
+            double det = c.Determinant();
 
-            c.M11 = (M22 * M33) - (M23 * M32);
-            c.M12 = -((M21 * M33) - (M23 * M31));
-            c.M13 = (M21 * M32) - (M22 * M21);
+            c.M11 = ((M22 * M33) - (M23 * M32) / det);
+            c.M12 = (-((M21 * M33) - (M23 * M31)) / det);
+            c.M13 = ((M21 * M32) - (M22 * M21) / det);
 
-            c.M21 = -((M12 * M33) - (M13 * M32));
-            c.M22 = (M11 * M33) - (M13 * M31);
-            c.M23 = -((M11 * M32) - (M12 * M31));
+            c.M21 = (-((M12 * M33) - (M13 * M32)) / det);
+            c.M22 = ((M11 * M33) - (M13 * M31) / det);
+            c.M23 = (-((M11 * M32) - (M12 * M31)) / det);
 
-            c.M31 = (M12 * M23) - (M13 * M22);
-            c.M32 = -((M11 * M23) - (M13 * M21));
-            c.M33 = (M11 * M22) - (M12 * M21);
+            c.M31 = ((M12 * M23) - (M13 * M22) / det);
+            c.M32 = (-((M11 * M23) - (M13 * M21)) / det);
+            c.M33 = ((M11 * M22) - (M12 * M21) / det);
 
             return c;
         }//end of Inverse
