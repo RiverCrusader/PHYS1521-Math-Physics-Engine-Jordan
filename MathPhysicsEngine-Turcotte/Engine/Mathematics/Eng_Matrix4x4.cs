@@ -9,12 +9,45 @@ namespace Engine.Mathematics
     public class Eng_Matrix4x4
     {
         //1.a - Properties.
-        
+        public double M11 { get; set; }
+        public double M12 { get; set; }
+        public double M13 { get; set; }
+        public double M14 { get; set; }
+        public double M21 { get; set; }
+        public double M22 { get; set; }
+        public double M23 { get; set; }
+        public double M24 { get; set; }
+        public double M31 { get; set; }
+        public double M32 { get; set; }
+        public double M33 { get; set; }
+        public double M34 { get; set; }
+        public double M41 { get; set; }
+        public double M42 { get; set; }
+        public double M43 { get; set; }
+        public double M44 { get; set; }
         //1.b - Empty Constructor.
         public Eng_Matrix4x4()
         {
-			
-		}//eom
+            M11 = 0;
+            M12 = 0;
+            M13 = 0;
+            M14 = 0;
+
+            M21 = 0;
+            M22 = 0;
+            M23 = 0;
+            M24 = 0;
+
+            M31 = 0;
+            M32 = 0;
+            M33 = 0;
+            M34 = 0;
+
+            M41 = 0;
+            M42 = 0;
+            M43 = 0;
+            M44 = 0;
+        }//eom
 		
 		//1.c - Non-empty Constructor.
 		public Eng_Matrix4x4(
@@ -23,39 +56,70 @@ namespace Engine.Mathematics
             double m31, double m32, double m33, double m34,
             double m41, double m42, double m43, double m44)
         {
-			
-		}//eom
-		
+            M11 = m11;
+            M12 = m12;
+            M13 = m13;
+            M14 = m14;
+
+            M21 = m21;
+            M22 = m22;
+            M23 = m23;
+            M24 = m24;
+
+            M31 = m31;
+            M32 = m32;
+            M33 = m33;
+            M34 = m34;
+
+            M41 = m41;
+            M42 = m42;
+            M43 = m43;
+            M44 = m44;
+        }//eom
+
+        //Roll = Z, Pitch = X, Yaw = Y
+
         #region Additional Constructors
         //2.a - Create an Identity matrix.
         public void Identity()
         {
-			
-		}//end of Identity
-		
+			Eng_Matrix4x4 Identity = new Eng_Matrix4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+
+            //m11=1; m12=0; m13=0; m14=0; 
+            //m21=0; m22=1; m23=0; m24=0;
+            //m31=0; m32=0; m33=1; m34=0;
+            //m41=0; m42=0; m43=0; m44=0;
+        }//end of Identity
+
         //2.b - Create from Transformation (Scale and Shift).
         public Eng_Matrix4x4 Create3DTransformationMatrix(double shiftX, double shiftY, double shiftZ, double scaleX, double scaleY, double scaleZ)
         {
-			
+			return new Eng_Matrix4x4(scaleX,0,0,shiftX,0,scaleY,0,shiftY,0,0,scaleZ,shiftZ,0,0,0,1);
 		}//end of Create3DTransformationMatrix
-		
+
         //2.c - Create a Roll rotation matrix from an angle in degrees.
         public Eng_Matrix4x4 CreateRollRotationMatrix(double angle)
         {
-			
-		}//end of CreateRollRotationMatrix
+            angle = Functions.DegreesToRadians(angle);
+
+            return new Eng_Matrix4x4(Math.Cos(angle), -Math.Sin(angle), 0, 0, Math.Sin(angle), Math.Cos(angle), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        }//end of CreateRollRotationMatrix
 		
         //2.d - Create a Pitch rotation matrix from an angle in degrees.
         public Eng_Matrix4x4 CreatePitchRotationMatrix(double angle)
         {
-			
-		}//end of CreatePitchRotationMatrix
+            angle = Functions.DegreesToRadians(angle);
+
+            return new Eng_Matrix4x4(1, 0, 0, 0, 0, Math.Cos(angle), -Math.Sin(angle), 0, 0, Math.Sin(angle), Math.Cos(angle), 0, 0, 0, 0, 1);
+        }//end of CreatePitchRotationMatrix
 		
         //2.e - Create a Yaw rotation matrix from an angle in degrees.
-        public Eng_Matrix4x4 CreateYawRotationMatrix(double angle).
+        public Eng_Matrix4x4 CreateYawRotationMatrix(double angle)
         {
-			
-		}//end of CreateYawRotationMatrix
+            angle = Functions.DegreesToRadians(angle);
+
+            return new Eng_Matrix4x4(Math.Cos(angle), 0, Math.Sin(angle), 0, 0, 1, 0, 0, -Math.Sin(angle), 0, Math.Cos(angle), 0, 0, 0, 0, 1);
+        }//end of CreateYawRotationMatrix
         #endregion
 
         #region Class Methods
