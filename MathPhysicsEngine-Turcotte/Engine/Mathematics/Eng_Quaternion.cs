@@ -87,9 +87,16 @@ namespace Engine.Mathematics
         #endregion
 
         //4.a - Equality of two Quaternions.
+        public static bool operator ==(Eng_Quaternion a, Eng_Quaternion b)
+        {
+            return a.QW == b.QW && a.QX == b.QX && a.QY == b.QY && a.QZ == b.QZ;
+        }
 
         //4.b - Inequality of two Quaternions.
-
+        public static bool operator !=(Eng_Quaternion a, Eng_Quaternion b)
+        {
+            return a.QW != b.QW || a.QX != b.QX || a.QY != b.QY || a.QZ != b.QZ;
+        }
         #endregion
     }//eoc
 }//eon
