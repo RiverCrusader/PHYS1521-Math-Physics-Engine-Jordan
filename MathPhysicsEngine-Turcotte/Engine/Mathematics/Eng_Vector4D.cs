@@ -19,7 +19,7 @@ namespace Engine.Mathematics
             X = 0;
             Y = 0;
             Z = 0;
-            W = 0;
+            W = 1;
         }//eom
 		
 		//5.c - Non-empty Constructor – all properties.
@@ -37,7 +37,7 @@ namespace Engine.Mathematics
             X = x;
             Y = y;
             Z = z;
-            W = 0;
+            W = 1;
         }//eom
 		
         //5e - Create a 4D vector from a 3D vector.
@@ -73,6 +73,14 @@ namespace Engine.Mathematics
             return a.X != b.X || a.Y != b.Y || a.Z != b.Z || a.W != b.W;
         }
         //6.c - Multiply 4D vector by Eng_Matrix4x4.
+
+        public static Eng_Vector4D operator *(Eng_Vector4D v, Eng_Matrix4x4 m)
+        {
+            return new Eng_Vector4D((v.X * m.M11 + v.Y * m.M12 + v.Z * m.M13 + v.W * m.M14),
+                                    (v.X * m.M21 + v.Y * m.M22 + v.Z * m.M23 + v.W * m.M24),
+                                    (v.X * m.M31 + v.Y * m.M32 + v.Z * m.M33 + v.W * m.M34),
+                                    (v.X * m.M41 + v.Y * m.M42 + v.Z * m.M43 + v.W * m.M44));
+        }
 
         //Part 3: 5.a - Multiplying a 4D vector by a Quaternion.
         //              HINT: Create a 4D vector from a 3D vector.

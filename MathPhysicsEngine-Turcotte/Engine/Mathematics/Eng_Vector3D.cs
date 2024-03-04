@@ -163,5 +163,18 @@ namespace Engine.Mathematics
         }
 
         #endregion
+
+        #region Lab 2
+        //5.a - Overload operator to multiply a vector by a 3x3 matrix
+
+        public static Eng_Vector3D operator *(Eng_Matrix3x3 m, Eng_Vector3D v)
+        {
+            //return xyz in new eng vector 
+
+            return new Eng_Vector3D((v.X * m.M11 + v.Y * m.M12 + v.Z * m.M13),
+                                    (v.X * m.M21 + v.Y * m.M22 + v.Z * m.M23),
+                                    (v.X * m.M31 + v.Y * m.M32 + v.Z * m.M33));
+        } 
+        #endregion
     }//eoc
 }//eon

@@ -88,7 +88,7 @@ namespace Engine.Mathematics
             //m11=1; m12=0; m13=0; m14=0; 
             //m21=0; m22=1; m23=0; m24=0;
             //m31=0; m32=0; m33=1; m34=0;
-            //m41=0; m42=0; m43=0; m44=0;
+            //m41=0; m42=0; m43=0; m44=1;
         }//end of Identity
 
         //2.b - Create from Transformation (Scale and Shift).
@@ -278,10 +278,10 @@ namespace Engine.Mathematics
             a.M33 != b.M33 ||
             a.M34 != b.M34 ||
 
-            a.M41 == b.M41 ||
-            a.M42 == b.M42 ||
-            a.M43 == b.M43 ||
-            a.M44 == b.M44;
+            a.M41 != b.M41 ||
+            a.M42 != b.M42 ||
+            a.M43 != b.M43 ||
+            a.M44 != b.M44;
         }
         //4.c - Scale a 4x4 matrix.
         public static Eng_Matrix4x4 operator *(Eng_Matrix4x4 a, double scalar)
@@ -293,7 +293,32 @@ namespace Engine.Mathematics
                                      a.M41 * scalar, a.M42 * scalar, a.M43 * scalar, a.M44 * scalar);
         }
         //4.d - Multiply two 4x4 matrices.
+        public static Eng_Matrix4x4 operator *(Eng_Matrix4x4 a, Eng_Matrix4x4 b)
+        {
+            Eng_Matrix4x4 ab = new Eng_Matrix4x4();
 
+            ab.M11 = (a.M11 * b.M11) + (a.M12 * b.M21) + (a.M13 * b.M31) + (a.M14 * b.M41);
+            ab.M12 = (a.M11 * b.M12) + (a.M12 * b.M22) + (a.M13 * b.M32) + (a.M14 * b.M42);
+            ab.M13 = (a.M11 * b.M13) + (a.M12 * b.M23) + (a.M13 * b.M33) + (a.M14 * b.M43);
+            ab.M14 = (a.M11 * b.M14) + (a.M12 * b.M24) + (a.M13 * b.M34) + (a.M14 * b.M44);
+
+            ab.M21 = (a.M21 * b.M11) + (a.M22 * b.M21) + (a.M23 * b.M31) + (a.M24 * b.M41);
+            ab.M22 = (a.M21 * b.M12) + (a.M22 * b.M22) + (a.M23 * b.M32) + (a.M24 * b.M42);
+            ab.M23 = (a.M21 * b.M13) + (a.M22 * b.M23) + (a.M23 * b.M33) + (a.M24 * b.M43);
+            ab.M24 = (a.M21 * b.M14) + (a.M22 * b.M24) + (a.M23 * b.M34) + (a.M24 * b.M44);
+
+            ab.M31 = (a.M31 * b.M11) + (a.M32 * b.M21) + (a.M33 * b.M31) + (a.M34 * b.M41);
+            ab.M32 = (a.M31 * b.M12) + (a.M32 * b.M22) + (a.M33 * b.M32) + (a.M34 * b.M42);
+            ab.M33 = (a.M31 * b.M13) + (a.M32 * b.M23) + (a.M33 * b.M33) + (a.M34 * b.M43);
+            ab.M34 = (a.M31 * b.M14) + (a.M32 * b.M24) + (a.M33 * b.M34) + (a.M34 * b.M44);
+
+            ab.M41 = (a.M41 * b.M11) + (a.M42 * b.M21) + (a.M43 * b.M41) + (a.M44 * b.M41);
+            ab.M42 = (a.M41 * b.M12) + (a.M42 * b.M22) + (a.M43 * b.M32) + (a.M44 * b.M42);
+            ab.M43 = (a.M41 * b.M13) + (a.M42 * b.M23) + (a.M43 * b.M33) + (a.M44 * b.M43);
+            ab.M44 = (a.M41 * b.M14) + (a.M42 * b.M24) + (a.M43 * b.M34) + (a.M44 * b.M44);
+
+            return ab;
+        }
         #endregion
     }//eoc
 }//eon
