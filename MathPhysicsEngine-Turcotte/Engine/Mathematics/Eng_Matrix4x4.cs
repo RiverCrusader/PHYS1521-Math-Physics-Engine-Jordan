@@ -25,6 +25,7 @@ namespace Engine.Mathematics
         public double M42 { get; set; }
         public double M43 { get; set; }
         public double M44 { get; set; }
+
         //1.b - Empty Constructor.
         public Eng_Matrix4x4()
         {
