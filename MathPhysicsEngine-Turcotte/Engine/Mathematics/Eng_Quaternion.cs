@@ -9,18 +9,18 @@ namespace Engine.Mathematics
     public class Eng_Quaternion
     {
         //1.a - Properties.
-        public double QW { get; set; }
-        public double QX { get; set; }
-        public double QY { get; set; }
-        public double QZ { get; set; }
+        public double W { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
 
         //2.a - Empty Constructor.
         public Eng_Quaternion()
         {
-            QW = 0;
-            QX = 0;
-            QY = 0;
-            QZ = 0;
+            W = 0;
+            X = 0;
+            Y = 0;
+            Z = 0;
         }//eom
 
         //2.b - Create from input of 4 values (make sure the magnitude = 1).
@@ -36,10 +36,10 @@ namespace Engine.Mathematics
             }
             else
             {
-                QW = w;
-                QX = x;
-                QY = y; 
-                QZ = z;
+                W = w;
+                X = x;
+                Y = y; 
+                Z = z;
             }
         }//eom
 
@@ -52,10 +52,10 @@ namespace Engine.Mathematics
             pitchDeg = Functions.DegreesToRadians(pitchDeg)/2;
             yawDeg = Functions.DegreesToRadians(yawDeg)/2;
 
-            QW = ((Math.Cos(yawDeg) * Math.Cos(pitchDeg) * Math.Cos(rollDeg)) + (Math.Sin(yawDeg) * Math.Sin(pitchDeg) * Math.Sin(rollDeg)));
-            QX = ((Math.Cos(yawDeg) * Math.Sin(pitchDeg) * Math.Cos(rollDeg)) + (Math.Sin(yawDeg) * Math.Cos(pitchDeg) * Math.Sin(rollDeg)));
-            QY = ((Math.Sin(yawDeg) * Math.Cos(pitchDeg) * Math.Cos(rollDeg)) - (Math.Cos(yawDeg) * Math.Sin(pitchDeg) * Math.Sin(rollDeg)));
-            QZ = ((Math.Cos(yawDeg) * Math.Cos(pitchDeg) * Math.Sin(rollDeg)) - (Math.Sin(yawDeg) * Math.Sin(pitchDeg) * Math.Cos(rollDeg)));
+            W = ((Math.Cos(yawDeg) * Math.Cos(pitchDeg) * Math.Cos(rollDeg)) + (Math.Sin(yawDeg) * Math.Sin(pitchDeg) * Math.Sin(rollDeg)));
+            X = ((Math.Cos(yawDeg) * Math.Sin(pitchDeg) * Math.Cos(rollDeg)) + (Math.Sin(yawDeg) * Math.Cos(pitchDeg) * Math.Sin(rollDeg)));
+            Y = ((Math.Sin(yawDeg) * Math.Cos(pitchDeg) * Math.Cos(rollDeg)) - (Math.Cos(yawDeg) * Math.Sin(pitchDeg) * Math.Sin(rollDeg)));
+            Z = ((Math.Cos(yawDeg) * Math.Cos(pitchDeg) * Math.Sin(rollDeg)) - (Math.Sin(yawDeg) * Math.Sin(pitchDeg) * Math.Cos(rollDeg)));
         }//eom
         #region Class Methods
         //3.a - Create Matrix from Quaternion.
@@ -89,13 +89,13 @@ namespace Engine.Mathematics
         //4.a - Equality of two Quaternions.
         public static bool operator ==(Eng_Quaternion a, Eng_Quaternion b)
         {
-            return a.QW == b.QW && a.QX == b.QX && a.QY == b.QY && a.QZ == b.QZ;
+            return a.W == b.W && a.X == b.X && a.Y == b.Y && a.Z == b.Z;
         }
 
         //4.b - Inequality of two Quaternions.
         public static bool operator !=(Eng_Quaternion a, Eng_Quaternion b)
         {
-            return a.QW != b.QW || a.QX != b.QX || a.QY != b.QY || a.QZ != b.QZ;
+            return a.W != b.W || a.X != b.X || a.Y != b.Y || a.Z != b.Z;
         }
         #endregion
     }//eoc
