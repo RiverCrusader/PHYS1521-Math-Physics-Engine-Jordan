@@ -61,13 +61,27 @@ namespace Engine.Mathematics
         //3.a - Create Matrix from Quaternion.
         public Eng_Matrix4x4 ConvertToMatrix()
         {
+            return new Eng_Matrix4x4((1 - 2 * (Math.Pow(Y, 2) + Math.Pow(Z, 2))), (2 * ((X * Y) - (W * Z))), (2 * ((X * Z) + (W * Y))), 0,
+                                     (2 * ((X * Y) + (W * Y))), (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Z, 2))), (2 * ((Y * Z) - (W * X))), 0,
+                                     (2 * ((X * Z) - (W * Y))), (2 * ((Y * Z) + (W * X))), (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Y, 2))), 0,
+                                                    0,                        0,                                    0,                  1);
 
         }//end of ConvertToMatrix
 
         //3.b - Create rotation angles (in degrees) from Quaternion.
         public Tuple<double, double, double> ConvertToEuler()
         {
+            double roll, pitch, yaw;
 
+            roll = Math.Atan((2 * ((X * Y) + (W * Z))) / (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Y, 2))));
+            pitch = Math.Asin(-2 * ((Y * Z) - (W * X)));
+            yaw = Math.Atan(2 * ((X * Z) + (W * Y)) / (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Y, 2))));
+
+            roll = Functions.RadiansToDegrees(roll);
+            pitch = Functions.RadiansToDegrees(pitch);
+            yaw = Functions.RadiansToDegrees(yaw);
+
+            return Tuple.Create(roll, pitch, yaw);
         }//end of ConvertToEuler
         #endregion
 
