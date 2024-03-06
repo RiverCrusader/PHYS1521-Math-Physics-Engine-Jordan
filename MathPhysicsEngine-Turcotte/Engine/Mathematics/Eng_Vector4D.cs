@@ -37,7 +37,7 @@ namespace Engine.Mathematics
             X = x;
             Y = y;
             Z = z;
-            W = 0;
+            W = 1;
         }//eom
 		
         //5e - Create a 4D vector from a 3D vector.
