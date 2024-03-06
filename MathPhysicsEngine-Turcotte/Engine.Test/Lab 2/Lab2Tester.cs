@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 #region Additional Namespaces
 using NUnit.Framework;
 using Engine.Mathematics;
+using System.Security.Policy;
+
 #endregion
 
 namespace Engine.Tests.Lab2
@@ -45,7 +47,7 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(25, 0.9063, -0.4226, 0, 0.4226, 0.9063, 0, 0, 0, 1),
             // Student Data - MUST CHANGE
-            TestCase(25, 0.9063, -0.4226, 0, 0.4226, 0.9063, 0, 0, 0, 1)
+            TestCase(38, 0.7880, -0.6157, 0, 0.6157, 0.7880, 0, 0, 0, 1)
         ]
 
         public void TestCreate2DRotationMatrix(
@@ -55,12 +57,20 @@ namespace Engine.Tests.Lab2
             double m31Exp, double m32Exp, double m33Exp)
         {
             // Create the objects for the test
-            
+            Eng_Matrix3x3 actual = new Eng_Matrix3x3();
             // Perform the test
-            
-            // Assert
-            
-        }//end of TestCreate2DRotationMatrix
+            actual.Create2DRotationMatrix(degrees);
+			// Assert
+			Assert.AreEqual(m11Exp, Math.Round(actual.M11,4));
+			Assert.AreEqual(m12Exp, Math.Round(actual.M12,4));
+			Assert.AreEqual(m13Exp, Math.Round(actual.M13, 4));
+			Assert.AreEqual(m21Exp, Math.Round(actual.M21, 4));
+			Assert.AreEqual(m22Exp, Math.Round(actual.M22, 4));
+			Assert.AreEqual(m23Exp, Math.Round(actual.M23, 4));
+			Assert.AreEqual(m31Exp, Math.Round(actual.M31, 4));
+			Assert.AreEqual(m32Exp, Math.Round(actual.M32, 4));
+			Assert.AreEqual(m33Exp, Math.Round(actual.M33, 4));
+		}//end of TestCreate2DRotationMatrix
 
         //7.c - Test 2.c - Create from Transformation (Scale and Shift).
         [Test,
@@ -72,7 +82,7 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(2, 3, -4, -2, 2, 0, -4, 0, 3, -2, 0, 0, 1),
             // Student Data - MUST CHANGE
-            TestCase(2, 3, -4, -2, 2, 0, -4, 0, 3, -2, 0, 0, 1)
+            TestCase(12, 8, -3, 7, 12, 0, -3, 0, 8, 7, 0, 0, 1)
         ]
 
         public void TestCreate2DTransformationMatrix(
@@ -81,13 +91,21 @@ namespace Engine.Tests.Lab2
             double m21Exp, double m22Exp, double m23Exp,
             double m31Exp, double m32Exp, double m33Exp)
         {
-            // Create the objects for the test
-            
+			// Create the objects for the test
+			Eng_Matrix3x3 actual = new Eng_Matrix3x3();
             // Perform the test
-           
-            // Assert
-            
-        }//end of TestCreate2DTransformationMatrix
+            actual.Create2DTransformationMatrix(shiftX, shiftY, scaleX, scaleY);
+			// Assert
+			Assert.AreEqual(m11Exp, Math.Round(actual.M11, 4));
+			Assert.AreEqual(m12Exp, Math.Round(actual.M12, 4));
+			Assert.AreEqual(m13Exp, Math.Round(actual.M13, 4));
+			Assert.AreEqual(m21Exp, Math.Round(actual.M21, 4));
+			Assert.AreEqual(m22Exp, Math.Round(actual.M22, 4));
+			Assert.AreEqual(m23Exp, Math.Round(actual.M23, 4));
+			Assert.AreEqual(m31Exp, Math.Round(actual.M31, 4));
+			Assert.AreEqual(m32Exp, Math.Round(actual.M32, 4));
+			Assert.AreEqual(m33Exp, Math.Round(actual.M33, 4));
+		}//end of TestCreate2DTransformationMatrix
 
         //7.d - Test 3.a - Transpose a matrix.
         public static IEnumerable<Object[]> Matrix3TransposeData()
@@ -98,17 +116,21 @@ namespace Engine.Tests.Lab2
                 new Eng_Matrix3x3(2, 0, 4, 0, 3, -2, 0, 0, 1),	// matrix
                 new Eng_Matrix3x3(2, 0, 0, 0, 3, 0, 4, -2, 1)	// expected transpose of the matrix
             };
-            // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
-        }//end of Matrix3TransposeData
+			// Student Data - YOU NEED TO ADD YOUR DATA BELOW
+			yield return new Object[]
+			{
+				new Eng_Matrix3x3(5, 1, 7, 2, -3, 5, 1, 2, 8),	// matrix
+                new Eng_Matrix3x3(5, 2, 1, 1, -3, 2, 7, 5, 8)	// expected transpose of the matrix
+            };
+		}//end of Matrix3TransposeData
 
         [Test, TestCaseSource(nameof(Matrix3TransposeData))]
         public void TestMatrix3Transpose(Eng_Matrix3x3 m, Eng_Matrix3x3 expected)
         {
             // Perform the test
-            
+            m.Transpose();
             //Assert
-            
+            Assert.AreEqual(expected,m);
         }//end of TestMatrix3Transpose
 
         //7.e - Test 3.b - Calculate the determinant of a matrix.
@@ -118,7 +140,7 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(2, 0, 4, 0, 3, -2, 0, 0, 1, 6),
             // Student Data - MUST CHANGE
-            TestCase(2, 0, 4, 0, 3, -2, 0, 0, 1, 6)
+            TestCase(5, 7, -6, 1, 0, 1, 3, 4, 8, -49)
         ]
 
         public void TestMatrix3Determinant(
@@ -127,13 +149,13 @@ namespace Engine.Tests.Lab2
             double m31, double m32, double m33, 
             double expected)
         {
-            // Create objects for the test
-            
-            // Perform the test
-           
-            // Assert
-            
-        }//end of TestMatrix3Determinant
+			// Create objects for the test
+			Eng_Matrix3x3 actual = new Eng_Matrix3x3(m11,m12,m13,m21,m22,m23,m31,m32,m33);
+			// Perform the test
+            actual.Determinant();
+			// Assert
+            Assert.AreEqual(expected,actual);
+		}//end of TestMatrix3Determinant
 
         //7.f - Test 3.c - Calculate the inverse of a matrix.
         public static IEnumerable<Object[]> Matrix3InverseData()
