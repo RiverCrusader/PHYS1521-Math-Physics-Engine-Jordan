@@ -17,7 +17,7 @@ namespace Engine.Mathematics
         //2.a - Empty Constructor.
         public Eng_Quaternion()
         {
-            W = 0;
+            W = 1;
             X = 0;
             Y = 0;
             Z = 0;

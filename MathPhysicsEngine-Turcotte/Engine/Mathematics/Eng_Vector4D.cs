@@ -37,7 +37,7 @@ namespace Engine.Mathematics
             X = x;
             Y = y;
             Z = z;
-            W = 1;
+            W = 0;
         }//eom
 		
         //5e - Create a 4D vector from a 3D vector.
@@ -84,7 +84,12 @@ namespace Engine.Mathematics
 
         //Part 3: 5.a - Multiplying a 4D vector by a Quaternion.
         //              HINT: Create a 4D vector from a 3D vector.
-
+        public static Eng_Vector4D operator *(Eng_Vector4D v, Eng_Quaternion q)
+        {
+            return new Eng_Vector4D(((q.X * v.X) + (q.W * q.Y * v.Z) - (q.Y * q.Z * v.Y) + (q.Z * q.Y * v.Z)),
+                                    ((q.X * v.Y) + (q.W * q.Z * v.X) + (q.Y * q.Z * v.Z) - (q.Z * q.X * v.Y)),
+                                    ((q.X * v.Z) + (q.W * q.X * v.Y) - (q.Y * q.X * v.X) + (q.Z * q.X * v.Z)));
+        }
         #endregion
     }//eoc
 }//eon
