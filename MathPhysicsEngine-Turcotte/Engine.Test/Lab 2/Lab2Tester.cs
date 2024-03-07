@@ -167,16 +167,28 @@ namespace Engine.Tests.Lab2
                 new Eng_Matrix3x3(0.5, 0, -2, 0, 0.125, 0.25, 0, 0, 1)	// expected inverse
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+            {
+                new Eng_Matrix3x3(5, 1, 0, 1, 4, -1, 2, 5, 1),				// matrix
+                new Eng_Matrix3x3(0.0870, -0.0435, -0.1957, -0.0217, 0.1087, -0.0217, 0, -0.0435, 0.1087)	// expected inverse
+            };
         }//end of Matrix3InverseData
 
         [Test, TestCaseSource(nameof(Matrix3InverseData))]
         public void TestMatrix3Inverse(Eng_Matrix3x3 m, Eng_Matrix3x3 expected)
         {
             // Perform the test
-            
+            m.Inverse();
             //Assert
-            
+            Assert.AreEqual(expected.M11, Math.Round(m.M11, 4));
+            Assert.AreEqual(expected.M12, Math.Round(m.M12, 4));
+            Assert.AreEqual(expected.M13, Math.Round(m.M13, 4));
+            Assert.AreEqual(expected.M21, Math.Round(m.M21, 4));
+            Assert.AreEqual(expected.M22, Math.Round(m.M22, 4));
+            Assert.AreEqual(expected.M23, Math.Round(m.M23, 4));
+            Assert.AreEqual(expected.M31, Math.Round(m.M31, 4));
+            Assert.AreEqual(expected.M32, Math.Round(m.M32, 4));
+            Assert.AreEqual(expected.M33, Math.Round(m.M33, 4));
         }//end of TestMatrix3Inverse
 
         //7.g - Test 4.a - Equality of two 3x3 matrices.
@@ -189,7 +201,8 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETEcccccccccccccccccccccc
             TestCase(2, 0, 4, 0, 8, -2, 0, 0, 1, 2.0, 0.0, 4.0, 0.0, 8.0, -2.0, 0.0, 0.0, 1.0,2.0, 0.0, 4.0, 0.0, 8.0, 2.0, 0.0, 0.0, 1.0, true),
             // Student Data - MUST CHANGE
-            TestCase(2, 0, 4, 0, 8, -2, 0, 0, 1, 2.0, 0.0, 4.0, 0.0, 8.0, -2.0, 0.0, 0.0, 1.0, true)
+            TestCase(1, 3, 9, 1, 4, 1, 5, 25, 10, 1, 3, 9, 1, 4, 1, 5, 25, 10, 1, 3, 9, -1, 4, 1, 5, 25, 10, true),
+            TestCase(1, 3, 9, -1, 4, 1, 5, 25, 10, 1, 3, 9, 1, 4, 1, 5, 25, 10, 1, 3, 9, -1, 4, 1, 5, 25, 10, false)
         ]
         public void TestMatrix3Equality(
             double am11, double am12, double am13, 
@@ -204,11 +217,15 @@ namespace Engine.Tests.Lab2
             bool expected)
         {
             // Create Objects for the test
-            
+            Eng_Matrix3x3 a = new Eng_Matrix3x3(am11,am12,am13,am21,am22,am23,am31,am32,am33);
+            Eng_Matrix3x3 b = new Eng_Matrix3x3(bm11,bm12,bm13,bm21,bm22,bm23,bm31,bm32,bm33);
+            Eng_Matrix3x3 c = new Eng_Matrix3x3(cm11,cm12,cm13,cm21,cm22,cm23,cm31,cm32,cm33);
             // Perform the test
-            
+            bool testEngineab = a == b;
+            bool testEngineac = a != c;
             // Assert
-           
+            Assert.AreEqual(expected, testEngineab);
+            Assert.AreEqual(expected, testEngineac);
         }//end of TestMatrix3Equality
 
         //7.h - Test 4.c - Scale a matrix.
