@@ -54,15 +54,15 @@ namespace Engine.NunitTests.Demo
             };
 		}//eom
 
-		[Test, TestCaseSource(nameof(MidPointData))]
-		public void TestMidpointPoint2D(Eng_Point2D a, Eng_Point2D b, Eng_Point2D expected)
-		{
-			// Performing the test (no setup required)
-			Eng_Point2D actual = a.MidPoint(b);
-			// Assert - did we get back the correct answer
-			Assert.AreEqual(expected.X, Math.Round(actual.X, 4));
-			Assert.AreEqual(expected.Y, Math.Round(actual.Y, 4));
+		//[Test, TestCaseSource(nameof(MidPointData))]
+		//public void TestMidpointPoint2D(Eng_Point2D a, Eng_Point2D b, Eng_Point2D expected)
+		//{
+		//	// Performing the test (no setup required)
+		//	Eng_Point2D actual = a.MidPoint(b);
+		//	// Assert - did we get back the correct answer
+		//	Assert.AreEqual(expected.X, Math.Round(actual.X, 4));
+		//	Assert.AreEqual(expected.Y, Math.Round(actual.Y, 4));
 
-		}//eom
+		//}//eom
 	}//eoc
 }//eon

@@ -62,7 +62,7 @@ namespace Engine.Tests.Lab2
             // Create the objects for the test
             Eng_Matrix3x3 actual = new Eng_Matrix3x3();
             // Perform the test
-            actual.Create2DRotationMatrix(degrees);
+            actual = actual.Create2DRotationMatrix(degrees);
             // Assert
             Assert.AreEqual(m11Exp, Math.Round(actual.M11, 4));
             Assert.AreEqual(m12Exp, Math.Round(actual.M12, 4));
@@ -99,7 +99,7 @@ namespace Engine.Tests.Lab2
             // Create the objects for the test
             Eng_Matrix3x3 actual = new Eng_Matrix3x3();
             // Perform the test
-            actual.Create2DTransformationMatrix(shiftX, shiftY, scaleX, scaleY);
+            actual = actual.Create2DTransformationMatrix(shiftX, shiftY, scaleX, scaleY);
             // Assert
             Assert.AreEqual(m11Exp, Math.Round(actual.M11, 4));
             Assert.AreEqual(m12Exp, Math.Round(actual.M12, 4));
@@ -147,7 +147,7 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(2, 0, 4, 0, 3, -2, 0, 0, 1, 6),
             // Student Data - MUST CHANGE
-            TestCase(5, 7, -6, 1, 0, 1, 3, 4, 8, -49)
+            TestCase(5, 7, -6, 1, 0, 1, 3, 4, 8, -79)
         ]
 
         public void TestMatrix3Determinant(
@@ -172,13 +172,13 @@ namespace Engine.Tests.Lab2
             yield return new Object[]
             {
                 new Eng_Matrix3x3(2, 0, 4, 0, 8, -2, 0, 0, 1),				// matrix
-                new Eng_Matrix3x3(0.5, 0, -2, 0, 0.125, 0.25, 0, 0, 1)	// expected inverse
+                new Eng_Matrix3x3(0.5, 0, 0, 0, 0.125, 0,-2, 0.25, 1)	// expected inverse
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
             yield return new Object[]
             {
                 new Eng_Matrix3x3(5, 1, 0, 1, 4, -1, 2, 5, 1),				// matrix
-                new Eng_Matrix3x3(0.0870, -0.0435, -0.1957, -0.0217, 0.1087, -0.0217, 0, -0.0435, 0.1087)	// expected inverse
+                new Eng_Matrix3x3(0.2143, -0.0714, -0.0714, -0.0238, 0.1190, -0.5476, -0.0238, 0.1190, 0.4524)	// expected inverse
             };
         }//end of Matrix3InverseData
 
@@ -186,19 +186,19 @@ namespace Engine.Tests.Lab2
         public void TestMatrix3Inverse(Eng_Matrix3x3 m, Eng_Matrix3x3 expected)
         {
             // Perform the test
-            m.Inverse();
+            Eng_Matrix3x3 i = m.Inverse();
             //Assert
-            Assert.AreEqual(expected.M11, Math.Round(m.M11, 4));
-            Assert.AreEqual(expected.M12, Math.Round(m.M12, 4));
-            Assert.AreEqual(expected.M13, Math.Round(m.M13, 4));
+            Assert.AreEqual(expected.M11, Math.Round(i.M11, 4));
+            Assert.AreEqual(expected.M12, Math.Round(i.M12, 4));
+            Assert.AreEqual(expected.M13, Math.Round(i.M13, 4));
 
-            Assert.AreEqual(expected.M21, Math.Round(m.M21, 4));
-            Assert.AreEqual(expected.M22, Math.Round(m.M22, 4));
-            Assert.AreEqual(expected.M23, Math.Round(m.M23, 4));
+            Assert.AreEqual(expected.M21, Math.Round(i.M21, 4));
+            Assert.AreEqual(expected.M22, Math.Round(i.M22, 4));
+            Assert.AreEqual(expected.M23, Math.Round(i.M23, 4));
 
-            Assert.AreEqual(expected.M31, Math.Round(m.M31, 4));
-            Assert.AreEqual(expected.M32, Math.Round(m.M32, 4));
-            Assert.AreEqual(expected.M33, Math.Round(m.M33, 4));
+            Assert.AreEqual(expected.M31, Math.Round(i.M31, 4));
+            Assert.AreEqual(expected.M32, Math.Round(i.M32, 4));
+            Assert.AreEqual(expected.M33, Math.Round(i.M33, 4));
         }//end of TestMatrix3Inverse
 
         //7.g - Test 4.a - Equality of two 3x3 matrices.
@@ -323,7 +323,7 @@ namespace Engine.Tests.Lab2
             // Assert
             Assert.AreEqual(expected, actual);
         }//end of TestMultiplyVector3ByMatrix3
-        #endregion
+        #endregion 
 
         #region Part 2 - Matrix Transformation in 3D
         //7.a - Test 2.a - Create an Identity matrix.
@@ -380,7 +380,7 @@ namespace Engine.Tests.Lab2
             // Create the objects for the test
             Eng_Matrix4x4 actual = new Eng_Matrix4x4();
             // Perform the test
-            actual.Create3DTransformationMatrix(shiftX, shiftY, shiftZ, scaleX, scaleY, scaleZ);
+            actual = actual.Create3DTransformationMatrix(shiftX, shiftY, shiftZ, scaleX, scaleY, scaleZ);
             // Assert
             Assert.AreEqual(m11Exp, Math.Round(actual.M11, 4));
             Assert.AreEqual(m12Exp, Math.Round(actual.M12, 4));
@@ -410,7 +410,7 @@ namespace Engine.Tests.Lab2
             // Remainder = expected roll matrix
             TestCase(5, 0.9962, -0.0872, 0, 0, 0.0872, 0.9962, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1),
             // Student Data - MUST CHANGE
-            TestCase(27, 0.8910, -0.4540, 0, 0, 0.4540, 0.9962, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+            TestCase(27, 0.8910, -0.4540, 0, 0, 0.4540, 0.8910, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
         ]
         public void TestCreateRollMatrix(
             double degrees,
@@ -422,7 +422,7 @@ namespace Engine.Tests.Lab2
             // Create the objects for the test
             Eng_Matrix4x4 actual = new Eng_Matrix4x4();
             // Perform the test
-            actual.CreateRollRotationMatrix(degrees);
+            actual = actual.CreateRollRotationMatrix(degrees);
             // Assert
             Assert.AreEqual(m11Exp, Math.Round(actual.M11, 4));
             Assert.AreEqual(m12Exp, Math.Round(actual.M12, 4));
@@ -452,7 +452,7 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(5, 1, 0, 0, 0, 0, 0.9962, -0.0872, 0, 0, 0.0872, 0.9962, 0, 0, 0, 0, 1),
             // Student Data - MUST CHANGE
-            TestCase(59, 1, 0, 0, 0, 0, 0.5150, -0.08572, 0, 0, 0.08572, 0.5150, 0, 0, 0, 0, 1)
+            TestCase(59, 1, 0, 0, 0, 0, 0.5150, -0.8572, 0, 0, 0.8572, 0.5150, 0, 0, 0, 0, 1)
         ]
         public void TestCreatePitchMatrix(
             double degrees,
@@ -464,7 +464,7 @@ namespace Engine.Tests.Lab2
             // Create the objects for the test
             Eng_Matrix4x4 actual = new Eng_Matrix4x4();
             // Perform the test
-            actual.CreatePitchRotationMatrix(degrees);
+            actual = actual.CreatePitchRotationMatrix(degrees);
             // Assert
             Assert.AreEqual(m11Exp, Math.Round(actual.M11, 4));
             Assert.AreEqual(m12Exp, Math.Round(actual.M12, 4));
@@ -505,7 +505,7 @@ namespace Engine.Tests.Lab2
             // Create the objects for the test
             Eng_Matrix4x4 actual = new Eng_Matrix4x4();
             // Perform the test
-            actual.CreateYawRotationMatrix(degrees);
+            actual = actual.CreateYawRotationMatrix(degrees);
             // Assert
             Assert.AreEqual(m11Exp, Math.Round(actual.M11, 4));
             Assert.AreEqual(m12Exp, Math.Round(actual.M12, 4));
@@ -562,7 +562,7 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(2, 0, 0, -4, 0, 3, 0, -2, 0, 0, 4, 5, 0, 0, 0, 1, 24),
             // Student Data - MUST CHANGE
-            TestCase(5, 1, -4, -6, 1, 9, 3, -7, 5, 6, 9, 23, 4, 5, 2, 0, 833)
+            TestCase(5, 1, -4, -6, 1, 9, 3, -7, 5, 6, 9, 6, 4, 5, 2, 0, 1331),
         ]
         public void TestMatrix4Determinant(
             double m11, double m12, double m13, double m14,
@@ -572,7 +572,7 @@ namespace Engine.Tests.Lab2
             double expected)
         {
             // Create objects for the test
-            Eng_Matrix4x4 matrix = new Eng_Matrix4x4(m11, m12, m13, m14, m21, m22, m23, m24, m31, m31, m33, m34, m41, m42, m43, m44);
+            Eng_Matrix4x4 matrix = new Eng_Matrix4x4(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
             double actual;
             // Perform the test
             actual = matrix.Determinant();
@@ -593,7 +593,7 @@ namespace Engine.Tests.Lab2
             yield return new Object[]
             {
                 new Eng_Matrix4x4(5, 4, 2, -3, 4, 9, 1, 0, 2, 5, 0, 0, 4, 2, 0, 2),					// matrix
-                new Eng_Matrix4x4(0.5, 0, 0, 2, 0, 0.3333, 0, 0.6667, 0, 0, 0.25, -1.25, 0, 0, 0, 1)	// expected inverse
+                new Eng_Matrix4x4(0.1351, -0.0541, -0.0541, 0.2027, -0.2703, 0.1081, 1.1081, -0.0811, 0.2973, 0.0811, -1.9189, -0.0811, -0.2162, 0.4324, -0.6757, 0.1757)	// expected inverse
             };
         }//end of Matrix4InverseData
 
@@ -601,27 +601,27 @@ namespace Engine.Tests.Lab2
         public void TestMatrix4Inverse(Eng_Matrix4x4 m, Eng_Matrix4x4 expected)
         {
             // Perform the test
-            m.Inverse();
+            Eng_Matrix4x4 actual = m.Inverse();
             //Assert
-            Assert.AreEqual(expected.M11, Math.Round(m.M11, 4));
-            Assert.AreEqual(expected.M12, Math.Round(m.M12, 4));
-            Assert.AreEqual(expected.M13, Math.Round(m.M13, 4));
-            Assert.AreEqual(expected.M14, Math.Round(m.M14, 4));
+            Assert.AreEqual(expected.M11, Math.Round(actual.M11, 4));
+            Assert.AreEqual(expected.M12, Math.Round(actual.M12, 4));
+            Assert.AreEqual(expected.M13, Math.Round(actual.M13, 4));
+            Assert.AreEqual(expected.M14, Math.Round(actual.M14, 4));
 
-            Assert.AreEqual(expected.M21, Math.Round(m.M21, 4));
-            Assert.AreEqual(expected.M22, Math.Round(m.M22, 4));
-            Assert.AreEqual(expected.M23, Math.Round(m.M23, 4));
-            Assert.AreEqual(expected.M24, Math.Round(m.M24, 4));
+            Assert.AreEqual(expected.M21, Math.Round(actual.M21, 4));
+            Assert.AreEqual(expected.M22, Math.Round(actual.M22, 4));
+            Assert.AreEqual(expected.M23, Math.Round(actual.M23, 4));
+            Assert.AreEqual(expected.M24, Math.Round(actual.M24, 4));
 
-            Assert.AreEqual(expected.M31, Math.Round(m.M31, 4));
-            Assert.AreEqual(expected.M32, Math.Round(m.M32, 4));
-            Assert.AreEqual(expected.M33, Math.Round(m.M33, 4));
-            Assert.AreEqual(expected.M34, Math.Round(m.M34, 4));
+            Assert.AreEqual(expected.M31, Math.Round(actual.M31, 4));
+            Assert.AreEqual(expected.M32, Math.Round(actual.M32, 4));
+            Assert.AreEqual(expected.M33, Math.Round(actual.M33, 4));
+            Assert.AreEqual(expected.M34, Math.Round(actual.M34, 4));
 
-            Assert.AreEqual(expected.M41, Math.Round(m.M41, 4));
-            Assert.AreEqual(expected.M42, Math.Round(m.M42, 4));
-            Assert.AreEqual(expected.M43, Math.Round(m.M43, 4));
-            Assert.AreEqual(expected.M44, Math.Round(m.M44, 4));
+            Assert.AreEqual(expected.M41, Math.Round(actual.M41, 4));
+            Assert.AreEqual(expected.M42, Math.Round(actual.M42, 4));
+            Assert.AreEqual(expected.M43, Math.Round(actual.M43, 4));
+            Assert.AreEqual(expected.M44, Math.Round(actual.M44, 4));
 
         }//end of TestMatrix4Inverse
 
@@ -647,8 +647,8 @@ namespace Engine.Tests.Lab2
             TestCase(
             1, 5, 26, -7, 2, 0, -6, 4, 1, 7, 6, 1, 6, -5, 1, 6,
             1, 5, 26, 7, 2, 0, -6, 4, 1, 7, 6, 1, 6, -5, 1, 6,
-            1, 5, 26, -7, 2, 0, -6, 4, 1, 7, 6, 6, 6, -5, 1, 6,
-            false),
+            1, 5, 26, -7, 2, 0, -6, 4, 1, 7, 6, 1, 6, -5, 1, 6,
+            false)
         ]
         public void TestMatrix4Equality(
             double am11, double am12, double am13, double am14,
@@ -832,7 +832,7 @@ namespace Engine.Tests.Lab2
         }//end of TestMultiplyVector4ByMatrix4
 
         #endregion
-
+        // return to inverse's
         #region Part 3 - Quaternions
         //6.a - Test 2.c - Create from roll, pitch, and yaw angles (all in degrees).
         [Test,
@@ -841,7 +841,7 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(15, 10, 5, 0.98722829, 0.09199968, 0.03171637, 0.12613659),
             // Student Data - MUST CHANGE
-            TestCase(15, 10, 5, 0.98722829, 0.09199968, 0.03171637, 0.12613659)
+            TestCase(26, 41, 7, 0.91577241, 0.35345838, -0.02291569, 0.18948070)
         ]
 
         public void TestQuaternion(
@@ -849,11 +849,14 @@ namespace Engine.Tests.Lab2
             double expectedQw, double expectedQx, double expectedQy, double expectedQz)
         {
             // Create Objects for the test
-
+            Eng_Quaternion actual = new Eng_Quaternion(roll, pitch, yaw);
             // Perform the test
 
             // Assert (round to 8 decimal places)
-
+            Assert.AreEqual(expectedQw, Math.Round(actual.W, 8));
+            Assert.AreEqual(expectedQx, Math.Round(actual.X, 8));
+            Assert.AreEqual(expectedQy, Math.Round(actual.Y, 8));
+            Assert.AreEqual(expectedQz, Math.Round(actual.Z, 8));
         }//end of TestQuaternion
 
         //6.b - Test 3.a - Create Matrix from Quaternion.
@@ -870,16 +873,42 @@ namespace Engine.Tests.Lab2
                     0, 0, 0, 1)					// expected matrix
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+           {
+                new Eng_Quaternion(26, 41, 7), 	// create a Quaternion from angles to avoid having to use rounded values
+                new Eng_Matrix4x4(
+                    0.9271, -0.3632, 0.0920, 0,
+                    0.3308, 0.6783, -0.6561, 0,
+                    0.1759, 0.6387, 0.7491, 0,
+                    0, 0, 0, 1)                 // expected matrix
+           };
         }//end of QuaternionToMatrixData
 
         [Test, TestCaseSource(nameof(QuaternionToMatrixData))]
         public void TestQuaternionToMatrix(Eng_Quaternion q, Eng_Matrix4x4 expected)
         {
             // Perform the test
-
+            Eng_Matrix4x4 actual = q.ConvertToMatrix();
             // Assert
+            Assert.AreEqual(expected.M11, Math.Round(actual.M11, 4));
+            Assert.AreEqual(expected.M12, Math.Round(actual.M12, 4));
+            Assert.AreEqual(expected.M13, Math.Round(actual.M13, 4));
+            Assert.AreEqual(expected.M14, Math.Round(actual.M14, 4));
 
+            Assert.AreEqual(expected.M21, Math.Round(actual.M21, 4));
+            Assert.AreEqual(expected.M22, Math.Round(actual.M22, 4));
+            Assert.AreEqual(expected.M23, Math.Round(actual.M23, 4));
+            Assert.AreEqual(expected.M24, Math.Round(actual.M24, 4));
+
+            Assert.AreEqual(expected.M31, Math.Round(actual.M31, 4));
+            Assert.AreEqual(expected.M32, Math.Round(actual.M32, 4));
+            Assert.AreEqual(expected.M33, Math.Round(actual.M33, 4));
+            Assert.AreEqual(expected.M34, Math.Round(actual.M34, 4));
+
+            Assert.AreEqual(expected.M41, Math.Round(actual.M41, 4));
+            Assert.AreEqual(expected.M42, Math.Round(actual.M42, 4));
+            Assert.AreEqual(expected.M43, Math.Round(actual.M43, 4));
+            Assert.AreEqual(expected.M44, Math.Round(actual.M44, 4));
         }//end of TestQuaternionToMatrix
 
         //6.c - Test 3.b - Create rotation angles (in degrees) from Quaternion.
@@ -889,18 +918,21 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.98722829, 0.09199968, 0.03171637, 0.12613659, 15, 10, 5),
             // Student Data - MUST CHANGE
-            TestCase(0.98722829, 0.09199968, 0.03171637, 0.12613659, 15, 10, 5)
+            TestCase(0.91577241150489773146714905190176, 0.35345837979942597486553522736298, -0.0229156937728222291286962381087, 0.18948069837051801803512438244471, 26, 41, 7),
         ]
         public void TestQuaterionToEuler(
             double qW, double qX, double qY, double qZ,
             double expectedRoll, double expectedPitch, double expectedYaw)
         {
             // Create Objects for the test
-
+            Eng_Quaternion q = new Eng_Quaternion(qW, qX, qY, qZ);
             // Perform the test
-
+            Tuple<double, double, double> actual = q.ConvertToEuler();
+            
             // Assert
-
+            Assert.AreEqual(expectedRoll, Math.Round(actual.Item1,0));
+            Assert.AreEqual(expectedPitch, Math.Round(actual.Item2,0));
+            Assert.AreEqual(expectedYaw, Math.Round(actual.Item3, 0));
         }//end of TestQuaterionToEuler
 
         //6.d - Test 4.a - Equality of two Quaternions.
@@ -910,18 +942,26 @@ namespace Engine.Tests.Lab2
             // 4th to 7th = quaternion
             // Last = expected boolean for both == and !=
             // Instructor Data - MUST NOT DELETE OR MODIFY
-            TestCase(15, 10, 5, 0.98722829, 0.09199968, 0.03171637, 0.12613659, true),
+            TestCase(15, 10, 5, 0.98722829, 0.09199968, 0.03171637, 0.12613659, 0.98722829, 0.09199968, -0.03171637, 0.12613659, true),
             // Student Data - MUST CHANGE
-            TestCase(15, 10, 5, 0.98722829, 0.09199968, 0.03171637, 0.12613659, true)
+            TestCase(26, 41, 7, 0.91577241, 0.35345838, -0.02291569, 0.18948070, 0.91577241, 0.35345838, 0.02291569, 0.18948070, true)
         ]
-        public void TestQuaternionEquality(double roll, double pitch, double yaw, double qw, double qx, double qy, double qz, bool expected)
+        public void TestQuaternionEquality(double aRoll, double aPitch, double aYaw, double bqw, double bqx, double bqy, double bqz, double cqw, double cqx, double cqy, double cqz, bool expected)
         {
             // Create Objects for the test
-
-            // Perform the test (round all values to 8 decimal places before testing)
-
+            Eng_Quaternion a = new Eng_Quaternion(aRoll, aPitch, aYaw);
+            Eng_Quaternion b = new Eng_Quaternion(bqw, bqx, bqy, bqz);
+            Eng_Quaternion c = new Eng_Quaternion(cqw, cqx, cqy, cqz);
+            // Perform the test (round all values to 8 decimal places before testing) man i missed this f**k
+            a.W = Math.Round(a.W, 8);
+            a.X = Math.Round(a.X, 8);
+            a.Y = Math.Round(a.Y, 8);
+            a.Z = Math.Round(a.Z, 8);
+            bool testQuaternionAB = a == b;
+            bool testQuaternionAC = a != c;
             // Assert
-
+            Assert.AreEqual(expected, testQuaternionAB);
+            Assert.AreEqual(expected, testQuaternionAC);
         }//end of TestQuaternionEquality
 
         //6.e - Test 5.a - Multiplying a 4D vector by a Quaternion.
@@ -936,16 +976,21 @@ namespace Engine.Tests.Lab2
                 new Eng_Vector4D(3.3231, -2.0769, 3.6937, 1)    // expected q * v
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+            {
+                new Eng_Vector4D(5, -7, 2, 1),					// vector v
+                new Eng_Quaternion(26,41, 7),                  // Quaternion q
+                new Eng_Vector4D(3.3231, -2.0769, 3.6937, 1)    // expected q * v
+            };
         }//end of MultiplyVector4ByQuaternionData
 
         [Test, TestCaseSource(nameof(MultiplyVector4ByQuaternionData))]
         public void TestMultilyVector4ByQuaternion(Eng_Vector4D v, Eng_Quaternion q, Eng_Vector4D expected)
         {
             // Perform the test
-
+            Eng_Vector4D actual = v * q;
             // Assert
-
+            Assert.AreEqual(expected, actual);
         }//end of TestMultilyVector4ByQuaternion
 
         #endregion

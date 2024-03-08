@@ -84,12 +84,10 @@ namespace Engine.Mathematics
         //2.a - Create an Identity matrix.
         public void Identity()
         {
-			Eng_Matrix4x4 Identity = new Eng_Matrix4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
-
-            //m11=1; m12=0; m13=0; m14=0; 
-            //m21=0; m22=1; m23=0; m24=0;
-            //m31=0; m32=0; m33=1; m34=0;
-            //m41=0; m42=0; m43=0; m44=1;
+            M11=1; M12=0; M13=0; M14=0; 
+            M21=0; M22=1; M23=0; M24=0;
+            M31=0; M32=0; M33=1; M34=0;
+            M41=0; M42=0; M43=0; M44=1;
         }//end of Identity
 
         //2.b - Create from Transformation (Scale and Shift).
@@ -172,14 +170,17 @@ namespace Engine.Mathematics
         public Eng_Matrix4x4 Inverse()
         {
             //almost certainly an easier way but alas this should work
-
+            Eng_Matrix4x4 m = new Eng_Matrix4x4(M11,M12,M13,M14,
+                                                M21,M22,M23,M24,
+                                                M31,M32,M33,M34,
+                                                M41,M42,M43,M44);
             Eng_Matrix4x4 c = new Eng_Matrix4x4();
-            double det = c.Determinant();
+            double det = m.Determinant();
 
             Eng_Matrix3x3 v11 = new Eng_Matrix3x3(M22, M23, M24, M32, M33, M34, M42, M43, M44);
             Eng_Matrix3x3 v12 = new Eng_Matrix3x3(M21, M23, M24, M31, M33, M34, M41, M43, M44);
             Eng_Matrix3x3 v13 = new Eng_Matrix3x3(M21, M22, M24, M31, M32, M34, M41, M42, M44);
-            Eng_Matrix3x3 v14 = new Eng_Matrix3x3(M21, M22, M23, M31, M32, M33, M41, M42, M43);
+            Eng_Matrix3x3 v14 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M32, M33, M34); 
 
             c.M11 = (v11.Determinant() / det);
             c.M12 = (-v12.Determinant() / det);
@@ -189,7 +190,7 @@ namespace Engine.Mathematics
             Eng_Matrix3x3 v21 = new Eng_Matrix3x3(M12, M13, M14, M32, M33, M34, M42, M43, M44);
             Eng_Matrix3x3 v22 = new Eng_Matrix3x3(M11, M13, M14, M31, M33, M34, M41, M43, M44);
             Eng_Matrix3x3 v23 = new Eng_Matrix3x3(M11, M12, M14, M31, M32, M34, M41, M42, M44);
-            Eng_Matrix3x3 v24 = new Eng_Matrix3x3(M11, M12, M13, M31, M32, M33, M41, M42, M43);
+            Eng_Matrix3x3 v24 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M31, M33, M34); 
 
             c.M21 = (-v21.Determinant() / det);
             c.M22 = (v22.Determinant() / det);
@@ -199,16 +200,16 @@ namespace Engine.Mathematics
             Eng_Matrix3x3 v31 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M42, M43, M44);
             Eng_Matrix3x3 v32 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M41, M43, M44);
             Eng_Matrix3x3 v33 = new Eng_Matrix3x3(M11, M12, M14, M21, M22, M24, M41, M42, M44);
-            Eng_Matrix3x3 v34 = new Eng_Matrix3x3(M11, M12, M13, M21, M22, M23, M41, M42, M43);
+            Eng_Matrix3x3 v34 = new Eng_Matrix3x3(M11, M12, M14, M21, M22, M24, M31, M32, M34); 
 
             c.M31 = (v31.Determinant() / det);
             c.M32 = (-v32.Determinant() / det);
             c.M33 = (v33.Determinant() / det);
             c.M34 = (-v34.Determinant() / det);
 
-            Eng_Matrix3x3 v41 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M32, M33, M34);
-            Eng_Matrix3x3 v42 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M31, M33, M34);
-            Eng_Matrix3x3 v43 = new Eng_Matrix3x3(M11, M12, M14, M21, M22, M24, M31, M32, M34);
+            Eng_Matrix3x3 v41 = new Eng_Matrix3x3(M21, M22, M23, M31, M32, M33, M41, M42, M43);
+            Eng_Matrix3x3 v42 = new Eng_Matrix3x3(M11, M12, M13, M31, M32, M33, M41, M42, M43);
+            Eng_Matrix3x3 v43 = new Eng_Matrix3x3(M11, M12, M13, M21, M22, M23, M41, M42, M43);
             Eng_Matrix3x3 v44 = new Eng_Matrix3x3(M11, M12, M13, M21, M22, M23, M31, M32, M33);
 
             c.M41 = (-v41.Determinant() / det);

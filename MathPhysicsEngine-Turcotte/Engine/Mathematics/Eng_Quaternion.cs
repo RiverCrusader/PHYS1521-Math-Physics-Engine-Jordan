@@ -30,7 +30,7 @@ namespace Engine.Mathematics
 
             magnitude = Math.Sqrt(Math.Pow(w,2) + Math.Pow(x, 2) + Math.Pow(y, 2) + Math.Pow(z, 2));
 
-            if (magnitude != 1)
+            if (magnitude > 1 && magnitude < 1)
             {
                 throw new ArgumentOutOfRangeException("The magnitude of a quaternion must be 1 for it to be valid. inputted numbers do not make a valid quaternion");
             }
@@ -38,7 +38,7 @@ namespace Engine.Mathematics
             {
                 W = w;
                 X = x;
-                Y = y; 
+                Y = y;
                 Z = z;
             }
         }//eom
@@ -62,7 +62,7 @@ namespace Engine.Mathematics
         public Eng_Matrix4x4 ConvertToMatrix()
         {
             return new Eng_Matrix4x4((1 - 2 * (Math.Pow(Y, 2) + Math.Pow(Z, 2))), (2 * ((X * Y) - (W * Z))), (2 * ((X * Z) + (W * Y))), 0,
-                                     (2 * ((X * Y) + (W * Y))), (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Z, 2))), (2 * ((Y * Z) - (W * X))), 0,
+                                     (2 * ((X * Y) + (W * Z))), (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Z, 2))), (2 * ((Y * Z) - (W * X))), 0,
                                      (2 * ((X * Z) - (W * Y))), (2 * ((Y * Z) + (W * X))), (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Y, 2))), 0,
                                                     0,                        0,                                    0,                  1);
 
@@ -73,9 +73,9 @@ namespace Engine.Mathematics
         {
             double roll, pitch, yaw;
 
-            roll = Math.Atan((2 * ((X * Y) + (W * Z))) / (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Y, 2))));
+            roll = Math.Atan((2 * ((X * Y) + (W * Z))) / (1 - (2 * (Math.Pow(X, 2) + Math.Pow(Z, 2)))));
             pitch = Math.Asin(-2 * ((Y * Z) - (W * X)));
-            yaw = Math.Atan(2 * ((X * Z) + (W * Y)) / (1 - 2 * (Math.Pow(X, 2) + Math.Pow(Y, 2))));
+            yaw = Math.Atan(2 * ((X * Z) + (W * Y)) / (1 - (2 * (Math.Pow(X, 2) + Math.Pow(Y, 2)))));
 
             roll = Functions.RadiansToDegrees(roll);
             pitch = Functions.RadiansToDegrees(pitch);

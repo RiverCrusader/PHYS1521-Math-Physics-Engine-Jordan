@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Mathematics
 {
-	public class Eng_Matrix3x3
+    public class Eng_Matrix3x3
     {
         //1.a - Properties.
         public double M11 { get; set; }
@@ -34,9 +34,9 @@ namespace Engine.Mathematics
             M32 = 0;
             M33 = 0;
         }//eom
-		
-		//1.c - Non-empty Constructor.
-		public Eng_Matrix3x3(double m11,double m12,double m13, double m21, double m22, double m23, double m31, double m32, double m33)
+
+        //1.c - Non-empty Constructor.
+        public Eng_Matrix3x3(double m11, double m12, double m13, double m21, double m22, double m23, double m31, double m32, double m33)
         {
             M11 = m11;
             M12 = m12;
@@ -50,31 +50,29 @@ namespace Engine.Mathematics
             M32 = m32;
             M33 = m33;
         }//eom
-       
+
         #region Additional Constructors
         //2.a - Create an Identity matrix.
         public void Identity()
         {
-            Eng_Matrix3x3 Identity = new Eng_Matrix3x3(1, 0, 0, 0, 1, 0, 0, 0, 1); 
+            M11 = 1; M12 = 0; M13 = 0;
+            M21 = 0; M22 = 1; M23 = 0;
+            M31 = 0; M32 = 0; M33 = 1;
+        }//end of Identity
 
-			//m11=1; m12=0; m13=0; 
-            //m21=0; m22=1; m23=0;
-            //m31=0; m32=0; m33=1;
-		}//end of Identity
-		
         //2.b - Create a 2D rotation matrix from a given angle in degrees.
         public Eng_Matrix3x3 Create2DRotationMatrix(double angle)
         {
             angle = Functions.DegreesToRadians(angle);
 
-            return new Eng_Matrix3x3(Math.Cos(angle),-Math.Sin(angle),0,Math.Sin(angle),Math.Cos(angle),0,0,0,1);
+            return new Eng_Matrix3x3(Math.Cos(angle), -Math.Sin(angle), 0, Math.Sin(angle), Math.Cos(angle), 0, 0, 0, 1);
         }//end of Create2DRotationMatrix
-		
+
         //2.c - Create from Transformation (Scale and Shift).
-        public Eng_Matrix3x3 Create2DTransformationMatrix (double shiftX, double shiftY, double scaleX, double scaleY)
+        public Eng_Matrix3x3 Create2DTransformationMatrix(double shiftX, double shiftY, double scaleX, double scaleY)
         {
             return new Eng_Matrix3x3(scaleX, 0, shiftX, 0, scaleY, shiftY, 0, 0, 1);
-            
+
         }//end of Cre.
         #endregion
 
@@ -87,7 +85,7 @@ namespace Engine.Mathematics
             t.M11 = M11;
             t.M12 = M21;
             t.M13 = M31;
-                
+
             t.M21 = M12;
             t.M22 = M22;
             t.M23 = M32;
@@ -97,33 +95,36 @@ namespace Engine.Mathematics
             t.M33 = M33;
 
             return t;
-		}//end of Transpose
-		
+        }//end of Transpose
+
         //3.b - Calculate the determinant of a matrix.
         public double Determinant()
         {
-            return (M11 * M22 * M33) - (M11 * M23 * M32) - (M12 * M21 * M33) + (M12 * M23 * M31) + (M13 * M21 * M32) - (M13 * M22 * M31);
+            return M11 * (M22 * M33 - M23 * M32) - M12 * (M21 * M33 - M23 * M31) + M13 * (M21 * M32 - M22 * M31);
         }//end of Determinant
-		
+
         //3.c - Calculate the inverse of a matrix.
         public Eng_Matrix3x3 Inverse()
         {
             //aw man this is gonna take a hot momment actually didnt take that long
+            Eng_Matrix3x3 m = new Eng_Matrix3x3(M11,M12,M13,
+                                                M21,M22,M23,
+                                                M31,M32,M33);
+            double det = m.Determinant();
 
             Eng_Matrix3x3 c = new Eng_Matrix3x3();
-            double det = c.Determinant();
 
-            c.M11 = ((M22 * M33) - (M23 * M32) / det);
+            c.M11 = ((M22 * M33) - (M23 * M32)) / det;
             c.M12 = (-((M21 * M33) - (M23 * M31)) / det);
-            c.M13 = ((M21 * M32) - (M22 * M21) / det);
+            c.M13 = ((M21 * M32) - (M22 * M31)) / det;
 
-            c.M21 = (-((M12 * M33) - (M13 * M32)) / det);
-            c.M22 = ((M11 * M33) - (M13 * M31) / det);
-            c.M23 = (-((M11 * M32) - (M12 * M31)) / det);
+            c.M21 = (-((M12 * M33) - (M13 * M32))) / det;
+            c.M22 = ((M11 * M33) - (M13 * M31)) / det;
+            c.M23 = (-((M11 * M32) - (M12 * M31))) / det;
 
-            c.M31 = ((M12 * M23) - (M13 * M22) / det);
+            c.M31 = ((M12 * M23) - (M13 * M22)) / det;
             c.M32 = (-((M11 * M23) - (M13 * M21)) / det);
-            c.M33 = ((M11 * M22) - (M12 * M21) / det);
+            c.M33 = ((M11 * M22) - (M12 * M21)) / det;
 
             return c;
         }//end of Inverse
@@ -136,7 +137,7 @@ namespace Engine.Mathematics
         {
             return true;
         }//eom
-		
+
         public override int GetHashCode()
         {
             return 0;
@@ -146,7 +147,7 @@ namespace Engine.Mathematics
         //4.a - Equality of two 3x3 matrices.
         public static bool operator ==(Eng_Matrix3x3 a, Eng_Matrix3x3 b)
         {
-            return 
+            return
             a.M11 == b.M11 &&
             a.M12 == b.M12 &&
             a.M13 == b.M13 &&
