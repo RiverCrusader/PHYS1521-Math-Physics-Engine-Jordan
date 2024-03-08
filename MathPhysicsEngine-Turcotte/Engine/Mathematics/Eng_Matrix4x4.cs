@@ -49,9 +49,9 @@ namespace Engine.Mathematics
             M43 = 0;
             M44 = 0;
         }//eom
-		
-		//1.c - Non-empty Constructor.
-		public Eng_Matrix4x4(
+
+        //1.c - Non-empty Constructor.
+        public Eng_Matrix4x4(
             double m11, double m12, double m13, double m14,
             double m21, double m22, double m23, double m24,
             double m31, double m32, double m33, double m34,
@@ -84,17 +84,17 @@ namespace Engine.Mathematics
         //2.a - Create an Identity matrix.
         public void Identity()
         {
-            M11=1; M12=0; M13=0; M14=0; 
-            M21=0; M22=1; M23=0; M24=0;
-            M31=0; M32=0; M33=1; M34=0;
-            M41=0; M42=0; M43=0; M44=1;
+            M11 = 1; M12 = 0; M13 = 0; M14 = 0;
+            M21 = 0; M22 = 1; M23 = 0; M24 = 0;
+            M31 = 0; M32 = 0; M33 = 1; M34 = 0;
+            M41 = 0; M42 = 0; M43 = 0; M44 = 1;
         }//end of Identity
 
         //2.b - Create from Transformation (Scale and Shift).
         public Eng_Matrix4x4 Create3DTransformationMatrix(double shiftX, double shiftY, double shiftZ, double scaleX, double scaleY, double scaleZ)
         {
-			return new Eng_Matrix4x4(scaleX,0,0,shiftX,0,scaleY,0,shiftY,0,0,scaleZ,shiftZ,0,0,0,1);
-		}//end of Create3DTransformationMatrix
+            return new Eng_Matrix4x4(scaleX, 0, 0, shiftX, 0, scaleY, 0, shiftY, 0, 0, scaleZ, shiftZ, 0, 0, 0, 1);
+        }//end of Create3DTransformationMatrix
 
         //2.c - Create a Roll rotation matrix from an angle in degrees.
         public Eng_Matrix4x4 CreateRollRotationMatrix(double angle)
@@ -103,7 +103,7 @@ namespace Engine.Mathematics
 
             return new Eng_Matrix4x4(Math.Cos(angle), -Math.Sin(angle), 0, 0, Math.Sin(angle), Math.Cos(angle), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
         }//end of CreateRollRotationMatrix
-		
+
         //2.d - Create a Pitch rotation matrix from an angle in degrees.
         public Eng_Matrix4x4 CreatePitchRotationMatrix(double angle)
         {
@@ -111,7 +111,7 @@ namespace Engine.Mathematics
 
             return new Eng_Matrix4x4(1, 0, 0, 0, 0, Math.Cos(angle), -Math.Sin(angle), 0, 0, Math.Sin(angle), Math.Cos(angle), 0, 0, 0, 0, 1);
         }//end of CreatePitchRotationMatrix
-		
+
         //2.e - Create a Yaw rotation matrix from an angle in degrees.
         public Eng_Matrix4x4 CreateYawRotationMatrix(double angle)
         {
@@ -149,7 +149,7 @@ namespace Engine.Mathematics
 
             return t;
         }//end of Transpose
-		
+
         //3.b - Calculate the determinant of a matrix.
         //      HINT: Call the determinant of the Eng_Matrix3x3 class as required.
         public double Determinant()
@@ -165,62 +165,62 @@ namespace Engine.Mathematics
                  - (M14 * v14.Determinant());
 
         }//end of Determinant
-		
+
         //3.c - Calculate the inverse of a matrix.
         public Eng_Matrix4x4 Inverse()
         {
             //almost certainly an easier way but alas this should work
-            Eng_Matrix4x4 m = new Eng_Matrix4x4(M11,M12,M13,M14,
-                                                M21,M22,M23,M24,
-                                                M31,M32,M33,M34,
-                                                M41,M42,M43,M44);
+            Eng_Matrix4x4 m = new Eng_Matrix4x4(M11, M12, M13, M14,
+                                                M21, M22, M23, M24,
+                                                M31, M32, M33, M34,
+                                                M41, M42, M43, M44);
             Eng_Matrix4x4 c = new Eng_Matrix4x4();
             double det = m.Determinant();
 
             Eng_Matrix3x3 v11 = new Eng_Matrix3x3(M22, M23, M24, M32, M33, M34, M42, M43, M44);
-            Eng_Matrix3x3 v12 = new Eng_Matrix3x3(M21, M23, M24, M31, M33, M34, M41, M43, M44);
-            Eng_Matrix3x3 v13 = new Eng_Matrix3x3(M21, M22, M24, M31, M32, M34, M41, M42, M44);
-            Eng_Matrix3x3 v14 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M32, M33, M34); 
+            Eng_Matrix3x3 v12 = new Eng_Matrix3x3(M12, M13, M14, M32, M33, M34, M42, M43, M44);
+            Eng_Matrix3x3 v13 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M42, M43, M44);
+            Eng_Matrix3x3 v14 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M32, M33, M34);
 
-            c.M11 = (v11.Determinant() / det);
-            c.M12 = (-v12.Determinant() / det);
-            c.M13 = (v13.Determinant() / det);
-            c.M14 = (-v14.Determinant() / det);
+            c.M11 = v11.Determinant() / det;
+            c.M12 = -(v12.Determinant()) / det;
+            c.M13 = v13.Determinant() / det;
+            c.M14 = -(v14.Determinant()) / det;
 
-            Eng_Matrix3x3 v21 = new Eng_Matrix3x3(M12, M13, M14, M32, M33, M34, M42, M43, M44);
+            Eng_Matrix3x3 v21 = new Eng_Matrix3x3(M21, M23, M24, M31, M33, M34, M41, M43, M44);
             Eng_Matrix3x3 v22 = new Eng_Matrix3x3(M11, M13, M14, M31, M33, M34, M41, M43, M44);
-            Eng_Matrix3x3 v23 = new Eng_Matrix3x3(M11, M12, M14, M31, M32, M34, M41, M42, M44);
-            Eng_Matrix3x3 v24 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M31, M33, M34); 
+            Eng_Matrix3x3 v23 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M41, M43, M44);
+            Eng_Matrix3x3 v24 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M31, M33, M34);
 
-            c.M21 = (-v21.Determinant() / det);
-            c.M22 = (v22.Determinant() / det);
-            c.M23 = (-v23.Determinant() / det);
-            c.M24 = (v24.Determinant() / det);
+            c.M21 = -(v21.Determinant()) / det;
+            c.M22 = v22.Determinant() / det;
+            c.M23 = -(v23.Determinant()) / det;
+            c.M24 = v24.Determinant() / det;
 
-            Eng_Matrix3x3 v31 = new Eng_Matrix3x3(M12, M13, M14, M22, M23, M24, M42, M43, M44);
-            Eng_Matrix3x3 v32 = new Eng_Matrix3x3(M11, M13, M14, M21, M23, M24, M41, M43, M44);
+            Eng_Matrix3x3 v31 = new Eng_Matrix3x3(M21, M22, M24, M31, M32, M34, M41, M42, M44);
+            Eng_Matrix3x3 v32 = new Eng_Matrix3x3(M11, M12, M14, M31, M32, M34, M41, M42, M44);
             Eng_Matrix3x3 v33 = new Eng_Matrix3x3(M11, M12, M14, M21, M22, M24, M41, M42, M44);
-            Eng_Matrix3x3 v34 = new Eng_Matrix3x3(M11, M12, M14, M21, M22, M24, M31, M32, M34); 
+            Eng_Matrix3x3 v34 = new Eng_Matrix3x3(M11, M12, M14, M21, M22, M24, M31, M32, M34);
 
-            c.M31 = (v31.Determinant() / det);
-            c.M32 = (-v32.Determinant() / det);
-            c.M33 = (v33.Determinant() / det);
-            c.M34 = (-v34.Determinant() / det);
+            c.M31 = v31.Determinant() / det;
+            c.M32 = -(v32.Determinant()) / det;
+            c.M33 = v33.Determinant() / det;
+            c.M34 = -(v34.Determinant()) / det;
 
             Eng_Matrix3x3 v41 = new Eng_Matrix3x3(M21, M22, M23, M31, M32, M33, M41, M42, M43);
             Eng_Matrix3x3 v42 = new Eng_Matrix3x3(M11, M12, M13, M31, M32, M33, M41, M42, M43);
             Eng_Matrix3x3 v43 = new Eng_Matrix3x3(M11, M12, M13, M21, M22, M23, M41, M42, M43);
             Eng_Matrix3x3 v44 = new Eng_Matrix3x3(M11, M12, M13, M21, M22, M23, M31, M32, M33);
 
-            c.M41 = (-v41.Determinant() / det);
-            c.M42 = (v42.Determinant() / det);
-            c.M43 = (-v43.Determinant() / det);
-            c.M44 = (v44.Determinant() / det);
+            c.M41 = -(v41.Determinant()) / det;
+            c.M42 = v42.Determinant() / det;
+            c.M43 = -(v43.Determinant()) / det;
+            c.M44 = v44.Determinant() / det;
 
             return c;
         }//end of Inverse
         #endregion
- 
+
         #region Overload Operators
         #region Complier Warning Fix
         // the following two methods are to remove the CS0660 and CS0661 compiler warnings
@@ -228,7 +228,7 @@ namespace Engine.Mathematics
         {
             return true;
         }//eom
-		
+
         public override int GetHashCode()
         {
             return 0;

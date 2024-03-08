@@ -593,7 +593,7 @@ namespace Engine.Tests.Lab2
             yield return new Object[]
             {
                 new Eng_Matrix4x4(5, 4, 2, -3, 4, 9, 1, 0, 2, 5, 0, 0, 4, 2, 0, 2),					// matrix
-                new Eng_Matrix4x4(0.1351, -0.0541, -0.0541, 0.2027, -0.2703, 0.1081, 1.1081, -0.0811, 0.2973, 0.0811, -1.9189, -0.0811, -0.2162, 0.4324, -0.6757, 0.1757)	// expected inverse
+                new Eng_Matrix4x4(0.1351, -0.2703, 0.2973, 0.2027, -0.0541, 0.1081, 0.0811, -0.0811, -0.0541, 1.1081, -1.9189, -0.0811, -0.2162, 0.4324, -0.6757, 0.1757)	// expected inverse
             };
         }//end of Matrix4InverseData
 
@@ -787,7 +787,8 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(2, 3, 4, 1, 2.0, 3.0, 4.0, 1.0, 2, -3, 4, 1, true),
             // Student Data - MUST CHANGE
-            TestCase(5, 4, 6, 8, 5, 4, 6, 8, -5, 4, 6, 8, true)
+            TestCase(5, 4, 6, 8, 5, 4, 6, 8, -5, 4, 6, 8, true),
+            TestCase(5, 4, 6, 8, -5, 4, 6, 8, 5, 4, 6, 8, false)
         ]
         public void TestVector4Equality(double ax, double ay, double az, double aw, double bx, double by, double bz, double bw, double cx, double cy, double cz, double cw, bool expected)
         {
@@ -832,7 +833,7 @@ namespace Engine.Tests.Lab2
         }//end of TestMultiplyVector4ByMatrix4
 
         #endregion
-        // return to inverse's
+        
         #region Part 3 - Quaternions
         //6.a - Test 2.c - Create from roll, pitch, and yaw angles (all in degrees).
         [Test,
@@ -918,7 +919,7 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.98722829, 0.09199968, 0.03171637, 0.12613659, 15, 10, 5),
             // Student Data - MUST CHANGE
-            TestCase(0.91577241150489773146714905190176, 0.35345837979942597486553522736298, -0.0229156937728222291286962381087, 0.18948069837051801803512438244471, 26, 41, 7),
+            TestCase(0.91577241, 0.35345838, -0.02291569, 0.18948070, 26, 41, 7),
         ]
         public void TestQuaterionToEuler(
             double qW, double qX, double qY, double qZ,
@@ -944,7 +945,8 @@ namespace Engine.Tests.Lab2
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(15, 10, 5, 0.98722829, 0.09199968, 0.03171637, 0.12613659, 0.98722829, 0.09199968, -0.03171637, 0.12613659, true),
             // Student Data - MUST CHANGE
-            TestCase(26, 41, 7, 0.91577241, 0.35345838, -0.02291569, 0.18948070, 0.91577241, 0.35345838, 0.02291569, 0.18948070, true)
+            TestCase(26, 41, 7, 0.91577241, 0.35345838, -0.02291569, 0.18948070, 0.91577241, 0.35345838, 0.02291569, 0.18948070, true),
+            TestCase(26, 41, 7, 0.91577241, 0.35345838, 0.02291569, 0.18948070, 0.91577241, 0.35345838, -0.02291569, 0.18948070, false)
         ]
         public void TestQuaternionEquality(double aRoll, double aPitch, double aYaw, double bqw, double bqx, double bqy, double bqz, double cqw, double cqx, double cqy, double cqz, bool expected)
         {
