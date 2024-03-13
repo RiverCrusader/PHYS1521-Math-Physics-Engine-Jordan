@@ -65,7 +65,9 @@ namespace Engine.Physics
 		//		HINT: Modify the velocity an position properties of the Phys_Body
         public Phys_Body LinearPostionAndVelocity(Phys_Body b, double t)
         {
-			
+            b.Velocity = b.Velocity + (b.Acceleration * t);
+            b.Position = (b.Velocity * t) + (b.Acceleration * 0.5 * Math.Pow(t, 2));
+
 			return b;
 		}//end of LinearPostionAndVelocity
 
@@ -75,7 +77,8 @@ namespace Engine.Physics
 		//		HINT: Modify the properties of the Phys_Body
         public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b)
         {
-			
+			b.Position = 
+
 			return b;
 		}//end of ProjectilePostionAndVelocity
 
