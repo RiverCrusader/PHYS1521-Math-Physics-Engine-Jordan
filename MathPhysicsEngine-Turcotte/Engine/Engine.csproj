@@ -50,10 +50,10 @@
     <Compile Include="Mathematics\Eng_Vector3D.cs" />
     <Compile Include="Mathematics\Eng_Vector4D.cs" />
     <Compile Include="Mathematics\Functions.cs" />
+    <Compile Include="Mathematics\Spring.cs" />
+    <Compile Include="Physics\Phys_Body.cs" />
+    <Compile Include="Physics\Phys_World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Physics\Beans.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

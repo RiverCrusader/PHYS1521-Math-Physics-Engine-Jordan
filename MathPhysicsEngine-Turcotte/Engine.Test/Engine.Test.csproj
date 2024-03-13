@@ -51,6 +51,7 @@
     <Compile Include="Demo\DemoTester.cs" />
     <Compile Include="Lab 1\Lab1Tester.cs" />
     <Compile Include="Lab 2\Lab2Tester.cs" />
+    <Compile Include="Lab 3\Lab3Tester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +64,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Lab 3\Temp.txt" />
     <Content Include="Lab 4\Temp.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
