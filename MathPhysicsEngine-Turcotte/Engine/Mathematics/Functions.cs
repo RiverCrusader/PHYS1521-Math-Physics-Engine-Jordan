@@ -10,16 +10,32 @@ namespace Engine.Mathematics
     {
         #region Class Variabbles
         private static double pi = Math.PI;
-		#endregion
+        #endregion
 
-		#region Methods for later use
+        #region Methods for later use
+        public static double QuadraticNegative(double a, double b, double c)
+        {
+            double b2 = b * b;
+            double ac4 = 4 * a * c;
+            double a2 = 2 * a;
+            double root = b2 - ac4;
+            return (-1 * b - Math.Sqrt(root)) / a2;
+        }//eom
 
-		#endregion
+        public static double QuadraticPositive(double a, double b, double c)
+        {
+            double b2 = b * b;
+            double ac4 = 4 * a * c;
+            double a2 = 2 * a;
+            double root = b2 - ac4;
+            return (-1 * b + Math.Sqrt(root)) / a2;
+        }//eom
+        #endregion
 
-		#region General Math
-		//1.a - A method to convert degrees to radians
+        #region General Math
+        //1.a - A method to convert degrees to radians
 
-		public static double DegreesToRadians(double inputDegree)
+        public static double DegreesToRadians(double inputDegree)
 		{
 			double outputRadian;
 			outputRadian = inputDegree * pi;

@@ -77,9 +77,32 @@ namespace Engine.Physics
 		//		HINT: Modify the properties of the Phys_Body
         public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b)
         {
-			b.Position = 
+            double tN,tP,time;
 
-			return b;
+            tN = Functions.QuadraticNegative(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
+            tP = Functions.QuadraticPositive(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
+
+            if (tN > 0)
+            {
+                time = tN;
+            }
+            else
+            {
+                if(tP > 0)
+                {
+                    time = tP;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result");
+                }
+            }
+
+            b.Velocity = b.Velocity + (w.Gravity * time);
+
+            b.Position = b.Velocity * time;
+
+            return b;
 		}//end of ProjectilePostionAndVelocity
 
         //1.a - Set the rotational motion properties of the Phys_Body given a Phys_Body and
@@ -87,7 +110,10 @@ namespace Engine.Physics
 		//		HINT: Modify the properties of the Phys_Body
         public Phys_Body CalculateCentripetalAcceleration(Phys_Body b, double rpm)
         {
-			
+            b.Omega = (2 * (rpm / 60)) * Math.PI;
+
+            b.CentripetalAcceleration = Math.Pow(b.Omega, 2) * b.Radius; 
+
 			return b;
 		}//end of CalculateCentripetalAcceleration
 
@@ -98,8 +124,28 @@ namespace Engine.Physics
 		//		HINT: Modify the properties of the Phys_Body
         public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t)
         {
-			
-			return b;
+            angle = Functions.DegreesToRadians(angle);
+
+            Eng_Vector3D forceApplied = new Eng_Vector3D();
+
+            forceApplied.X = force.X * (Math.Cos(angle));
+            forceApplied.Y = force.X * (Math.Sin(angle));
+
+            Eng_Vector3D Weight = w.Gravity * b.Mass;
+
+            Eng_Vector3D forceNormal = (Weight * -1) + forceApplied.Y;
+
+            Eng_Vector3D forceFriction = forceNormal * mu;
+
+            Eng_Vector3D fNet = Weight + forceNormal + forceFriction + forceApplied;
+
+            b.Acceleration = fNet / b.Mass;
+
+            b.Velocity = b.Acceleration * t;
+
+            b.Position = b.Velocity * t;
+
+            return b;
 		}//end of ApplyForce
 
         //1.b - Calculate the new velocity properties of two Phys_Body objects after they come
