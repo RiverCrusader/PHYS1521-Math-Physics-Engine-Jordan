@@ -77,6 +77,9 @@ namespace Engine.Physics
 		//		HINT: Modify the properties of the Phys_Body
         public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b)
         {
+
+            //i think this is broken
+
             double tN,tP,time;
 
             tN = Functions.QuadraticNegative(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
@@ -161,7 +164,7 @@ namespace Engine.Physics
         //1.a - Calculate the force of attraction between two celestial bodies.
         public double GravitationalForce(Phys_Body a, Phys_Body b, double d)
         {
-			
+            return G * ((a.Mass * b.Mass) / Math.Pow(d, 2));
 		}//end of GravitationalForce
         #endregion
     }//eoc
