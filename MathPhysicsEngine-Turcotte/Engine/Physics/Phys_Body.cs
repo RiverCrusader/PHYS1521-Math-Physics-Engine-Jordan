@@ -78,22 +78,22 @@ namespace Engine.Physics
         public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b)
         {
 
-            //i think this is broken
+            //Y variables Code
 
-            double tN,tP,time;
+            double tNY,tPY,timeY;
 
-            tN = Functions.QuadraticNegative(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
-            tP = Functions.QuadraticPositive(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
+            tNY = Functions.QuadraticNegative(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
+            tPY = Functions.QuadraticPositive(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
 
-            if (tN > 0)
+            if (tNY > 0)
             {
-                time = tN;
+                timeY = tNY;
             }
             else
             {
-                if(tP > 0)
+                if(tPY > 0)
                 {
-                    time = tP;
+                    timeY = tPY;
                 }
                 else
                 {
@@ -101,11 +101,39 @@ namespace Engine.Physics
                 }
             }
 
-            b.Velocity = b.Velocity + (w.Gravity * time);
+            b.Velocity.Y = b.Velocity.Y + (w.Gravity.Y * timeY);
 
-            b.Position = b.Velocity * time;
+            b.Position.Y = b.Velocity.Y * timeY;
 
-            return b;
+
+
+            //X variable code
+			double tNX, tPX, timeX;
+
+			tNX = Functions.QuadraticNegative(b.Velocity.X, w.Gravity.X, b.Position.X);
+			tPX = Functions.QuadraticPositive(b.Velocity.X, w.Gravity.X, b.Position.X);
+
+			if (tNX > 0)
+			{
+				timeX = tNX;
+			}
+			else
+			{
+				if (tPX > 0)
+				{
+					timeX = tPX;
+				}
+				else
+				{
+					throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result");
+				}
+			}
+
+			b.Velocity.X = b.Velocity.X + (w.Gravity.X * timeX);
+
+			b.Position.X = b.Velocity.X * timeX;
+
+			return b;
 		}//end of ProjectilePostionAndVelocity
 
         //1.a - Set the rotational motion properties of the Phys_Body given a Phys_Body and
@@ -127,6 +155,9 @@ namespace Engine.Physics
 		//		HINT: Modify the properties of the Phys_Body
         public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t)
         {
+            //not working
+
+
             angle = Functions.DegreesToRadians(angle);
 
             Eng_Vector3D forceApplied = new Eng_Vector3D();
@@ -136,7 +167,7 @@ namespace Engine.Physics
 
             Eng_Vector3D Weight = w.Gravity * b.Mass;
 
-            Eng_Vector3D forceNormal = (Weight * -1) + forceApplied.Y;
+            Eng_Vector3D forceNormal = (Weight * -1) + forceApplied;
 
             Eng_Vector3D forceFriction = forceNormal * mu;
 
