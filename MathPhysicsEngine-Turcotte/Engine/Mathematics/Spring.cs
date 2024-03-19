@@ -24,7 +24,10 @@ namespace Engine.Physics
         //1.a - Set the properties of a Spring from rest length, stretched length, and force.
 		public Spring(double lRest, double l, double force)
         {
-            return new Spring(force/(lRest - l), lRest);
+            LRest = lRest;
+           
+            //more
+
 		}//end of Spring
         
         #region Class Methods
