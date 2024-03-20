@@ -165,9 +165,11 @@ namespace Engine.Physics
             forceApplied.X = force.X * (Math.Cos(angle));
             forceApplied.Y = force.X * (Math.Sin(angle));
 
-            Eng_Vector3D Weight = w.Gravity * b.Mass;
+            //need the weight angle stuff
 
-            Eng_Vector3D forceNormal = (Weight * -1) + forceApplied;
+            //Eng_Vector3D Weight = w.Gravity * b.Mass;
+
+            //Eng_Vector3D forceNormal = ((Weight * Math.Cos(angle))* -1) + forceApplied.X;
 
             Eng_Vector3D forceFriction = forceNormal * mu;
 

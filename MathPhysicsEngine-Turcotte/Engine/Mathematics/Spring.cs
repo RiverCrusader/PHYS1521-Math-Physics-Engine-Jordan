@@ -25,8 +25,7 @@ namespace Engine.Physics
 		public Spring(double lRest, double l, double force)
         {
             LRest = lRest;
-           
-            //more
+            K = (force / (lRest - l));
 
 		}//end of Spring
         
@@ -45,15 +44,17 @@ namespace Engine.Physics
 
         //2.c - Calculate the frequency of oscillation (in a frictionless environment) of a Spring 
 		//      that has a mass suspended from it.
-        public double CalcualteSpringFreq(Spring s, double mass)
+        public double CalcualteSpringFreq(Spring s, double mass) // calculate is spelled wrong
         {
-			
+			return (1/(2*Math.PI))*(Math.Sqrt(s.K * mass));
 		}//end of CalcualteSpringFreq
 
         //2.d - Calculate the velocity at rest position of an oscillating Spring.
         public double VelocityAtRestLength(Spring s, double mass, double length)
         {
-			
+            double springFreq = CalcualteSpringFreq(s, mass);
+
+            return (-1 * (s.LRest - length)) * springFreq;
 		}//end of VelocityAtRestLength
         #endregion
     }//eoc
