@@ -156,8 +156,6 @@ namespace Engine.Physics
         public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t)
         {
             //not working
-
-
             angle = Functions.DegreesToRadians(angle);
 
             Eng_Vector3D forceApplied = new Eng_Vector3D();

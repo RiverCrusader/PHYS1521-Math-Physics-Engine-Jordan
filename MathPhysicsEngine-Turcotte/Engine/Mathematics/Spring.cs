@@ -26,7 +26,6 @@ namespace Engine.Physics
         {
             LRest = lRest;
             K = (force / (lRest - l));
-
 		}//end of Spring
         
         #region Class Methods
