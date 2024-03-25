@@ -29,7 +29,7 @@ namespace Engine.Physics
 		//HINT: Set the Gravity property
         public Phys_World(Phys_Body b)
         {
-			
+            Gravity = new Eng_Vector3D(0, Phys_Body.G * (b.Mass / Math.Pow(b.Radius, 2)), 0);
 		}//eom
 
     }//eoc

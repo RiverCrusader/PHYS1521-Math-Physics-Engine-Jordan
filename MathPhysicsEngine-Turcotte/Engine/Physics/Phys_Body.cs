@@ -165,9 +165,12 @@ namespace Engine.Physics
 
             //need the weight angle stuff
 
-            //Eng_Vector3D Weight = w.Gravity * b.Mass;
+            Eng_Vector3D Weight = w.Gravity * b.Mass;
 
-            //Eng_Vector3D forceNormal = ((Weight * Math.Cos(angle))* -1) + forceApplied.X;
+            Eng_Vector3D forceNormal = new Eng_Vector3D();
+
+            forceNormal.X = ((Weight * Math.Cos(angle)) * -1) + forceApplied.X;
+            forceNormal.Y = ((Weight * Math.Sin(angle)) * -1) + forceApplied.Y;
 
             Eng_Vector3D forceFriction = forceNormal * mu;
 
@@ -188,8 +191,20 @@ namespace Engine.Physics
 		//		HINT: Modify the properties of each Phys_Body
         public Tuple<Phys_Body, Phys_Body> Collision(Phys_Body a, Phys_Body b)
         {
-			
-			return Tuple.Create(a, b);
+            //Eng_Vector3D pA = a.Velocity * a.Mass;
+            //Eng_Vector3D pB = b.Velocity * b.Mass;
+
+            Eng_Vector3D n = a.Position - b.Position;
+
+            double a1 = (a.Velocity.X * n.X) + (a.Velocity.Y * n.Y);
+            double a2 = (b.Velocity.X * n.X) + (b.Velocity.Y * n.Y);
+
+            double Optomized = ((a1 - a2) * 2 / (a.Mass * b.Mass));
+
+            a.Velocity = a.Velocity - (n * (Optomized * a.Mass));
+            b.Velocity = b.Velocity + (n * (Optomized * b.Mass));
+
+            return Tuple.Create(a, b);
 		}//end of Collision
 
         //1.a - Calculate the force of attraction between two celestial bodies.
