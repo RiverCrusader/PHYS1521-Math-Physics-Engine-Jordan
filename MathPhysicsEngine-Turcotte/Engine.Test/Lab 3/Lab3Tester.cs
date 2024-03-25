@@ -40,11 +40,20 @@ namespace Engine.Tests.Lab3
             double expVx, double expVy, double expVz)
         {
             // Create objects for the test
-            
+            Eng_Vector3D position = new Eng_Vector3D(pIx,pIy,pIz);
+            Eng_Vector3D velocity = new Eng_Vector3D(vIx,vIy,vIz);
+            Eng_Vector3D acceloration = new Eng_Vector3D(aX,aY, aZ);
+
+            Phys_Body actual = new Phys_Body(0,position,velocity,acceloration,0);
             // Perform the test
-            
+            actual.LinearPostionAndVelocity(actual, t);
             // Assert
-            
+            Assert.AreEqual(expPx, Math.Round(actual.Position.X, 4));
+            Assert.AreEqual(expPy, Math.Round(actual.Position.Y, 4));
+            Assert.AreEqual(expPz, Math.Round(actual.Position.Z, 4));
+            Assert.AreEqual(expVx, Math.Round(actual.Velocity.X, 4));
+            Assert.AreEqual(expVy, Math.Round(actual.Velocity.Y, 4));
+            Assert.AreEqual(expVz, Math.Round(actual.Velocity.Z, 4));
         }//end of TestNonProjectileBody
 
         //3.b - Test 2.b - Calculate the new position of a Phys_Body, which has its initial position and
@@ -75,11 +84,19 @@ namespace Engine.Tests.Lab3
             double expX, double expY, double expZ)
         {
             // Create Objects for the test
-            
+            Phys_World actualPlanet = new Phys_World(g);
+
+            Eng_Vector3D position = new Eng_Vector3D(pIx, pIy, pIz);
+            Eng_Vector3D velocity = new Eng_Vector3D(mag, dir, 0);
+            Eng_Vector3D acceloration = new Eng_Vector3D();
+
+            Phys_Body actual = new Phys_Body(0, position, velocity, acceloration, 0);
             // Perform the test
-            
+            actual.ProjectilePostionAndVelocity(actualPlanet, actual);
             // Assert
-            
+            Assert.AreEqual(expX, Math.Round(actual.Position.X, 4));
+            Assert.AreEqual(expY, Math.Round(actual.Position.Y, 4));
+            Assert.AreEqual(expZ, Math.Round(actual.Position.Z, 4));
         }//end of TestLaunchProjectile
         #endregion
 
@@ -101,11 +118,13 @@ namespace Engine.Tests.Lab3
         public void TestCentripetalAcceleration(double rpm, double radius, double expectedOmega, double expectedVT, double expectedAlpha)
         {
             // Create Objects for the test
-            
+            Phys_Body actual = new Phys_Body(0, radius);
             // Perform the test
-            
+            actual.CalculateCentripetalAcceleration(actual, rpm);
             // Assert
-            
+            Assert.AreEqual(expectedOmega, Math.Round(actual.Omega, 4));
+            Assert.AreEqual(expectedVT, Math.Round(actual.VelocityT));
+            Assert.AreEqual(expectedAlpha, Math.Round(actual.CentripetalAcceleration));
         }//end of TestCentripetalAcceleration
         #endregion
 
@@ -157,11 +176,21 @@ namespace Engine.Tests.Lab3
             )
         {
             // Create Objects for the test
-            
+            Phys_World planet = new Phys_World(gravity);
+            Phys_Body actual = new Phys_Body(mass,vX,vY,vZ,radius);
+            Eng_Vector3D force = new Eng_Vector3D(fMag,fDir,0);
             // Perform the test
-            
+            actual.ApplyForce(planet, actual, force, mu, incline, t);
             // Assert
-            
+            Assert.AreEqual(expPx, Math.Round(actual.Position.X, 4));
+            Assert.AreEqual(expPy, Math.Round(actual.Position.Y, 4));
+            Assert.AreEqual(expPz, Math.Round(actual.Position.Z, 4));
+            Assert.AreEqual(expVx, Math.Round(actual.Velocity.X, 4));
+            Assert.AreEqual(expVy, Math.Round(actual.Velocity.Y, 4));
+            Assert.AreEqual(expVz, Math.Round(actual.Velocity.Z, 4));
+            Assert.AreEqual(expAx, Math.Round(actual.Acceleration.X, 4));
+            Assert.AreEqual(expAy, Math.Round(actual.Acceleration.Y, 4));
+            Assert.AreEqual(expAz, Math.Round(actual.Acceleration.Z, 4));
         }//end of TestAppliedForce
 
         //2.b - Test 1.b - Calculate the new velocity properties of two Phys_Body objects after they come
@@ -185,9 +214,10 @@ namespace Engine.Tests.Lab3
         public void TestCircleCollision(Phys_Body a, Phys_Body b, Phys_Body aExp, Phys_Body bExp)
         {
             // Perform the test
-            
+            a.Collision(a, b);
             //Assert
-            
+            Assert.AreEqual(aExp, a);
+            Assert.AreEqual(bExp, b);
         }//end of TestCircleCollision
         #endregion
 
@@ -207,11 +237,12 @@ namespace Engine.Tests.Lab3
         public void TestGravitationalForce(double massA, double massB, double d, double expected)
         {
             // Create Objects for the test
-            
+            Phys_Body a = new Phys_Body(massA, new Eng_Vector3D(0, 0, 0), new Eng_Vector3D(0, 0, 0), new Eng_Vector3D(0, 0, 0), 0);
+            Phys_Body b = new Phys_Body(massB, new Eng_Vector3D(0, 0, 0), new Eng_Vector3D(0, 0, 0), new Eng_Vector3D(0, 0, 0), 0);
             // Perform the test
-            
+            double actual = a.GravitationalForce(a, b, d);
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(actual,4));
         }//end of TestGravitationalForce
 
         //3.b - Test 2.a - Calculate and set the gravity property of the Phys_World with an input of a celestial Phys_Body.
@@ -228,11 +259,11 @@ namespace Engine.Tests.Lab3
         public void TestCalculateGravity(double mass, double radius, double expected)
         {
             // Create Objects for the test
-            
+            Phys_Body planet = new Phys_Body(mass, new Eng_Vector3D(0, 0, 0), new Eng_Vector3D(0, 0, 0), new Eng_Vector3D(0, 0, 0), radius);
             // Perform the test
-            
+            Phys_World actual = new Phys_World(planet);
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(actual.Gravity.Y, 4));
         }//end of TestCalculateGravity
         #endregion
 
@@ -252,9 +283,9 @@ namespace Engine.Tests.Lab3
         public void CalculateSpringConstant(double lRest, double l, double force, double expected)
         {
             // Perform the test
-            
+            Spring actual = new Spring(lRest,l,force);
             // Assert
-           
+            Assert.AreEqual(expected, Math.Round(actual.K, 4));
         }//end of CalculateSpringConstant
 
         //3.b - Test 2.a - Calculate the restorative force given a Spring and a stretched length.
@@ -272,11 +303,11 @@ namespace Engine.Tests.Lab3
         public void TestCalculateForce(double lRest, double k, double l, double expected)
         {
             // Create Objects for the test
-            
+            Spring spring = new Spring(k, lRest);
             // Perform the test
-            
+            double actual = spring.CalculateForce(spring, l);
             // Assert
-            
+            Assert.AreEqual(expected,Math.Round(actual, 4));
         }//end of TestCalculateForce
 
         //3.c - Test 2.b - Calculate the stretched length of a spring with an applied force.
@@ -294,11 +325,11 @@ namespace Engine.Tests.Lab3
         public void TestCalculateNewLength(double lRest, double k, double force, double expected)
         {
             // Create Objects for the test
-            
+            Spring spring = new Spring(k, lRest);
             // Perform the test
-            
+            double actual = spring.CalculateLength(spring, force);
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(actual, 4));
         }//end of TestCalculateNewLength
 
         //3.d - Test 2.c - Calculate the frequency of oscillation (in a frictionless environment) of a Spring 
@@ -317,11 +348,11 @@ namespace Engine.Tests.Lab3
         public void TestSpringFrequency(double lRest, double k, double mass, double expected)
         {
             // Create Objects for the test
-            
+            Spring spring = new Spring(k, lRest);
             // Perform the test
-           
+            double actual = spring.CalcualteSpringFreq(spring, mass);
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(actual, 4));
         }//end of TestSpringFrequency
 
         //3.e - Test 2.d - Calculate the velocity at rest position of an oscillating Spring.
@@ -340,11 +371,11 @@ namespace Engine.Tests.Lab3
         public void TestSpringRestVelocity(double lRest, double k, double l, double mass, double expected)
         {
             // Create Objects for the test
-            
+            Spring spring = new Spring(k, lRest);
             // Perform the test
-            
+            double actual = spring.VelocityAtRestLength(spring, mass,l);
             // Assert
-            
+            Assert.AreEqual(expected, Math.Round(actual, 4));
         }//end of TestSpringRestVelocity
         #endregion
     }//eoc

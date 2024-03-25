@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 #region Additional Namespaces
 using Engine.Mathematics;
@@ -15,7 +11,7 @@ namespace Engine.Physics
         #region Class Constants
         public const double G = 6.673e-11; // linear motion properties
         #endregion
-		// linear motion properties
+        // linear motion properties
         public double Mass { get; set; }
         public Eng_Vector3D Position { get; set; }
         public Eng_Vector3D Velocity { get; set; }
@@ -60,27 +56,27 @@ namespace Engine.Physics
 
 
         #region Class Methods
-		//2.a - Calculate the final velocity and position of a Phys_Body that has initial position,
-		//      velocity, and acceleration properties set, over a given period of time.
-		//		HINT: Modify the velocity an position properties of the Phys_Body
+        //2.a - Calculate the final velocity and position of a Phys_Body that has initial position,
+        //      velocity, and acceleration properties set, over a given period of time.
+        //		HINT: Modify the velocity an position properties of the Phys_Body
         public Phys_Body LinearPostionAndVelocity(Phys_Body b, double t)
         {
             b.Velocity = b.Velocity + (b.Acceleration * t);
             b.Position = (b.Velocity * t) + (b.Acceleration * 0.5 * Math.Pow(t, 2));
 
-			return b;
-		}//end of LinearPostionAndVelocity
+            return b;
+        }//end of LinearPostionAndVelocity
 
         //2.b - Calculate the new position of a Phys_Body, which has its initial position and
         //      velocity set, that is launched as a projectile, in a given Phys_World (the 
-		//      gravity property of the Phys_World is set).
-		//		HINT: Modify the properties of the Phys_Body
+        //      gravity property of the Phys_World is set).
+        //		HINT: Modify the properties of the Phys_Body
         public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b)
         {
 
             //Y variables Code
 
-            double tNY,tPY,timeY;
+            double tNY, tPY, timeY;
 
             tNY = Functions.QuadraticNegative(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
             tPY = Functions.QuadraticPositive(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
@@ -91,7 +87,7 @@ namespace Engine.Physics
             }
             else
             {
-                if(tPY > 0)
+                if (tPY > 0)
                 {
                     timeY = tPY;
                 }
@@ -108,69 +104,73 @@ namespace Engine.Physics
 
 
             //X variable code
-			double tNX, tPX, timeX;
+            double tNX, tPX, timeX;
 
-			tNX = Functions.QuadraticNegative(b.Velocity.X, w.Gravity.X, b.Position.X);
-			tPX = Functions.QuadraticPositive(b.Velocity.X, w.Gravity.X, b.Position.X);
+            tNX = Functions.QuadraticNegative(b.Velocity.X, w.Gravity.X, b.Position.X);
+            tPX = Functions.QuadraticPositive(b.Velocity.X, w.Gravity.X, b.Position.X);
 
-			if (tNX > 0)
-			{
-				timeX = tNX;
-			}
-			else
-			{
-				if (tPX > 0)
-				{
-					timeX = tPX;
-				}
-				else
-				{
-					throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result");
-				}
-			}
+            if (tNX > 0)
+            {
+                timeX = tNX;
+            }
+            else
+            {
+                if (tPX > 0)
+                {
+                    timeX = tPX;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result");
+                }
+            }
 
-			b.Velocity.X = b.Velocity.X + (w.Gravity.X * timeX);
+            b.Velocity.X = b.Velocity.X + (w.Gravity.X * timeX);
 
-			b.Position.X = b.Velocity.X * timeX;
+            b.Position.X = b.Velocity.X * timeX;
 
-			return b;
-		}//end of ProjectilePostionAndVelocity
+            return b;
+        }//end of ProjectilePostionAndVelocity
 
         //1.a - Set the rotational motion properties of the Phys_Body given a Phys_Body and
-		//      a rotational speed in RPM.
-		//		HINT: Modify the properties of the Phys_Body
+        //      a rotational speed in RPM.
+        //		HINT: Modify the properties of the Phys_Body
         public Phys_Body CalculateCentripetalAcceleration(Phys_Body b, double rpm)
         {
             b.Omega = (2 * (rpm / 60)) * Math.PI;
 
-            b.CentripetalAcceleration = Math.Pow(b.Omega, 2) * b.Radius; 
+            b.CentripetalAcceleration = Math.Pow(b.Omega, 2) * b.Radius;
 
-			return b;
-		}//end of CalculateCentripetalAcceleration
+            b.VelocityT = b.Omega * b.Radius;
+
+            return b;
+        }//end of CalculateCentripetalAcceleration
 
         //1.a - Calculate the new properties, position, velocity, and acceleration of a
         //      Phys_Body (i.e. return a Phys_Body) in a set Phys_World (with gravity set),
         //      given an external force applied, a given µ (mu), an incline angle (in degrees),
         //      and over a specified time.
-		//		HINT: Modify the properties of the Phys_Body
+        //		HINT: Modify the properties of the Phys_Body
         public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t)
         {
             //not working
             angle = Functions.DegreesToRadians(angle);
 
             Eng_Vector3D forceApplied = new Eng_Vector3D();
-
-            forceApplied.X = force.X * (Math.Cos(angle));
-            forceApplied.Y = force.X * (Math.Sin(angle));
+            //maybe look at X and Y comps
+            forceApplied.X = force.Y * (Math.Cos(angle));
+            forceApplied.Y = force.Y * (Math.Sin(angle));
 
             //need the weight angle stuff
 
-            Eng_Vector3D Weight = w.Gravity * b.Mass;
+            double weightX = b.Mass * Math.Cos(angle) * w.Gravity.Y;
+            double weightY = b.Mass * Math.Sin(angle) * w.Gravity.Y;
+            Eng_Vector3D Weight = new Eng_Vector3D(weightX,weightY,0);
 
             Eng_Vector3D forceNormal = new Eng_Vector3D();
 
-            forceNormal.X = ((Weight * Math.Cos(angle)) * -1) + forceApplied.X;
-            forceNormal.Y = ((Weight * Math.Sin(angle)) * -1) + forceApplied.Y;
+            forceNormal.X = (weightX * -1) + forceApplied.X;
+            forceNormal.Y = (weightY * -1) + forceApplied.Y;
 
             Eng_Vector3D forceFriction = forceNormal * mu;
 
@@ -183,12 +183,12 @@ namespace Engine.Physics
             b.Position = b.Velocity * t;
 
             return b;
-		}//end of ApplyForce
+        }//end of ApplyForce
 
         //1.b - Calculate the new velocity properties of two Phys_Body objects after they come
         //      into contact with each other; each Phys_Body will have its position, velocity,
         //      mass, and radius properties set before the collision.
-		//		HINT: Modify the properties of each Phys_Body
+        //		HINT: Modify the properties of each Phys_Body
         public Tuple<Phys_Body, Phys_Body> Collision(Phys_Body a, Phys_Body b)
         {
             //Eng_Vector3D pA = a.Velocity * a.Mass;
@@ -205,13 +205,13 @@ namespace Engine.Physics
             b.Velocity = b.Velocity + (n * (Optomized * b.Mass));
 
             return Tuple.Create(a, b);
-		}//end of Collision
+        }//end of Collision
 
         //1.a - Calculate the force of attraction between two celestial bodies.
         public double GravitationalForce(Phys_Body a, Phys_Body b, double d)
         {
             return G * ((a.Mass * b.Mass) / Math.Pow(d, 2));
-		}//end of GravitationalForce
+        }//end of GravitationalForce
         #endregion
     }//eoc
 }//eon
