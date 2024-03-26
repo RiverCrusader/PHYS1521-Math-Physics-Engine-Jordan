@@ -153,30 +153,31 @@ namespace Engine.Physics
         //		HINT: Modify the properties of the Phys_Body
         public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t)
         {
-            //not working
             angle = Functions.DegreesToRadians(angle);
 
-            Eng_Vector3D forceApplied = new Eng_Vector3D();
-            //maybe look at X and Y comps
-            forceApplied.X = force.Y * (Math.Cos(angle));
-            forceApplied.Y = force.Y * (Math.Sin(angle));
+            Tuple<double,double> forceA = Functions.FindHypotenuseAndDegree(force.Y, force.X);
+            double forceAppliedX = forceA.Item1 * (Math.Cos(angle));
+			double forceAppliedY = forceA.Item1 * (Math.Sin(angle));
+            Eng_Vector3D forceApplied = new Eng_Vector3D(forceAppliedX, forceAppliedY, 0);
+			//maybe look at X and Y comps
+			 //important one
 
             //need the weight angle stuff
 
-            double weightX = b.Mass * Math.Cos(angle) * w.Gravity.Y;
-            double weightY = b.Mass * Math.Sin(angle) * w.Gravity.Y;
-            Eng_Vector3D Weight = new Eng_Vector3D(weightX,weightY,0);
+            double weightX = (b.Mass * w.Gravity.X) * Math.Cos(angle);
+            double weightY = (b.Mass * w.Gravity.Y) * Math.Sin(angle); //important one
+			Eng_Vector3D Weight = new Eng_Vector3D(weightX,weightY,0);
 
-            Eng_Vector3D forceNormal = new Eng_Vector3D();
 
-            forceNormal.X = (weightX * -1) + forceApplied.X;
-            forceNormal.Y = (weightY * -1) + forceApplied.Y;
+            Eng_Vector3D forceNormal = (forceApplied * Math.Sin(angle) + (Weight * -1));
+
 
             Eng_Vector3D forceFriction = forceNormal * mu;
 
             Eng_Vector3D fNet = Weight + forceNormal + forceFriction + forceApplied;
 
-            b.Acceleration = fNet / b.Mass;
+            b.Acceleration.X = fNet.X / b.Mass;
+            b.Acceleration.Y = fNet.Y / b.Mass;
 
             b.Velocity = b.Acceleration * t;
 
@@ -189,7 +190,7 @@ namespace Engine.Physics
         //      into contact with each other; each Phys_Body will have its position, velocity,
         //      mass, and radius properties set before the collision.
         //		HINT: Modify the properties of each Phys_Body
-        public Tuple<Phys_Body, Phys_Body> Collision(Phys_Body a, Phys_Body b)
+        public Tuple<Phys_Body, Phys_Body> Collision(Phys_Body a, Phys_Body b) //pretty sure this is wrong and needs to be fixed
         {
             //Eng_Vector3D pA = a.Velocity * a.Mass;
             //Eng_Vector3D pB = b.Velocity * b.Mass;
