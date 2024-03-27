@@ -52,7 +52,7 @@ namespace Engine.Physics
         //2.d - Calculate the velocity at rest position of an oscillating Spring.
         public double VelocityAtRestLength(Spring s, double mass, double length)
         {
-            return (Math.Abs(s.LRest - length)) * (Math.Sqrt(s.K / mass));
+            return Math.Abs(length) * (Math.Sqrt(s.K / mass));
 		}//end of VelocityAtRestLength
         #endregion
     }//eoc

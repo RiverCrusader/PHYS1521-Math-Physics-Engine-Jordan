@@ -15,9 +15,11 @@ namespace Engine.Tests.Lab3
     [TestFixture]
     public class Lab3Tester
     {
+        //broken AF
+
         #region Part 1 - Linear Motion
         //3.a - Test 2.a - Calculate the final velocity and position of a Phys_Body that has initial position,
-		//                 velocity, and acceleration properties set, over a given period of time.  
+        //                 velocity, and acceleration properties set, over a given period of time.  
         [Test,
              // 1st - 3rd   = initial position 
              // 4th - 6th   = initial velocity
@@ -42,7 +44,7 @@ namespace Engine.Tests.Lab3
             // Create objects for the test
             Eng_Vector3D position = new Eng_Vector3D(pIx,pIy,pIz);
             Eng_Vector3D velocity = new Eng_Vector3D(vIx,vIy,vIz);
-            Eng_Vector3D acceloration = new Eng_Vector3D(aX,aY, aZ);
+            Eng_Vector3D acceloration = new Eng_Vector3D(aX,aY,aZ);
 
             Phys_Body actual = new Phys_Body(0,position,velocity,acceloration,0);
             // Perform the test
@@ -58,7 +60,7 @@ namespace Engine.Tests.Lab3
 
         //3.b - Test 2.b - Calculate the new position of a Phys_Body, which has its initial position and
         //                 velocity set, that is launched as a projectile, in a given Phys_World (the 
-		//                 gravity property of the Phys_World is set).
+        //                 gravity property of the Phys_World is set).
         [Test,
             // Launch horizontally
             // 1st			= gravity
@@ -209,7 +211,7 @@ namespace Engine.Tests.Lab3
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
 
         }//end of TestCollisionData
-		
+        
         [Test, TestCaseSource(nameof(TestCollisionData))]
         public void TestCircleCollision(Phys_Body a, Phys_Body b, Phys_Body aExp, Phys_Body bExp)
         {
@@ -220,6 +222,8 @@ namespace Engine.Tests.Lab3
             Assert.AreEqual(bExp, actual.Item2);
         }//end of TestCircleCollision
         #endregion
+
+        //Works
 
         #region Part 4 - Gravitational Forces
         //3.a - Test 1.a - Calculate the force of attraction between two celestial bodies.
@@ -365,7 +369,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.05, 1250, 0.075, 2.5, 1.6771),
             // Student Data - MUST CHANGE
-            TestCase(0.047, 1437.5, 0.031, 7, 1.4406)
+            TestCase(0.047, 1437.5, 0.031, 7, 0.4442)
         ]
 
         public void TestSpringRestVelocity(double lRest, double k, double l, double mass, double expected)

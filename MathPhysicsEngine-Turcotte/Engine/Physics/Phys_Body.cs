@@ -61,9 +61,8 @@ namespace Engine.Physics
         //		HINT: Modify the velocity an position properties of the Phys_Body
         public Phys_Body LinearPostionAndVelocity(Phys_Body b, double t)
         {
-            b.Velocity = b.Velocity + (b.Acceleration * t);
             b.Position = (b.Velocity * t) + (b.Acceleration * 0.5 * Math.Pow(t, 2));
-
+            b.Velocity = b.Velocity + (b.Acceleration * t);
             return b;
         }//end of LinearPostionAndVelocity
 
@@ -71,7 +70,7 @@ namespace Engine.Physics
         //      velocity set, that is launched as a projectile, in a given Phys_World (the 
         //      gravity property of the Phys_World is set).
         //		HINT: Modify the properties of the Phys_Body
-        public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b) //fix
+        public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b) //fix fuck
         {
 
             //Y variables Code
