@@ -157,7 +157,7 @@ namespace Engine.Physics
 
             Tuple<double,double> forceA = Functions.FindHypotenuseAndDegree(force.Y, force.X);
             double forceAppliedX = forceA.Item1 * (Math.Cos(angle));
-			double forceAppliedY = forceA.Item1 * (Math.Sin(angle));
+			double forceAppliedY = forceA.Item1 * (Math.Sin(angle));  // why also has force of gravity Fgravity
             Eng_Vector3D forceApplied = new Eng_Vector3D(forceAppliedX, forceAppliedY, 0);
 			//maybe look at X and Y comps
 			 //important one

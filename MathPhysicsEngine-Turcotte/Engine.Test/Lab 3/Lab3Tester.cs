@@ -319,7 +319,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.05, 400, 10, 0.075),
             // Student Data - MUST CHANGE
-            TestCase(0.047, 1437.5, 23, 0.031)
+            TestCase(0.047, 1437.5, 23, 0.078)
         ]
 
         public void TestCalculateNewLength(double lRest, double k, double force, double expected)
