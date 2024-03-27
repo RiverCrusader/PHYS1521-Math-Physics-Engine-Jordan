@@ -71,7 +71,7 @@ namespace Engine.Physics
         //      velocity set, that is launched as a projectile, in a given Phys_World (the 
         //      gravity property of the Phys_World is set).
         //		HINT: Modify the properties of the Phys_Body
-        public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b)
+        public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b) //fix
         {
 
             //Y variables Code
@@ -141,7 +141,7 @@ namespace Engine.Physics
 
             b.CentripetalAcceleration = Math.Pow(b.Omega, 2) * b.Radius;
 
-            b.VelocityT = b.Omega * b.Radius;
+            b.VelocityT = b.Omega * b.Radius; //broken?
 
             return b;
         }//end of CalculateCentripetalAcceleration
@@ -151,7 +151,7 @@ namespace Engine.Physics
         //      given an external force applied, a given µ (mu), an incline angle (in degrees),
         //      and over a specified time.
         //		HINT: Modify the properties of the Phys_Body
-        public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t)
+        public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t) //very very broken need to do fN
         {
             angle = Functions.DegreesToRadians(angle);
 
@@ -190,7 +190,7 @@ namespace Engine.Physics
         //      into contact with each other; each Phys_Body will have its position, velocity,
         //      mass, and radius properties set before the collision.
         //		HINT: Modify the properties of each Phys_Body
-        public Tuple<Phys_Body, Phys_Body> Collision(Phys_Body a, Phys_Body b) //pretty sure this is wrong and needs to be fixed
+        public Tuple<Phys_Body, Phys_Body> Collision(Phys_Body a, Phys_Body b) //pretty sure this is wrong and needs to be fixed, very weird output broken
         {
             //Eng_Vector3D pA = a.Velocity * a.Mass;
             //Eng_Vector3D pB = b.Velocity * b.Mass;
@@ -209,7 +209,7 @@ namespace Engine.Physics
         }//end of Collision
 
         //1.a - Calculate the force of attraction between two celestial bodies.
-        public double GravitationalForce(Phys_Body a, Phys_Body b, double d)
+        public double GravitationalForce(Phys_Body a, Phys_Body b, double d)  //i think this works
         {
             return G * ((a.Mass * b.Mass) / Math.Pow(d, 2));
         }//end of GravitationalForce

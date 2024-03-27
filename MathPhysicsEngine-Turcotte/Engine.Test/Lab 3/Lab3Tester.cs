@@ -231,7 +231,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(5.98e24, 70, 6.39e6, 684.0985),
             // Student Data - MUST CHANGE
-            TestCase(5.98e24, 70, 6.39e6, 684.0985)
+            TestCase(8.254e22, 3251, 7.45e8, 0.0323)
         ]
 
         public void TestGravitationalForce(double massA, double massB, double d, double expected)
