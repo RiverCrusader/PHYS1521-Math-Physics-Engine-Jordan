@@ -45,15 +45,13 @@ namespace Engine.Physics
 		//      that has a mass suspended from it.
         public double CalcualteSpringFreq(Spring s, double mass) // calculate is spelled wrong
         {
-			return (1/(2*Math.PI))*(Math.Sqrt(s.K * mass));
+			return (1/(2*Math.PI))*(Math.Sqrt(s.K / mass));
 		}//end of CalcualteSpringFreq
 
         //2.d - Calculate the velocity at rest position of an oscillating Spring.
         public double VelocityAtRestLength(Spring s, double mass, double length)
         {
-            double springFreq = CalcualteSpringFreq(s, mass);
-
-            return (-1 * (s.LRest - length)) * springFreq;
+            return (Math.Abs(s.LRest - length)) * (Math.Sqrt(s.K / mass));
 		}//end of VelocityAtRestLength
         #endregion
     }//eoc

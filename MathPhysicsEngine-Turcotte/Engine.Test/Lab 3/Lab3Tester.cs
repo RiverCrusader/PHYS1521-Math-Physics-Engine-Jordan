@@ -28,7 +28,7 @@ namespace Engine.Tests.Lab3
              // Instructor Data - MUST NOT DELETE
              TestCase(0, 0, 0, 0, 0, 0, 2, 3, 0, 1.5, 2.25, 3.375, 0, 3, 4.5, 0),
              // Student Data - MUST CHANGE
-             TestCase(0, 0, 0, 0, 0, 0, 2, 3, 0, 1.5, 2.25, 3.375, 0, 3, 4.5, 0)
+             TestCase(2, 1, 0, 4, 0, 0, 6, -2, 0, 3, 39, -9, 0, 22, -6, 0)
         ]
         
         public void TestNonProjectileBody(
@@ -66,15 +66,15 @@ namespace Engine.Tests.Lab3
             // 5th - 6th	= initial velocity mag@dir
             // Remainder	= expected final position
             // Instructor Data - MUST NOT DELETE OR MODIFY
-            TestCase(-9.81, 0, 8, 0,  10, 0,  12.771, 0, 0),
+            TestCase(-9.81, 0, 8, 0, 10, 0,  12.771, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 0, 8, 0, 10, 0, 12.771, 0, 0),
+            TestCase(-9.81, 0, 7, 0, 30, 0, 12.771, 0, 0),
 
             // Launch at an angle
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(-9.81, 0, 8, 0,  10, 30, 16.3223, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 0, 8, 0, 10, 30, 16.3223, 0, 0)
+            TestCase(-9.81, 2, 7, 0, 15, 19, 16.3223, 0, 0)
         ]
 
         public void TestLaunchProjectile(
@@ -123,8 +123,8 @@ namespace Engine.Tests.Lab3
             actual.CalculateCentripetalAcceleration(actual, rpm);
             // Assert
             Assert.AreEqual(expectedOmega, Math.Round(actual.Omega, 4));
-            Assert.AreEqual(expectedVT, Math.Round(actual.VelocityT));
-            Assert.AreEqual(expectedAlpha, Math.Round(actual.CentripetalAcceleration));
+            Assert.AreEqual(expectedVT, Math.Round(actual.VelocityT, 4));
+            Assert.AreEqual(expectedAlpha, Math.Round(actual.CentripetalAcceleration, 4));
         }//end of TestCentripetalAcceleration
         #endregion
 
@@ -177,7 +177,7 @@ namespace Engine.Tests.Lab3
         {
             // Create Objects for the test
             Phys_World planet = new Phys_World(gravity);
-            Phys_Body actual = new Phys_Body(mass,vX,vY,vZ,radius);
+            Phys_Body actual = new Phys_Body(mass,new Eng_Vector3D(0,0,0),new Eng_Vector3D(vX,vY,vZ),new Eng_Vector3D(0,0,0),radius);
             Eng_Vector3D force = new Eng_Vector3D(fMag,fDir,0);
             // Perform the test
             actual.ApplyForce(planet, actual, force, mu, incline, t);
@@ -214,10 +214,10 @@ namespace Engine.Tests.Lab3
         public void TestCircleCollision(Phys_Body a, Phys_Body b, Phys_Body aExp, Phys_Body bExp)
         {
             // Perform the test
-            a.Collision(a, b);
+            Tuple<Phys_Body,Phys_Body> actual = a.Collision(a, b);
             //Assert
-            Assert.AreEqual(aExp, a);
-            Assert.AreEqual(bExp, b);
+            Assert.AreEqual(aExp, actual.Item1);
+            Assert.AreEqual(bExp, actual.Item2);
         }//end of TestCircleCollision
         #endregion
 
@@ -253,7 +253,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(5.972e24, 6.371e6, -9.8181),
             // Student Data - MUST CHANGE
-            TestCase(5.972e24, 6.371e6, -9.8181)
+            TestCase(2.956e24, 7.293e6, -3.7086)
         ]
 
         public void TestCalculateGravity(double mass, double radius, double expected)
@@ -277,7 +277,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.05, 0.075, 10, 400),
             // Student Data - MUST CHANGE
-            TestCase(0.05, 0.075, 10, 400)
+            TestCase(0.047, 0.031, 23, 1437.5)
         ]
 
         public void CalculateSpringConstant(double lRest, double l, double force, double expected)
@@ -297,7 +297,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.05, 400, 0.075, 10),
             // Student Data - MUST CHANGE
-            TestCase(0.05, 400, 0.075, 10)
+            TestCase(0.047, 1437.5, 0.031, 23)
         ]
 
         public void TestCalculateForce(double lRest, double k, double l, double expected)
@@ -319,7 +319,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.05, 400, 10, 0.075),
             // Student Data - MUST CHANGE
-            TestCase(0.05, 400, 10, 0.075)
+            TestCase(0.047, 1437.5, 23, 0.031)
         ]
 
         public void TestCalculateNewLength(double lRest, double k, double force, double expected)
@@ -342,7 +342,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.05, 1250, 2.5, 3.5588),
             // Student Data - MUST CHANGE
-            TestCase(0.05, 1250, 2.5, 3.5588)
+            TestCase(0.047, 1437.5, 7, 2.2807)
         ]
 
         public void TestSpringFrequency(double lRest, double k, double mass, double expected)
@@ -365,7 +365,7 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(0.05, 1250, 0.075, 2.5, 1.6771),
             // Student Data - MUST CHANGE
-            TestCase(0.05, 1250, 0.075, 2.5, 1.6771)
+            TestCase(0.047, 1437.5, 0.031, 7, 1.4406)
         ]
 
         public void TestSpringRestVelocity(double lRest, double k, double l, double mass, double expected)

@@ -81,19 +81,19 @@ namespace Engine.Physics
             tNY = Functions.QuadraticNegative(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
             tPY = Functions.QuadraticPositive(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
 
-            if (tNY > 0)
+            if (tNY >= 0)
             {
                 timeY = tNY;
             }
             else
             {
-                if (tPY > 0)
+                if (tPY >= 0)
                 {
                     timeY = tPY;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result");
+                    throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result (Y)");
                 }
             }
 
@@ -109,19 +109,19 @@ namespace Engine.Physics
             tNX = Functions.QuadraticNegative(b.Velocity.X, w.Gravity.X, b.Position.X);
             tPX = Functions.QuadraticPositive(b.Velocity.X, w.Gravity.X, b.Position.X);
 
-            if (tNX > 0)
+            if (tNX >= 0)
             {
                 timeX = tNX;
             }
             else
             {
-                if (tPX > 0)
+                if (tPX >= 0)
                 {
                     timeX = tPX;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result");
+                    throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result (X)");
                 }
             }
 
