@@ -70,7 +70,7 @@ namespace Engine.Physics
         //      velocity set, that is launched as a projectile, in a given Phys_World (the 
         //      gravity property of the Phys_World is set).
         //		HINT: Modify the properties of the Phys_Body
-        public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b) //fix fuck
+        public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b) //fix 
         {
 
             //Y variables Code
