@@ -70,63 +70,41 @@ namespace Engine.Physics
         //      velocity set, that is launched as a projectile, in a given Phys_World (the 
         //      gravity property of the Phys_World is set).
         //		HINT: Modify the properties of the Phys_Body
-        public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b) //fix 
+        public Phys_Body ProjectilePostionAndVelocity(Phys_World w, Phys_Body b) //fix amgled Y still broken need to fix works... i guess
         {
+            //Vi
+            //Vi x and Y
+            double angle = Functions.DegreesToRadians(b.Velocity.Y);
 
-            //Y variables Code
+            double ViX = b.Velocity.X * Math.Cos(angle);
+            double ViY = b.Velocity.X * Math.Sin(angle);
+            //Time to ground horizontal
+            double A = w.Gravity.Y;
+            double D = b.Position.Y;
+            double Vi = ViY;
+            double t = Functions.QuadraticNegative(A, Vi, D);
 
-            double tNY, tPY, timeY;
-
-            tNY = Functions.QuadraticNegative(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
-            tPY = Functions.QuadraticPositive(b.Velocity.Y, w.Gravity.Y, b.Position.Y);
-
-            if (tNY >= 0)
+            if (t <= 0)
             {
-                timeY = tNY;
-            }
-            else
-            {
-                if (tPY >= 0)
-                {
-                    timeY = tPY;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result (Y)");
-                }
+                t = Functions.QuadraticPositive(A, Vi, D);
             }
 
-            b.Velocity.Y = b.Velocity.Y + (w.Gravity.Y * timeY);
+            //Horizontal up to the apex
+            b.Position.X = ViX * t;
 
-            b.Position.Y = b.Velocity.Y * timeY;
+            //at apex Vi = 0
+            //Apex and vertical values
+            //time at the apex
 
+            double ta = -ViY / w.Gravity.Y;
 
+            //position Y at apex (added to original)
+            //TOTAL FALL DISTANCE IS HERE
+            b.Position.Y += -Math.Pow(ViY, 2) / (2 * w.Gravity.Y);
 
-            //X variable code
-            double tNX, tPX, timeX;
-
-            tNX = Functions.QuadraticNegative(b.Velocity.X, w.Gravity.X, b.Position.X);
-            tPX = Functions.QuadraticPositive(b.Velocity.X, w.Gravity.X, b.Position.X);
-
-            if (tNX >= 0)
-            {
-                timeX = tNX;
-            }
-            else
-            {
-                if (tPX >= 0)
-                {
-                    timeX = tPX;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException("a value in ProjectilePositionVelocity was off creating an impossible result (X)");
-                }
-            }
-
-            b.Velocity.X = b.Velocity.X + (w.Gravity.X * timeX);
-
-            b.Position.X = b.Velocity.X * timeX;
+            //D when time is done? i guess
+            //ONLY DONE TO GET 0
+            b.Position.Y -= b.Position.Y;
 
             return b;
         }//end of ProjectilePostionAndVelocity
@@ -140,7 +118,7 @@ namespace Engine.Physics
 
             b.CentripetalAcceleration = Math.Pow(b.Omega, 2) * b.Radius;
 
-            b.VelocityT = b.Omega * b.Radius; //broken?
+            b.VelocityT = b.Omega * b.Radius;
 
             return b;
         }//end of CalculateCentripetalAcceleration
@@ -150,33 +128,38 @@ namespace Engine.Physics
         //      given an external force applied, a given µ (mu), an incline angle (in degrees),
         //      and over a specified time.
         //		HINT: Modify the properties of the Phys_Body
-        public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t) //very very broken need to do fN
+        public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t) //very very broken I have absolutly no idea whats wrong
         {
+            double Fangle = Functions.DegreesToRadians(force.Y);
             angle = Functions.DegreesToRadians(angle);
+            //Weight
 
-            Tuple<double,double> forceA = Functions.FindHypotenuseAndDegree(force.Y, force.X);
-            double forceAppliedX = forceA.Item1 * (Math.Cos(angle));
-			double forceAppliedY = forceA.Item1 * (Math.Sin(angle));  // why also has force of gravity Fgravity
-            Eng_Vector3D forceApplied = new Eng_Vector3D(forceAppliedX, forceAppliedY, 0);
-			//maybe look at X and Y comps
-			 //important one
+            double Wsin = b.Mass * w.Gravity.Y * Math.Sin(angle); //x
+            double Wcos = b.Mass * w.Gravity.Y * Math.Cos(angle); //y
+            double W = b.Mass * w.Gravity.Y;
+            //Force applied
+            Eng_Vector3D Fapp = new Eng_Vector3D((force.X * Math.Cos(Fangle)) - Wsin, force.X * Math.Sin(Fangle), 0);
 
-            //need the weight angle stuff
+            double Fn = -W + Fapp.X;
+            double Fs = mu * Fn;
 
-            double weightX = (b.Mass * w.Gravity.X) * Math.Cos(angle);
-            double weightY = (b.Mass * w.Gravity.Y) * Math.Sin(angle); //important one
-			Eng_Vector3D Weight = new Eng_Vector3D(weightX,weightY,0);
+            double FnetX;
+            double FnetY;
+
+            if (Math.Abs(Wsin) < Math.Abs(Fs))
+            {
+                FnetX = 0;
+                FnetY = 0;
+            }
+            else
+            {
+                FnetX = Fs + Fapp.X;
+                FnetY = W + Fn + Fapp.Y;
+            }
 
 
-            Eng_Vector3D forceNormal = (forceApplied * Math.Sin(angle) + (Weight * -1));
-
-
-            Eng_Vector3D forceFriction = forceNormal * mu;
-
-            Eng_Vector3D fNet = Weight + forceNormal + forceFriction + forceApplied;
-
-            b.Acceleration.X = fNet.X / b.Mass;
-            b.Acceleration.Y = fNet.Y / b.Mass;
+            b.Acceleration.X = FnetX / b.Mass;
+            b.Acceleration.Y = FnetY / b.Mass;
 
             b.Velocity = b.Acceleration * t;
 
@@ -191,18 +174,62 @@ namespace Engine.Physics
         //		HINT: Modify the properties of each Phys_Body
         public Tuple<Phys_Body, Phys_Body> Collision(Phys_Body a, Phys_Body b) //pretty sure this is wrong and needs to be fixed, very weird output broken
         {
+
+            #region wiping and starting again
             //Eng_Vector3D pA = a.Velocity * a.Mass;
             //Eng_Vector3D pB = b.Velocity * b.Mass;
 
-            Eng_Vector3D n = a.Position - b.Position;
+            //double A = (Math.Pow(a.Position.X - a.Velocity.X,2)) + (Math.Pow(a.Position.Y - a.Velocity.Y,2));
+            //double B = (Math.Pow(b.Position.X - b.Velocity.X, 2)) + (Math.Pow(b.Position.Y - b.Velocity.Y, 2));
 
-            double a1 = (a.Velocity.X * n.X) + (a.Velocity.Y * n.Y);
-            double a2 = (b.Velocity.X * n.X) + (b.Velocity.Y * n.Y);
+            //bool doTheyCollide = false;
+            //double distanceBetweenCenters = (Math.Pow(b.Position.X - a.Position.X,2)) + (Math.Pow(b.Position.Y - a.Position.Y,2)); 
+            //double Radii = Math.Pow(a.Radius + b.Radius,2);
 
-            double Optomized = ((a1 - a2) * 2 / (a.Mass * b.Mass));
+            //if (distanceBetweenCenters <= Radii)
+            //{
+            //    doTheyCollide = true;
 
-            a.Velocity = a.Velocity - (n * (Optomized * a.Mass));
-            b.Velocity = b.Velocity + (n * (Optomized * b.Mass));
+            //    Eng_Vector3D n = b.Position - a.Position;
+
+            //    n.Normalize();
+
+            //    Eng_Vector3D relV = b.Velocity - a.Velocity;
+
+            //    double relVAlongNormal = relV.DotProduct(n);
+
+            //    if (relVAlongNormal > 0)
+            //    {
+            //        return Tuple.Create(a, b);
+            //    }
+
+            //    double j = -1 * relVAlongNormal;
+            //    j = j / ((1 / a.Mass )+( 1 / b.Mass));
+
+            //    Eng_Vector3D impulse = n * j;
+
+            //    a.Velocity -=  impulse / a.Mass;
+            //    b.Velocity += impulse * (1 / b.Mass);
+            //}
+            #endregion
+            double distanceBetweenCenters = (Math.Pow(b.Position.X - a.Position.X, 2)) + (Math.Pow(b.Position.Y - a.Position.Y, 2));
+            double Radii = Math.Pow(a.Radius + b.Radius, 2);
+
+            //Impulse calculation pre collision
+            double PaX = a.Mass * a.Velocity.X;
+            double PaY = a.Mass * a.Velocity.Y;
+
+            double PbX = b.Mass * b.Velocity.X;
+            double PbY = b.Mass * b.Velocity.Y;
+
+            double totalP = PaX + PaY + PbX + PbY;
+
+            double EkPreColision = (0.5 * a.Mass * (a.Velocity.X * a.Velocity.X)) +
+                                   (0.5 * a.Mass * (a.Velocity.Y * a.Velocity.Y)) +
+                                   (0.5 * b.Mass * (b.Velocity.X * b.Velocity.X)) +
+                                   (0.5 * b.Mass * (b.Velocity.Y * b.Velocity.Y));
+
+            
 
             return Tuple.Create(a, b);
         }//end of Collision

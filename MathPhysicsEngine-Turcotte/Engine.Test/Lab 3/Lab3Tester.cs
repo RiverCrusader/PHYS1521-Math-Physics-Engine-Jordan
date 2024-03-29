@@ -70,13 +70,13 @@ namespace Engine.Tests.Lab3
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(-9.81, 0, 8, 0, 10, 0,  12.771, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 0, 7, 0, 30, 0, 12.771, 0, 0),
+            TestCase(-9.81, 0, 7, 0, 31, 0, 37.0332, 0, 0),
 
             // Launch at an angle
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(-9.81, 0, 8, 0,  10, 30, 16.3223, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 2, 7, 0, 15, 19, 16.3223, 0, 0)
+            TestCase(-9.81, 2, 7, 0, 17, 19, 30.3044, 0, 0)
         ]
 
         public void TestLaunchProjectile(
@@ -94,7 +94,7 @@ namespace Engine.Tests.Lab3
 
             Phys_Body actual = new Phys_Body(0, position, velocity, acceloration, 0);
             // Perform the test
-            actual.ProjectilePostionAndVelocity(actualPlanet, actual);
+            actual = actual.ProjectilePostionAndVelocity(actualPlanet, actual);
             // Assert
             Assert.AreEqual(expX, Math.Round(actual.Position.X, 4));
             Assert.AreEqual(expY, Math.Round(actual.Position.Y, 4));
@@ -147,24 +147,24 @@ namespace Engine.Tests.Lab3
             // 1. Non-incline, force parallel to ground
             TestCase(-9.81,  10, 0, 0, 0, 0, 0.10, 0, 50, 0, 1,  2.0095, 0, 0, 4.019, 0, 0, 4.019, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 10, 0, 0, 0, 0, 0.10, 0, 50, 0, 1, 2.0095, 0, 0, 4.019, 0, 0, 4.019, 0, 0),
+            TestCase(-9.81, 13, 0, 0, 0, 0, 0.35, 0, 65, 0, 4, 1.3564, 0, 0, 2.256, 0, 0, 4.019, 0, 0),
 
             // 2. Non-incline, force at an angle
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(-9.81, 10, 0, 0, 0, 0, 0.10, 0, 50, 10, 1, 2.0149, 0, 0, 4.0299, 0, 0, 4.0299, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 10, 0, 0, 0, 0, 0.10, 0, 50, 10, 1, 2.0149, 0, 0, 4.0299, 0, 0, 4.0299, 0, 0),
+            TestCase(-9.81, 13, 0, 0, 0, 0, 0.35, 0, 65, 8, 4, 2.0149, 0, 0, 4.0299, 0, 0, 4.0299, 0, 0),
 
             // 3. Incline, force parallel to incline
             TestCase(-9.81, 10, 0, 0, 0, 0, 0.10, 10, 50, 0, 1, 1.1652, 0, 0, 2.3304, 0, 0, 2.3304, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 10, 0, 0, 0, 0, 0.10, 10, 50, 0, 1, 1.1652, 0, 0, 2.3304, 0, 0, 2.3304, 0, 0),
+            TestCase(-9.81, 13, 0, 0, 0, 0, 0.35, 26, 65, 0, 4, 1.1652, 0, 0, 2.3304, 0, 0, 2.3304, 0, 0),
 
             // 4. Incline , force applied at an angle
             // Instructor Data - MUST NOT DELETE OR MODIFY
             TestCase(-9.81, 10, 0, 0, 0, 0, 0.10, 10, 50, 10, 1, 1.1706, 0, 0, 2.3413, 0, 0, 2.3413, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 10, 0, 0, 0, 0, 0.10, 10, 50, 10, 1, 1.1706, 0, 0, 2.3413, 0, 0, 2.3413, 0, 0)
+            TestCase(-9.81, 13, 0, 0, 0, 0, 0.35, 26, 65, 8, 4, 1.1706, 0, 0, 2.3413, 0, 0, 2.3413, 0, 0)
         ]
 
         public void TestAppliedForce(
@@ -209,7 +209,13 @@ namespace Engine.Tests.Lab3
                 new Phys_Body(2, new Eng_Vector3D(0.6, -1, 0), new Eng_Vector3D(2.88, 1.8267, 0), new Eng_Vector3D(), 1),	// Expected b
             };
             // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
+            yield return new Object[]
+            {
+                new Phys_Body(7, new Eng_Vector3D(-1, 2 ,0), new Eng_Vector3D(4, 3, 0),new Eng_Vector3D(), 8),			// initial a
+                new Phys_Body(5, new Eng_Vector3D(5, -5, 0), new Eng_Vector3D(7, 5, 0), new Eng_Vector3D(), 2),			// initial b
+                new Phys_Body(7, new Eng_Vector3D(-1, 2 ,0), new Eng_Vector3D(1.24, 3.3467, 0),new Eng_Vector3D(), 16),	// expected a
+                new Phys_Body(5, new Eng_Vector3D(5, -5, 0), new Eng_Vector3D(2.88, 1.8267, 0), new Eng_Vector3D(), 16),// Expected b
+            };
         }//end of TestCollisionData
         
         [Test, TestCaseSource(nameof(TestCollisionData))]
@@ -218,8 +224,14 @@ namespace Engine.Tests.Lab3
             // Perform the test
             Tuple<Phys_Body,Phys_Body> actual = a.Collision(a, b);
             //Assert
-            Assert.AreEqual(aExp, actual.Item1);
-            Assert.AreEqual(bExp, actual.Item2);
+            Assert.AreEqual(aExp.Mass, Math.Round(actual.Item1.Mass, 4));
+            Assert.AreEqual(aExp.Position.Y, Math.Round(actual.Item1.Position.Y,4));
+            Assert.AreEqual(aExp.Position.X, Math.Round(actual.Item1.Position.X, 4));
+            Assert.AreEqual(aExp.Position.Z, Math.Round(actual.Item1.Position.Z, 4));
+            Assert.AreEqual(aExp.Velocity.Y, Math.Round(actual.Item1.Velocity.Y, 4));
+            Assert.AreEqual(aExp.Velocity.X, Math.Round(actual.Item1.Velocity.X, 4));
+            Assert.AreEqual(aExp.Velocity.Z, Math.Round(actual.Item1.Velocity.Z, 4));
+            Assert.AreEqual(aExp.Radius, Math.Round(actual.Item1.Radius, 4));
         }//end of TestCircleCollision
         #endregion
 

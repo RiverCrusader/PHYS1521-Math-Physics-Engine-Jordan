@@ -16,19 +16,17 @@ namespace Engine.Mathematics
         public static double QuadraticNegative(double a, double b, double c)
         {
             double b2 = b * b;
-            double ac4 = 4 * a * c;
-            double a2 = 2 * a;
-            double root = b2 - ac4;
-            return (-1 * b - Math.Sqrt(root)) / a2;
+            double ac2 = 2 * a * c;
+            double root = b2 - ac2;
+            return (-1 * b - Math.Sqrt(root)) / a;
         }//eom
 
         public static double QuadraticPositive(double a, double b, double c)
         {
             double b2 = b * b;
-            double ac4 = 4 * a * c;
-            double a2 = 2 * a;
-            double root = b2 - ac4;
-            return (-1 * b + Math.Sqrt(root)) / a2;
+            double ac2 = 2 * a * c;
+            double root = b2 - ac2;
+            return (-1 * b + Math.Sqrt(root)) / a;
         }//eom
         #endregion
 
