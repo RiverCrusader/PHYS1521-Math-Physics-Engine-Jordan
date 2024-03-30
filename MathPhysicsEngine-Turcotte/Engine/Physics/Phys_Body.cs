@@ -169,62 +169,9 @@ namespace Engine.Physics
         //		HINT: Modify the properties of each Phys_Body
         public Tuple<Phys_Body, Phys_Body> Collision(Phys_Body a, Phys_Body b) //pretty sure this is wrong and needs to be fixed, very weird output broken
         {
-
-            #region wiping and starting again
-            //Eng_Vector3D pA = a.Velocity * a.Mass;
-            //Eng_Vector3D pB = b.Velocity * b.Mass;
-
-            //double A = (Math.Pow(a.Position.X - a.Velocity.X,2)) + (Math.Pow(a.Position.Y - a.Velocity.Y,2));
-            //double B = (Math.Pow(b.Position.X - b.Velocity.X, 2)) + (Math.Pow(b.Position.Y - b.Velocity.Y, 2));
-
-            //bool doTheyCollide = false;
-            //double distanceBetweenCenters = (Math.Pow(b.Position.X - a.Position.X,2)) + (Math.Pow(b.Position.Y - a.Position.Y,2)); 
-            //double Radii = Math.Pow(a.Radius + b.Radius,2);
-
-            //if (distanceBetweenCenters <= Radii)
-            //{
-            //    doTheyCollide = true;
-
-            //    Eng_Vector3D n = b.Position - a.Position;
-
-            //    n.Normalize();
-
-            //    Eng_Vector3D relV = b.Velocity - a.Velocity;
-
-            //    double relVAlongNormal = relV.DotProduct(n);
-
-            //    if (relVAlongNormal > 0)
-            //    {
-            //        return Tuple.Create(a, b);
-            //    }
-
-            //    double j = -1 * relVAlongNormal;
-            //    j = j / ((1 / a.Mass )+( 1 / b.Mass));
-
-            //    Eng_Vector3D impulse = n * j;
-
-            //    a.Velocity -=  impulse / a.Mass;
-            //    b.Velocity += impulse * (1 / b.Mass);
-            //}
-            #endregion
-
             //are they connected
             double distanceBetweenCenters = (Math.Pow(b.Position.X - a.Position.X, 2)) + (Math.Pow(b.Position.Y - a.Position.Y, 2));
             double sumRadii = Math.Pow(a.Radius + b.Radius, 2);
-
-            //Impulse calculation pre collision
-            double PaX = a.Mass * a.Velocity.X;
-            double PaY = a.Mass * a.Velocity.Y;
-
-            double PbX = b.Mass * b.Velocity.X;
-            double PbY = b.Mass * b.Velocity.Y;
-
-            double totalP = PaX + PaY + PbX + PbY;
-
-            double EkPreColision = (0.5 * a.Mass * (a.Velocity.X * a.Velocity.X)) +
-                                   (0.5 * a.Mass * (a.Velocity.Y * a.Velocity.Y)) +
-                                   (0.5 * b.Mass * (b.Velocity.X * b.Velocity.X)) +
-                                   (0.5 * b.Mass * (b.Velocity.Y * b.Velocity.Y));
 
             if (distanceBetweenCenters <= sumRadii)
             {
