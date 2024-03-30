@@ -139,23 +139,18 @@ namespace Engine.Physics
             double W = b.Mass * w.Gravity.Y;
             //Force applied
             Eng_Vector3D Fapp = new Eng_Vector3D((force.X * Math.Cos(Fangle)) - Wsin, force.X * Math.Sin(Fangle), 0);
+            double FappCos = (force.X * Math.Cos(Fangle)) - Wsin;
+            double FappSin = force.X * Math.Sin(Fangle);
 
-            double Fn = -W + Fapp.X;
+
+            double Fn = -W + FappSin;
             double Fs = mu * Fn;
 
             double FnetX;
             double FnetY;
 
-            if (Math.Abs(Wsin) < Math.Abs(Fs))
-            {
-                FnetX = 0;
-                FnetY = 0;
-            }
-            else
-            {
-                FnetX = Fs + Fapp.X;
-                FnetY = W + Fn + Fapp.Y;
-            }
+            FnetX = Fs + Fapp.X;
+            FnetY = W + Fn + Fapp.Y;
 
 
             b.Acceleration.X = FnetX / b.Mass;
@@ -212,8 +207,10 @@ namespace Engine.Physics
             //    b.Velocity += impulse * (1 / b.Mass);
             //}
             #endregion
+
+            //are they connected
             double distanceBetweenCenters = (Math.Pow(b.Position.X - a.Position.X, 2)) + (Math.Pow(b.Position.Y - a.Position.Y, 2));
-            double Radii = Math.Pow(a.Radius + b.Radius, 2);
+            double sumRadii = Math.Pow(a.Radius + b.Radius, 2);
 
             //Impulse calculation pre collision
             double PaX = a.Mass * a.Velocity.X;
@@ -229,9 +226,28 @@ namespace Engine.Physics
                                    (0.5 * b.Mass * (b.Velocity.X * b.Velocity.X)) +
                                    (0.5 * b.Mass * (b.Velocity.Y * b.Velocity.Y));
 
-            
+            if (distanceBetweenCenters <= sumRadii)
+            {
+                //they collide
 
-            return Tuple.Create(a, b);
+                Eng_Vector3D n = a.Position - b.Position;
+                n.Normalize();
+
+                double a1 = a.Velocity.DotProduct(n);
+                double a2 = b.Velocity.DotProduct(n);
+
+                double Optomized = ((a1 - a2) * 2) / (a.Mass + b.Mass);
+                //problem area
+                a.Velocity = a.Velocity - (n * (Optomized * b.Mass));
+                b.Velocity = b.Velocity + (n * (Optomized * a.Mass));
+                //end of problem area
+                return Tuple.Create(a, b);
+            }
+            else
+            {
+                //no change
+                return Tuple.Create(a, b);
+            }
         }//end of Collision
 
         //1.a - Calculate the force of attraction between two celestial bodies.

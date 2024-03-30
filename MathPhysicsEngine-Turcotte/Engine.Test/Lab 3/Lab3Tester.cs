@@ -213,8 +213,8 @@ namespace Engine.Tests.Lab3
             {
                 new Phys_Body(7, new Eng_Vector3D(-1, 2 ,0), new Eng_Vector3D(4, 3, 0),new Eng_Vector3D(), 8),			// initial a
                 new Phys_Body(5, new Eng_Vector3D(5, -5, 0), new Eng_Vector3D(7, 5, 0), new Eng_Vector3D(), 2),			// initial b
-                new Phys_Body(7, new Eng_Vector3D(-1, 2 ,0), new Eng_Vector3D(1.24, 3.3467, 0),new Eng_Vector3D(), 16),	// expected a
-                new Phys_Body(5, new Eng_Vector3D(5, -5, 0), new Eng_Vector3D(2.88, 1.8267, 0), new Eng_Vector3D(), 16),// Expected b
+                new Phys_Body(7, new Eng_Vector3D(-1, 2 ,0), new Eng_Vector3D(4.2353, 2.7255, 0),new Eng_Vector3D(), 8),	// expected a
+                new Phys_Body(5, new Eng_Vector3D(5, -5, 0), new Eng_Vector3D(6.6706, 5.3843, 0), new Eng_Vector3D(), 2),// Expected b
             };
         }//end of TestCollisionData
         
@@ -232,6 +232,15 @@ namespace Engine.Tests.Lab3
             Assert.AreEqual(aExp.Velocity.X, Math.Round(actual.Item1.Velocity.X, 4));
             Assert.AreEqual(aExp.Velocity.Z, Math.Round(actual.Item1.Velocity.Z, 4));
             Assert.AreEqual(aExp.Radius, Math.Round(actual.Item1.Radius, 4));
+
+            Assert.AreEqual(bExp.Mass, Math.Round(actual.Item2.Mass, 4));
+            Assert.AreEqual(bExp.Position.Y, Math.Round(actual.Item2.Position.Y, 4));
+            Assert.AreEqual(bExp.Position.X, Math.Round(actual.Item2.Position.X, 4));
+            Assert.AreEqual(bExp.Position.Z, Math.Round(actual.Item2.Position.Z, 4));
+            Assert.AreEqual(bExp.Velocity.Y, Math.Round(actual.Item2.Velocity.Y, 4));
+            Assert.AreEqual(bExp.Velocity.X, Math.Round(actual.Item2.Velocity.X, 4));
+            Assert.AreEqual(bExp.Velocity.Z, Math.Round(actual.Item2.Velocity.Z, 4));
+            Assert.AreEqual(bExp.Radius, Math.Round(actual.Item2.Radius, 4));
         }//end of TestCircleCollision
         #endregion
 
