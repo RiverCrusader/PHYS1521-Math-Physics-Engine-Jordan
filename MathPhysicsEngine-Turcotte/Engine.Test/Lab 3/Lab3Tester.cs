@@ -147,7 +147,7 @@ namespace Engine.Tests.Lab3
             // 1. Non-incline, force parallel to ground
             TestCase(-9.81,  10, 0, 0, 0, 0, 0.10, 0, 50, 0, 1,  2.0095, 0, 0, 4.019, 0, 0, 4.019, 0, 0),
             // Student Data - MUST CHANGE
-            TestCase(-9.81, 13, 0, 0, 0, 0, 0.35, 0, 65, 0, 4, 1.3564, 0, 0, 2.256, 0, 0, 4.019, 0, 0),
+            TestCase(-9.81, 150, 0, 0, 0, 0, 0, 0, 1500, 20, 2, 1.3564, 0, 0, 2.256, 0, 0, 4.019, 0, 0),
 
             // 2. Non-incline, force at an angle
             // Instructor Data - MUST NOT DELETE OR MODIFY

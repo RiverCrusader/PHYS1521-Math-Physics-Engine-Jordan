@@ -128,7 +128,7 @@ namespace Engine.Physics
         //      given an external force applied, a given µ (mu), an incline angle (in degrees),
         //      and over a specified time.
         //		HINT: Modify the properties of the Phys_Body
-        public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t) //very very broken I have absolutly no idea whats wrong
+        public Phys_Body ApplyForce(Phys_World w, Phys_Body b, Eng_Vector3D force, double mu, double angle, double t) //very very broken I have absolutly no idea whats wrong -- just gonna tank the mark and ask later could not figure out tried my best just want to spend easter with family not code (lol)
         {
             double Fangle = Functions.DegreesToRadians(force.Y);
             angle = Functions.DegreesToRadians(angle);
@@ -144,7 +144,7 @@ namespace Engine.Physics
 
 
             double Fn = -W + FappSin;
-            double Fs = mu * Fn;
+            double Fs = -(mu * Fn);
 
             double FnetX;
             double FnetY;
@@ -153,8 +153,8 @@ namespace Engine.Physics
             FnetY = W + Fn + Fapp.Y;
 
 
-            b.Acceleration.X = FnetX / b.Mass;
-            b.Acceleration.Y = FnetY / b.Mass;
+            b.Acceleration.X = FnetX * (1/ b.Mass);
+            b.Acceleration.Y = FnetY * (1/ b.Mass);
 
             b.Velocity = b.Acceleration * t;
 
