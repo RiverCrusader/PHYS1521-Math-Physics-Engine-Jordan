@@ -139,9 +139,18 @@ namespace Engine.Mathematics
 			return new Eng_Vector2D(scalarMultiX, scalarMultiY);
 		}
 
+		public static Eng_Vector2D operator *(double scalar, Eng_Vector2D Vector)
+		{
+			double scalarMultiX, scalarMultiY;
+
+			scalarMultiX = Vector.X * scalar;
+			scalarMultiY = Vector.Y * scalar;
+
+			return new Eng_Vector2D(scalarMultiX, scalarMultiY);
+		}
 		//3.d - Equality of two 2D vectors.
 
-        public static bool operator ==(Eng_Vector2D a,Eng_Vector2D b)
+		public static bool operator ==(Eng_Vector2D a,Eng_Vector2D b)
         {
 			return a.X == b.X && a.Y == b.Y;
 		}

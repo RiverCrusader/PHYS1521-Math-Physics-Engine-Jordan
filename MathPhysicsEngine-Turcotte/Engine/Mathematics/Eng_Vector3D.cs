@@ -135,6 +135,17 @@ namespace Engine.Mathematics
 
 			return new Eng_Vector3D(scalarMultiX, scalarMultiY, scalarMultiZ);
 		}
+
+		public static Eng_Vector3D operator *(double scalar, Eng_Vector3D Vector)
+		{
+			double scalarMultiX, scalarMultiY, scalarMultiZ;
+
+			scalarMultiX = Vector.X * scalar;
+			scalarMultiY = Vector.Y * scalar;
+			scalarMultiZ = Vector.Z * scalar;
+
+			return new Eng_Vector3D(scalarMultiX, scalarMultiY, scalarMultiZ);
+		}
 		//3.d - Equality of two 3D vectors
 
 		public static bool operator ==(Eng_Vector3D a, Eng_Vector3D b)

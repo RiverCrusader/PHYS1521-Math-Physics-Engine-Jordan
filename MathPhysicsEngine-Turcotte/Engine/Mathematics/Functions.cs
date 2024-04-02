@@ -167,5 +167,93 @@ namespace Engine.Mathematics
         }
 
         #endregion
+
+          #region Lab 4 - Part 1: Bezier Curves
+        // 1.a - Quadratic Bezier 2D
+        public static Eng_Vector2D QuadraticBezier(double t, Eng_Vector2D p0, Eng_Vector2D p1, Eng_Vector2D p2)
+        {
+            double ts = 1 - t,
+                ts2 = ts * ts,
+                t2 = t * t;
+            return p0 * ts2 + 2 * p1 * t * ts + p2 * t2;
+        }//end of QuadraticBezier
+
+        // 1.b - Cubic Bezier 2D
+        public static Eng_Vector2D CubicBezier(double t, Eng_Vector2D p0, Eng_Vector2D p1, Eng_Vector2D p2, Eng_Vector2D p3)
+        {
+            double ts = 1 - t,
+                ts2 = ts * ts,
+                ts3 = ts2 * ts,
+                t2 = t * t,
+                t3 = t2 * t;
+            return p0 * ts3 + 3 * t * p1 * ts2 + 3 * p2 * t2 * ts + p3 * t3;
+        }//end of CubicBezier
+
+        // 1.c - Quartic Bezier 2D
+        public static Eng_Vector2D QuarticBezier(double t, Eng_Vector2D p0, Eng_Vector2D p1, Eng_Vector2D p2, Eng_Vector2D p3, Eng_Vector2D p4)
+        {
+            double ts = 1 - t,
+                ts2 = ts * ts,
+                ts3 = ts2 * ts,
+                ts4 = ts3 * ts,
+                t2 = t * t,
+                t3 = t2 * t,
+                t4 = t3 * t;
+            return p0 * ts4 + 4 * p1 * t * ts3 + 6 * p2 * t2 * ts2 + 4 * p3 * t3 * ts + t4 * p4;
+        }//end of QuarticBezier
+
+        // 1.d - Quadratic Bezier 3D
+        public static Eng_Vector3D QuadraticBezier(double t, Eng_Vector3D p0, Eng_Vector3D p1, Eng_Vector3D p2)
+        {
+            double ts = 1 - t,
+                ts2 = ts * ts,
+                t2 = t * t;
+            return p0 * ts2 + 2 * p1 * t * ts + p2 * t2;
+        }//eom
+
+        // 1.e - Cubic Bezier 3D
+        public static Eng_Vector3D CubicBezier(
+            double t, Eng_Vector3D p0, Eng_Vector3D p1, Eng_Vector3D p2, Eng_Vector3D p3)
+        {
+             double ts = 1 - t,
+                ts2 = ts * ts,
+                ts3 = ts2 * ts,
+                t2 = t * t,
+                t3 = t2 * t;
+            return p0 * ts3 + 3 * t * p1 * ts2 + 3 * p2 * t2 * ts + p3 * t3;
+        }//end of CubicBezier
+
+        // 1.f - Quartic Bezier 3D
+        public static Eng_Vector3D QuarticBezier(double t, Eng_Vector3D p0, Eng_Vector3D p1, Eng_Vector3D p2, Eng_Vector3D p3, Eng_Vector3D p4)
+        {
+            double ts = 1 - t,
+                ts2 = ts * ts,
+                ts3 = ts2 * ts,
+                ts4 = ts3 * ts,
+                t2 = t * t,
+                t3 = t2 * t,
+                t4 = t3 * t;
+            return p0 * ts4 + 4 * p1 * t * ts3 + 6 * p2 * t2 * ts2 + 4 * p3 * t3 * ts + t4 * p4;
+        }//end of QuarticBezier
+        #endregion
+
+        #region Lab 4 - Part 2: Catmul-Rom Splines
+        // 1.a - 2D Spline
+        public static Eng_Vector2D CatmullRomSpline(double t, Eng_Vector2D p0, Eng_Vector2D p1, Eng_Vector2D p2, Eng_Vector2D p3)
+        {
+            double t2 = t * t,
+                t3 = t2 * t;
+            return 0.5 * ((2 * p1) + (p2 - p0) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (p3 - p0 + 3 * p1 - 3 * p2) * t3);
+        }//end of CatmullRomSpline
+
+        // 1.b - 3D Spline
+        public static Eng_Vector3D CatmullRomSpline(
+            double t, Eng_Vector3D p0, Eng_Vector3D p1, Eng_Vector3D p2, Eng_Vector3D p3)
+        {
+            double t2 = t * t,
+                t3 = t2 * t;
+            return 0.5 * ((2 * p1) + (p2 - p0) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (p3 - p0 + 3 * p1 - 3 * p2) * t3);
+        }//end of CatmullRomSpline
+        #endregion
     }//eoc
 }//eon
