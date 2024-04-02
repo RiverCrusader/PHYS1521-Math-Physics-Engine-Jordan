@@ -143,7 +143,7 @@ namespace Engine.Physics
             double FappSin = force.X * Math.Sin(Fangle);
 
 
-            double Fn = -W + FappSin;
+            double Fn = W + FappSin;
             double Fs = -(mu * Fn);
 
             double FnetX;

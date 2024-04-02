@@ -15,8 +15,6 @@ namespace Engine.Tests.Lab3
     [TestFixture]
     public class Lab3Tester
     {
-        //broken AF
-
         #region Part 1 - Linear Motion
         //3.a - Test 2.a - Calculate the final velocity and position of a Phys_Body that has initial position,
         //                 velocity, and acceleration properties set, over a given period of time.  
@@ -243,8 +241,7 @@ namespace Engine.Tests.Lab3
             Assert.AreEqual(bExp.Radius, Math.Round(actual.Item2.Radius, 4));
         }//end of TestCircleCollision
         #endregion
-
-        //Works
+        //applied Forces are still broken
 
         #region Part 4 - Gravitational Forces
         //3.a - Test 1.a - Calculate the force of attraction between two celestial bodies.
