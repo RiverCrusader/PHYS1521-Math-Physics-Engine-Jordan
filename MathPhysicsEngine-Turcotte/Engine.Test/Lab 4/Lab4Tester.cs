@@ -36,9 +36,26 @@ namespace Engine.Tests.Lab4
                 new Eng_Vector2D(329, 275.25),
                 new Eng_Vector2D(350, 250)
             };
-            // Student Data - YOU NEED TO ADD YOUR DATA BELOW
-
-        }//end of QuadraticBezier2D_Data
+			// Student Data - YOU NEED TO ADD YOUR DATA BELOW
+			yield return new Object[]
+		   {
+				new Eng_Vector2D(38, 112),   // p0 - start point
+                new Eng_Vector2D(482, 245), // p1 - control point
+                new Eng_Vector2D(253, 259), // p2 - end point
+                // expected data
+                new Eng_Vector2D(50, 75),
+				new Eng_Vector2D(89, 135.25),
+				new Eng_Vector2D(126, 186),
+				new Eng_Vector2D(161, 227.25),
+				new Eng_Vector2D(194, 259),
+				new Eng_Vector2D(225, 281.25),
+				new Eng_Vector2D(254, 294),
+				new Eng_Vector2D(281, 297.25),
+				new Eng_Vector2D(306, 291),
+				new Eng_Vector2D(329, 275.25),
+				new Eng_Vector2D(350, 250)
+		   };
+		}//end of QuadraticBezier2D_Data
 
         [Test, TestCaseSource(nameof(QuadraticBezier2D_Data))]
         public static void TestQuadraticBezier2D(
@@ -48,10 +65,32 @@ namespace Engine.Tests.Lab4
             Eng_Vector2D pp8, Eng_Vector2D pp9, Eng_Vector2D pp10)
         {
             // Perform the test
-            
-            // Assert
-            
-        }//end of TestQuadraticBezier2D
+            double time = 0;
+            Eng_Vector2D tempactual;
+
+            List<Eng_Vector2D> actuals = new List<Eng_Vector2D>();
+            List<Eng_Vector2D> expecteds = new List<Eng_Vector2D>() { pp0, pp1, pp2, pp3, pp4, pp5, pp6, pp7, pp8, pp9, pp10 };
+            for (int i = 0; i<11; i++)
+            {
+                tempactual = Functions.QuadraticBezier(time, p0, p1, p2);
+                time += 0.1;
+                
+                actuals.Add(tempactual);
+            }
+			// Assert
+			//         Assert.AreEqual(pp0, actuals[0]);
+			//Assert.AreEqual(pp1, actuals[1]);
+			//Assert.AreEqual(pp2, actuals[2]);
+			//Assert.AreEqual(pp3, actuals[3]);
+			//Assert.AreEqual(pp4, actuals[4]);
+			//Assert.AreEqual(pp5, actuals[5]);
+			//Assert.AreEqual(pp6, actuals[6]);
+			//Assert.AreEqual(pp7, actuals[7]);
+			//Assert.AreEqual(pp8, actuals[8]);
+			//Assert.AreEqual(pp9, actuals[9]);
+			//Assert.AreEqual(pp10, actuals[10]);
+			CollectionAssert.AreEqual(expecteds, actuals);
+		}//end of TestQuadraticBezier2D
 
         //1.b - Cubic 2D
         public static IEnumerable<Object[]> CubicBezier2D_Data()
