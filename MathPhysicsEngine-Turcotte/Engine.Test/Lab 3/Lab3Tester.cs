@@ -177,8 +177,8 @@ namespace Engine.Tests.Lab3
         {
             // Create Objects for the test
             Phys_World planet = new Phys_World(gravity);
-            Phys_Body actual = new Phys_Body(mass,new Eng_Vector3D(0,0,0),new Eng_Vector3D(vX,vY,vZ),new Eng_Vector3D(0,0,0),radius);
-            Eng_Vector3D force = new Eng_Vector3D(fMag,fDir,0);
+            Phys_Body actual = new Phys_Body(mass, new Eng_Vector3D(0, 0, 0), new Eng_Vector3D(vX, vY, vZ), new Eng_Vector3D(0, 0, 0), radius);
+            Eng_Vector3D force = new Eng_Vector3D(fMag, fDir, 0);
             // Perform the test
             actual.ApplyForce(planet, actual, force, mu, incline, t);
             // Assert

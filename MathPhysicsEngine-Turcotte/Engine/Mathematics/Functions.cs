@@ -168,7 +168,7 @@ namespace Engine.Mathematics
 
         #endregion
 
-          #region Lab 4 - Part 1: Bezier Curves
+        #region Lab 4 - Part 1: Bezier Curves
         // 1.a - Quadratic Bezier 2D
         public static Eng_Vector2D QuadraticBezier(double t, Eng_Vector2D p0, Eng_Vector2D p1, Eng_Vector2D p2)
         {
